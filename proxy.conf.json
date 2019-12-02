@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://mall-server.zslin.com",
+    "secure": false
+  }
+}
