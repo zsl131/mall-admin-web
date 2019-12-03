@@ -1,0 +1,21 @@
+.initial {
+  padding: 150px 0px;
+  .form-card {
+    width: 500px;
+    margin: 0px auto;
+    .header-title, .form-action {
+      display: flex;
+      flex-direction: row;
+      place-content: center;
+    }
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      mat-form-field {
+        margin-top: 15px;
+      }
+    }
+  }
+}
+

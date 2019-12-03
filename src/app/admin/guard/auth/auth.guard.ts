@@ -2,6 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SystemConfigService } from '../../service/system-config.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,16 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let url: string = state.url;
-    return this.systemConfigService.checkInit();
+
+    return this.systemConfigService.checkInit().pipe(
+      map(value => {
+        if(value) {
+          return true;
+        } else {
+          this.router.navigateByUrl('/admin/account/initial');
+          return false;
+        }
+      })
+    );
   }
 }
