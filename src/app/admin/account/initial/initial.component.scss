@@ -16,6 +16,13 @@
         margin-top: 15px;
       }
     }
+
+    .btn-content{
+      display: flex;
+      flex-direction: row;
+      place-content: center;
+      align-items: center;
+    }
   }
 }
 

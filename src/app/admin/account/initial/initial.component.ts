@@ -12,6 +12,7 @@ import { SystemConfigService } from '../../service/system-config.service';
   styleUrls: ['./initial.component.scss'],
 })
 export class InitialComponent {
+  loading: boolean = false;
   hide = true;
   initForm = new FormGroup({
     appName: new FormControl('', [
@@ -37,8 +38,12 @@ export class InitialComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     this.systemConfigService.initSystem(this.initForm.value).subscribe(res => {
+      this.loading = false;
       console.log(res);
+    }, error => {
+      this.loading = false;
     });
   }
 }
