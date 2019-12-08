@@ -36,6 +36,10 @@ export class SystemConfigService {
     }));
   }
 
+  /**
+   * 系统初始化
+   * @param params
+   */
   initSystem(params: JsonObject) {
     const options: any = {
       headers: new HttpHeaders({
