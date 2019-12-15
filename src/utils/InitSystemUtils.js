@@ -7,3 +7,8 @@ export function setAppConfig(appConfigStr) {
 export function getAppConfig() {
   return sessionStorage.getItem(APP_CONFIG_SESSION_NAME);
 }
+
+export function getAppConfigObj() {
+  const str = getAppConfig();
+  return JSON.parse(str);
+}

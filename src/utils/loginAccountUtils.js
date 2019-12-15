@@ -14,12 +14,3 @@ export function getLoginAccount2Obj() {
     return JSON.parse(str);
   } else {return null;}
 }
-
-export function getOpenid() {
-  try {
-    const loginAccount = getLoginAccount2Obj();
-    return loginAccount.openid;
-  } catch (e) {
-    return '';
-  }
-}

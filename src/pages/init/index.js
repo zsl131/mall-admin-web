@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Form, Button, Input, Icon, Card, Row, Col, Spin } from 'antd';
-import styles from './index.css';
+import styles from './init.css';
 
 const FormItem = Form.Item;
 

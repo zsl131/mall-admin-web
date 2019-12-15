@@ -1,0 +1,17 @@
+.singleAlert {
+  margin-top:10px;
+}
+.panel {
+
+}
+.panel b {
+  color:#FF0000;
+}
+
+.contentP {
+  border-bottom: 1px #ebdfdf solid; padding-bottom:8px;
+}
+
+.scoreBtn {
+  margin: 10px 8px 10px 0px;
+}

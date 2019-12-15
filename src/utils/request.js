@@ -1,9 +1,8 @@
 import fetch from 'dva/fetch';
 import { message } from 'antd';
 import configApi from './configApi';
-import {getDepIds, getLoginUser} from "./authUtils";
-import {encodeBase64} from "./Base64Utils";
-import {getOpenid} from "./loginAccountUtils";
+import { getLoginUser } from './authUtils';
+import { encodeBase64 } from './Base64Utils';
 
 function parseJSON(response) {
   return response.json();
@@ -44,22 +43,22 @@ function catchError(error) {
  */
 export default function request(apiCode, params, options) {
   let headers = {
-    'auth-token': configApi.authToken,
+    //'auth-token': configApi.authToken,
     'api-code': apiCode
   }
 
   const loginUser = getLoginUser();
   if(loginUser) {
+    headers["auth-token"] = loginUser.token;
     headers.userId = loginUser.id;
     headers.username = loginUser.username;
     headers.isAdminUser = loginUser.isAdmin;
-    headers.depids = getDepIds()
   }
 
   let defaultOption = {
     method: 'GET',
     headers: headers
-  }
+  };
 
   Object.assign(defaultOption, options || {});
 
@@ -67,8 +66,6 @@ export default function request(apiCode, params, options) {
 
   if(paramsType === '[object Object]') {
     // params.loginUser = getLoginUser(); //强行加上登陆用户
-    const openid = getOpenid();
-    if(openid) {params.openid = openid;} //微信端的操作自动加入Openid
     params = JSON.stringify(params); //如果是对象则转换成字符串
   }
 

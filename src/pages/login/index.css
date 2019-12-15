@@ -1,5 +1,5 @@
-html, body {
-  background: #f0f2f5;
+.loginMain {
+  background:#00203f; min-height: 100vh;
 }
 
 .mainRow {

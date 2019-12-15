@@ -13,3 +13,31 @@
   color: white;
   margin: 0;
 }
+
+/** admin模板主要内容 */
+.adminMainContainer {
+
+}
+
+.trigger {
+  font-size: 20px;
+  line-height: 64px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.adminMainContainer .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  text-align: center;
+  border-radius: 5px;
+}
+.adminMainContainer .logo h3 {
+  font-size:20px; color:#FFFFFF;
+}

@@ -5,6 +5,7 @@ import styles from './index.css';
 import Helmet from 'react-helmet';
 import router from 'umi/router';
 import CopyYear from '@/components/common/CopyYear';
+import configApi from '@/utils/configApi';
 
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
@@ -14,8 +15,7 @@ const TabPane = Tabs.TabPane;
 const Login = ({
                  loading,
                  dispatch,
-                 interceptor,
-  login,
+                  login,
                  form: {
                    getFieldDecorator,
                    validateFieldsAndScroll,
@@ -47,7 +47,7 @@ const Login = ({
 
   // const { getFieldDecorator } = this.props.form;
   return (
-    <div>
+    <div className={styles.loginMain}>
       <Helmet><title>用户登陆</title></Helmet>
       <Row align="middle" justify="center" type="flex" className={styles.mainRow}>
         <Col xs={22} sm={16} md={12} lg={12} xl={9}>
@@ -78,7 +78,7 @@ const Login = ({
             </Tabs>
             <Row className={styles.infoRow}>
               <Col>
-                <span>若登陆不成功，可以先检测系统是否已经<Button type="link" onClick={()=>{router.push("/init");}}>完成初始化</Button>！</span>
+                <span>若登陆不成功，可以先检测系统是否已经<Button type="link" onClick={()=>{router.push(configApi.url.init);}}>完成初始化</Button>！</span>
               </Col>
             </Row>
             <Row className={styles.infoRow}>

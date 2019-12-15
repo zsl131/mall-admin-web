@@ -1,6 +1,6 @@
 import * as userService from '../services/login';
 import router from 'umi/router';
-import { checkLogin, setLoginUser } from '../../../utils/authUtils';
+import { checkLogin, setLoginUser } from '@/utils/authUtils';
 
 export default {
   namespace: 'login',
@@ -24,6 +24,7 @@ export default {
       if(!data || data.flag==="0") {
         yield put({type: "modifyState", payload: {showError: true, errMsg: data.message}});
       } else {
+        //console.log(data.obj);
         setLoginUser(data.obj);
         router.push("/admin/index");
       }

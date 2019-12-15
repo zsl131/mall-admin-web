@@ -6,7 +6,9 @@ const NO_NEED_AUTH = ["/admin/index"];
 
 /** 登陆时调用该方法 */
 export function setLoginUser(loginObj) {
-  const loginUser = loginObj.user;
+  let loginUser = loginObj.user;
+  loginUser.token = loginObj.token;
+
   const navMenus = loginObj.navMenus;
   const authMenus = loginObj.authMenus;
   //console.log(loginObj)
@@ -81,4 +83,10 @@ export function checkAuthByUrl(pathname) {
     }
     return hasAuth;
   }
+}
+
+export {
+  LOGIN_USER_SESSION,
+  NAV_MENU_SESSION,
+  AUTH_MENU_SESSION,
 }
