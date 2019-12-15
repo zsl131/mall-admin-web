@@ -1,0 +1,28 @@
+html, body {
+  background: #f0f2f5;
+}
+
+.mainRow {
+  height: 100%;
+}
+
+/*.loginCard {
+  width:50%; position:absolute; left:50%; top:18%;
+}*/
+.loginCard {
+  margin-top: 16%;
+}
+.title {
+  text-align:center; border-bottom: 1px #f7f7f7 solid; padding-bottom:12px;
+}
+
+.loginForm {
+
+}
+.loginBtn {
+  width:100%;
+}
+
+.infoRow {
+  width:100%; text-align:center; color:#c8c8c8; padding-top:10px;
+}

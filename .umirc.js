@@ -1,34 +1,58 @@
-
-// ref: https://umijs.org/config/
 export default {
-  treeShaking: true,
-  routes: [
-    {
-      path: '/',
-      component: '../layouts/index',
-      routes: [
-        { path: '/', component: '../pages/index' }
-      ]
-    }
-  ],
   plugins: [
-    // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
-      antd: true,
       dva: true,
-      dynamicImport: false,
-      title: 'admin-web',
-      dll: false,
-      
-      routes: {
-        exclude: [
-          /models\//,
-          /services\//,
-          /model\.(t|j)sx?$/,
-          /service\.(t|j)sx?$/,
-          /components\//,
-        ],
-      },
+      antd: true,  // antd 默认不开启，如有使用需自行配置
     }],
+    // ['umi-plugin-dva', { immer: true }],
+    ['umi-plugin-routes', {
+      exclude: [
+        /models/,
+        /services/,
+        /components/,
+      ],
+    }],
+    // ['umi-plugin-dva'],
   ],
-}
+  exportStatic: true,
+  // outputPath: 'E:/temp/test-chess/',
+  // hashHistory:true, //加上这个是在地址栏#
+  // publicPath: '/static',
+  // exportStatic: {},
+  // 接口代理示例
+  proxy: {
+    //程序接口
+    "/api": {
+      "target": "http://test.example.com:9092/api/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    },
+    //编辑器上传文件路径
+    "/wangeditor": {
+      "target": "http://test.example.com:9092/wangeditor/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/wangeditor" : "" }
+    },
+    //Upload上传文件路径
+    "/publicFile": {
+      "target": "http://test.example.com:9092/publicFile/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/publicFile" : "" }
+    },
+    //微信调用配置
+    "/wxRemote": {
+      "target": "http://test.example.com:9092/wxRemote/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/wxRemote" : "" }
+    },
+    // "/api/v2": {
+    //   "target": "http://192.168.0.110",
+    //   "changeOrigin": true,
+    //   "pathRewrite": { "^/api/v2" : "/api/v2" }
+    // }
+  },
+
+  "extraBabelPlugins": [
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+  ]
+};

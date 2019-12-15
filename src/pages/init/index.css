@@ -1,0 +1,18 @@
+html, body {
+  background: #f8f8f8;
+}
+
+.loading {
+  top: 10%; position:absolute;
+}
+
+.mainContainer {
+  width:60%; left: 20%; background: #FFF; min-height: 300px; margin-top: 1%; margin-bottom: 30px;
+}
+.title {
+  text-align:center; border-bottom: 1px #f7f7f7 solid; padding-bottom:12px;
+}
+
+.submitBtn {
+  width:60%;
+}
