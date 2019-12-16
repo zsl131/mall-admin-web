@@ -1,5 +1,6 @@
 import React from 'react';
-import common from "@/utils/common";
+import {buildCopyYear} from "@/utils/common";
+import styles from "./copy.css";
 
 /**
  * 生成页底，如：CopyRight
@@ -7,9 +8,9 @@ import common from "@/utils/common";
 export default class CopyYear extends React.Component {
 
   render() {
-    const str = common.buildCopyYear();
+    const str = buildCopyYear();
     return (
-      <span>{str} Created By {this.props.author}</span>
+      <div className={styles.copyDiv}>{str} Created By {this.props.author}</div>
     );
   }
 }

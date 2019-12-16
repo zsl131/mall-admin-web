@@ -19,18 +19,6 @@
 
 }
 
-.trigger {
-  font-size: 20px;
-  line-height: 64px;
-  padding: 0 20px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.trigger:hover {
-  color: #1890ff;
-}
-
 .adminMainContainer .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
@@ -41,3 +29,32 @@
 .adminMainContainer .logo h3 {
   font-size:20px; color:#FFFFFF;
 }
+
+/** Header */
+.adminHeader {
+  background: #F0F0F0;
+  padding: 0;
+  height: 40px;
+  line-height:40px;
+  box-shadow: 0px 10px 15px 2px #aaa; /* 1.水平阴影  2.垂直阴影 3.模糊距离，改虚实 4.阴影尺寸*/
+}
+.adminHeaderRow {
+  padding:0px; margin:0px;
+}
+.adminHeaderCol {
+  padding:0px; margin:0px; height:40px;
+}
+.trigger {
+  font-size: 20px;
+  line-height: 20px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin:0px;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+/** Header */

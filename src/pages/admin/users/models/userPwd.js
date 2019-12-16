@@ -1,6 +1,7 @@
-import { updatePwd } from '../services/users';
 import { message } from 'antd';
+import { httpGet } from '@/utils/normalService';
 
+const baseService = "adminUserService";
 export default {
   namespace: 'userPwd',
   state: {
@@ -12,8 +13,9 @@ export default {
   },
   effects: {
     *updatePwd({ payload: values }, { call }) {
-      const data = yield call(updatePwd, values);
-      // console.log(data);
+      values.apiCode = baseService+".updatePwd";
+      const data = yield call(httpGet, values);
+      console.log(data);
       if(data) {
         message.success(data.message);
       }

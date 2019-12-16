@@ -3,6 +3,8 @@ import { message } from 'antd';
 import configApi from './configApi';
 import { getLoginUser } from './authUtils';
 import { encodeBase64 } from './Base64Utils';
+import {logout} from "@/utils/common";
+import router from 'umi/router';
 
 function parseJSON(response) {
   return response.json();
@@ -20,10 +22,21 @@ function checkStatus(response) {
 
 function checkDatas(data) {
   if(data.errCode !== "0") {
-    message.error(data.reason, 20); //出现错误时显示 X 秒
+    message.error(data.reason, 10); //出现错误时显示 X 秒
   } else {
     return data.result;
   }
+}
+
+function checkAuth(data) {
+  //console.log(data);
+  if(data && data.needLogin==="1") {
+    message.warn(data.message, 2, ()=> {
+      logout();
+      router.push(configApi.url.login);
+    });
+  }
+  return data;
 }
 
 function catchError(error) {
@@ -44,12 +57,12 @@ function catchError(error) {
 export default function request(apiCode, params, options) {
   let headers = {
     //'auth-token': configApi.authToken,
-    'api-code': apiCode
+    'api_code': apiCode
   }
 
   const loginUser = getLoginUser();
   if(loginUser) {
-    headers["auth-token"] = loginUser.token;
+    headers.auth_token = loginUser.token;
     headers.userId = loginUser.id;
     headers.username = loginUser.username;
     headers.isAdminUser = loginUser.isAdmin;
@@ -77,6 +90,7 @@ export default function request(apiCode, params, options) {
     .then(checkStatus)
     .then(parseJSON)
     .then(checkDatas)
+    .then(checkAuth)
     // .then(data => ({ data }))
     // .catch(err => ({ err }));
     .catch(catchError);

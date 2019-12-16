@@ -6,8 +6,6 @@ import styles from '../index.css';
 import { getAppConfigObj } from '@/utils/InitSystemUtils';
 import MyIcon from '@/components/common/MyIcon';
 import Helmet from 'react-helmet';
-import router from 'umi/router';
-import configApi from '@/utils/configApi';
 
 const SubMenu = Menu.SubMenu;
 
@@ -27,15 +25,10 @@ class AdminSideMenu extends React.Component {
 
   render() {
 
-    //console.log("->"+this.state.openKey, "->"+this.state.defaultKey);
 
     const navMenus = JSON.parse(sessionStorage.getItem("navMenus"));
 
     const appConfig = getAppConfigObj();
-    //console.log(appConfig);
-    if(!appConfig) {
-      //router.push(configApi.url.login); //此处开启会导致/login和/admin/index死循环
-    }
 
     const menus = navMenus!==null?navMenus.map((item) => {
       return (

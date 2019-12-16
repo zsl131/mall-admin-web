@@ -49,6 +49,8 @@ class UpdateModal extends React.Component {
       e.preventDefault();
       validateFieldsAndScroll((errors, values) => {
         if(!errors) {
+          values.isAdmin = (values.isAdmin)?"1":"0";
+          values.status = (values.status || values.status === undefined)?'1':'0';
          this.props.onOk(values);
         }
       });
@@ -73,7 +75,7 @@ class UpdateModal extends React.Component {
             {getFieldDecorator("confirmPwd", {rules: [{validator: checkConfirmPwd}]})(<Input type="password" placeholder="再次输入密码"/>)}
           </FormItem>
           <FormItem {...formItemLayout} label="是否启用">
-            {getFieldDecorator("status")(<Switch checkedChildren="启用" unCheckedChildren="停用" defaultChecked={this.props.item.status === 1}/>)}
+            {getFieldDecorator("status")(<Switch checkedChildren="启用" unCheckedChildren="停用" defaultChecked={this.props.item.status === "1"}/>)}
           </FormItem>
           {/*<FormItem {...formItemLayout} label="超级管理员">
             {getFieldDecorator("isAdmin")(<Switch checkedChildren={<Icon type="check"/>} unCheckedChildren={<Icon type="cross" />}/>)}

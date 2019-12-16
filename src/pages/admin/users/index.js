@@ -51,13 +51,12 @@ const Users = ({ location, loading, users, dispatch }) => {
       dispatch({ type: 'users/setModalVisible', payload: {curId: id, curNickname: nickname} });
       dispatch({ type: 'users/onMatchRole', payload: id });
     }
-  }
+  };
 
-  const modalOpts = {
+  const addOpts = {
     visible: users.modalVisible,
+    maskClosable: false,
     title: "添加用户",
-    okText:'确认提交',
-    cancelText: '取消并关闭',
     confirmLoading: loading.effects['users/saveUser'],
     onOk(datas) {
       dispatch({ type: 'users/saveUser', payload: datas }).then(() => {handleRefresh()});
@@ -65,12 +64,11 @@ const Users = ({ location, loading, users, dispatch }) => {
     onCancel() {
       dispatch({ type: 'users/hideModal' });
     }
-  }
+  };
   const updateOpts = {
     visible: users.updateModalVisible,
     title: `修改用户[${users.item.nickname}]`,
-    okText:'确认提交',
-    cancelText: '取消',
+    maskClosable: false,
     item: users.item,
     confirmLoading: loading.effects['users/saveUser'],
     onOk(datas) {
@@ -80,13 +78,12 @@ const Users = ({ location, loading, users, dispatch }) => {
     onCancel() {
       dispatch({ type: 'users/hideUpdateModal' });
     }
-  }
+  };
 
   const roleOpts = {
     visible: users.roleVisible,
     title: `为【${users.curNickname}】分配角色`,
-    okText: '确认保存',
-    cancelText: '取消',
+    maskClosable: false,
     authRoleIds: users.authRoleIds,
     roleList: users.roleList,
     confirmLoading: loading.effects['users/saveUser'],
@@ -102,13 +99,13 @@ const Users = ({ location, loading, users, dispatch }) => {
     onCancel() {
       dispatch({ type: 'users/setModalVisible', payload: { roleVisible: false } });
     }
-  }
+  };
 
   const filterOpts = {
     onFilter(values) {
       handleRefresh({conditions: JSON.stringify(values)});
     }
-  }
+  };
 
   return (
     <div>
@@ -127,7 +124,7 @@ const Users = ({ location, loading, users, dispatch }) => {
         {/*<Table dataSource={users.datas} columns={columns} loading={loading.models.users} rowKey="id"/>*/}
         <List {...listOpts} />
       </div>
-      {users.modalVisible && <AddModal {...modalOpts}/>}
+      {users.modalVisible && <AddModal {...addOpts}/>}
       {users.updateModalVisible && <UpdateModal {...updateOpts}/>}
       {users.roleVisible && <RoleModal {...roleOpts}/>}
     </div>

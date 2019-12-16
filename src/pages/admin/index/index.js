@@ -11,7 +11,7 @@ const Index = ({
   // console.log(alertMessage());
 
   return (
-    <div style={{"padding":"15px"}} >
+    <div style={{"padding":"15px", "height":"900px"}} >
       <h2>· 后台首页</h2>
     </div>
   );

@@ -1,21 +1,15 @@
 import React from 'react';
-import { Menu, Icon, Table, Pagination } from 'antd';
+import {Menu, Pagination, Table, Icon} from 'antd';
 import ListOperator from '../../../../components/ListOperator/ListOperator';
-import styles from './list.css';
 
 const List = ({
   onDelConfirm,
   onUpdate,
   onPageChange,
-  location,
+  onMatchMenu,
   totalElement,
-  onMatchRole,
   ...listOpts
 }) => {
-
-  const handleMatchRole = (id, nickname) => {
-    onMatchRole(id, nickname);
-  }
 
   const delOpts = {
     okText: '确定删除',
@@ -25,30 +19,27 @@ const List = ({
   }
 
   const columns = [{
-    title: '用户名',
-    dataIndex: 'username'
+    title: '名称',
+    dataIndex: 'name'
   }, {
-    title: '用户昵称',
-    dataIndex: 'nickname'
-  }, {
-    title: '状态',
-    render: (text, record) => {
-      return (
-        <span className={record.status === "1"?styles.status1: styles.status0}>{record.status === "1" ? '启用':'停用'}</span>
-      )
-    }
+    title: 'SN',
+    dataIndex: 'sn'
   }, {
     title: '操作',
     render: (text, record) => {
       return (
-        <ListOperator id={record.id} delName={record.nickname} {...delOpts}>
+        <ListOperator id={record.id} delName={record.name} {...delOpts}>
           <Menu.Item>
-            <span onClick={()=>handleMatchRole(record.id, record.nickname)}><Icon type="team"/> 分配角色</span>
+            <span onClick={()=>handleMatchMenu(record)}><Icon type="team"/> 授权菜单</span>
           </Menu.Item>
         </ListOperator>
       );
     }
   }];
+  const handleMatchMenu = (role) => {
+    // console.log("handleMatchMenu", role);
+    onMatchMenu(role);
+  }
 
   const handlePageChange = (pageNumber) => {
     onPageChange(pageNumber);

@@ -9,6 +9,7 @@ import AdminHeader from '@/layouts/admin/AdminHeader';
 import configApi from '@/utils/configApi';
 import { checkAuthByUrl } from '@/utils/authUtils';
 import { check } from '@/utils/basicCheck';
+import CopyYear from '@/components/common/CopyYear';
 
 const { Sider, Content } = Layout;
 
@@ -28,7 +29,7 @@ class BasicLayout extends React.Component{
   render() {
 
     const conHeight = document.body.clientHeight;
-    const minConHeight = conHeight - 89; //内容部份最小高度
+    const minConHeight = conHeight - 64; //内容部份最小高度
 
     const onCollapse = () => {
       const curVal = !this.state.collapsed;
@@ -91,12 +92,12 @@ class BasicLayout extends React.Component{
                 <Content
                   style={{
                     margin: '12px 8px',
-                    padding: 24,
                     background: '#fff',
                     minHeight: minConHeight,
                   }}
                 >
                   {children}
+                  <CopyYear/>
                 </Content>
               </BasicModel>
             </Layout>

@@ -1,5 +1,7 @@
-import * as userService from '../services/users';
-import {message} from 'antd';
+import { message } from 'antd';
+import { httpGet } from '@/utils/normalService';
+
+const baseService = "adminUserService";
 
 export default {
   namespace: 'users',
@@ -44,28 +46,40 @@ export default {
     },
     showRoleModal(state, { payload: datas }) {
       return {...state, roleVisible: true, authRoleIds: datas.authIds, roleList: datas.roleList};
+    },
+    modifyState(state, {payload: options}) {
+      return {...state, ...options};
     }
   },
   effects: {
     *userList({ payload: query }, { put, call }) {
-      const data = yield call(userService.remoteUserList, query);
+      query.apiCode = baseService+".listUser";
+      // console.log(query);
+      const data = yield call(httpGet, query);
+      //console.log(data);
       yield put({ type:'list', payload: data });
     },
     *saveUser({payload}, { put, call }) {
-      const data = yield call(userService.remoteSaveUser, payload);
-      if(data) {
-        yield put({ type: 'hideModal' })
+      payload.apiCode = baseService+".saveUser";
+      const data = yield call(httpGet, payload);
+      //console.log(data);
+      if(data.flag==="0") {
+        message.error(data.message);
+      } else {
+        message.success("保存用户成功");
+        yield put({ type: 'hideModal' });
       }
     },
     *delete({ payload: id }, { call }) {
-      const data = yield call(userService.remoteDelete, {id});
+      const query = {id: id, apiCode: baseService+".deleteUser"};
+      const data = yield call(httpGet, query);
       if(data) {
         message.success(data.message);
       }
     },
     *update({ payload: id }, { put, call }) {
-      const data = yield call(userService.loadOne, {id});
-      console.log(data);
+      const query = {id:id,apiCode:baseService+".loadOne"};
+      const data = yield call(httpGet, query);
       if(data) {
         yield put({ type: 'updateUser', payload: data.obj });
       } else {
@@ -73,12 +87,15 @@ export default {
       }
     },
     *onMatchRole({ payload: id }, { put, call }) {
-      const data = yield call(userService.matchRole, {id});
+      const query = {id:id, apiCode:baseService+".matchRole"};
+      const data = yield call(httpGet, query);
       yield put({ type: 'showRoleModal', payload: data.obj });
     },
     *setRoles({ payload: obj }, { put, call }) {
-      yield call(userService.authRole, obj);
-      // console.log("setRoles", data);
+      obj.apiCode = baseService+".authRole";
+      const data = yield call(httpGet, obj);
+      //console.log("setRoles", data);
+      if(data) {message.success(data.message);}
     }
   },
   subscriptions: {

@@ -35,6 +35,7 @@ export default class RoleModal extends React.Component {
 
     return(
       <Modal {...this.props} onOk={handleOk}>
+        <p className="dark">勾选要设置的角色，并点击“确定”按钮保存设置</p>
         <Table rowSelection={rowSelection} dataSource={this.props.roleList} rowKey="id" columns={columns} pagination={false}></Table>
       </Modal>
     );
