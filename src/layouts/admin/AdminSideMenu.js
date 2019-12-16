@@ -32,8 +32,9 @@ class AdminSideMenu extends React.Component {
     const navMenus = JSON.parse(sessionStorage.getItem("navMenus"));
 
     const appConfig = getAppConfigObj();
+    //console.log(appConfig);
     if(!appConfig) {
-      router.push(configApi.url.login);
+      //router.push(configApi.url.login); //此处开启会导致/login和/admin/index死循环
     }
 
     const menus = navMenus!==null?navMenus.map((item) => {

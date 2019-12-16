@@ -10,6 +10,7 @@ export default {
   },
   reducers: {
     'cacheLogin'(state, { payload: datas }) {
+      console.log(datas);
       setLoginUser(datas.obj);
       router.push("/admin/index");
     },
@@ -24,7 +25,7 @@ export default {
       if(!data || data.flag==="0") {
         yield put({type: "modifyState", payload: {showError: true, errMsg: data.message}});
       } else {
-        //console.log(data.obj);
+        //console.log("------------------------------->", data.obj);
         setLoginUser(data.obj);
         router.push("/admin/index");
       }

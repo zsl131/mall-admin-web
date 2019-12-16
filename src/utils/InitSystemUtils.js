@@ -10,5 +10,11 @@ export function getAppConfig() {
 
 export function getAppConfigObj() {
   const str = getAppConfig();
-  return JSON.parse(str);
+  if(str==null || str==="") {return {};}
+  try {
+    return JSON.parse(str);
+  } catch (e) {
+    console.log(e);
+    return {};
+  }
 }

@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import router from 'umi/router';
 import CopyYear from '@/components/common/CopyYear';
 import configApi from '@/utils/configApi';
+import { getAppConfigObj } from '@/utils/InitSystemUtils';
 
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
@@ -52,7 +53,7 @@ const Login = ({
       <Row align="middle" justify="center" type="flex" className={styles.mainRow}>
         <Col xs={22} sm={16} md={12} lg={12} xl={9}>
           <Card bordered={false} className={styles.loginCard}>
-            <h2 className={styles.title}>用户登陆 - LOGIN</h2>
+            <h2 className={styles.title}>{getAppConfigObj().appName} - LOGIN</h2>
 
             <Tabs defaultActiveKey="pwd" onChange={onTabChange}>
               <TabPane tab="用户登陆" key="pwd">

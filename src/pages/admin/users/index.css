@@ -1,0 +1,15 @@
+.mainContainer {
+  height: 100%; background: #FFF; margin:20px 10%;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.submitBtn {
+  width:60%;
+}
+.submitOper {
+  text-align:center;
+}
+

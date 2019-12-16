@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'dva';
-
+import router from 'umi/router';
 import { Layout } from 'antd';
 import styles from './index.css';
 import BasicModel from '@/layouts/common/BasicModel';
 import AdminSideMenu from '@/layouts/admin/AdminSideMenu';
 import AdminHeader from '@/layouts/admin/AdminHeader';
+import configApi from '@/utils/configApi';
+import { checkAuthByUrl } from '@/utils/authUtils';
+import { check } from '@/utils/basicCheck';
 
 const { Sider, Content } = Layout;
 
@@ -13,14 +16,13 @@ class BasicLayout extends React.Component{
   //console.log(props);
 
   state = {
-    collapsed: false,
-    marginLeft: 200
+    collapsed: false
   };
 
   UNSAFE_componentWillMount() {
     const curVal = sessionStorage.getItem("curCollapsed");
     const collapsed = curVal==="1";
-    this.setState({collapsed: collapsed, marginLeft: (collapsed?80:200)});
+    this.setState({collapsed: collapsed});
   }
 
   render() {
@@ -30,12 +32,29 @@ class BasicLayout extends React.Component{
 
     const onCollapse = () => {
       const curVal = !this.state.collapsed;
-      this.setState({collapsed: curVal, marginLeft: (curVal?80:200)});
+      this.setState({collapsed: curVal});
       const collapsed = curVal?"1":"0";
       sessionStorage.setItem("curCollapsed", collapsed);
     };
 
     const pathname = this.props.location.pathname;
+
+    check(pathname);
+
+    const user = JSON.parse(sessionStorage.getItem("loginUser"));
+    //console.log(pathname, user);
+
+    if ((pathname !== '/login' && pathname !== '/init') && user === null) {
+      console.log("loginUser is null", user);
+      router.push(configApi.url.login);
+    } else if(pathname.indexOf("/admin")===0 ) { //需要进行登陆验证
+      const hasAuth = checkAuthByUrl(pathname); //通过url检测权限
+      if(!hasAuth) { //无权限
+        console.log("=======no auth =============="+pathname);
+        //router.push("/public/noAuth");
+      }
+    }
+
     const children = this.props.children;
     //console.log(pathname)
     if(pathname === '/init' || pathname === "/404") { //初始化
