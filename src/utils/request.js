@@ -1,10 +1,11 @@
 import fetch from 'dva/fetch';
-import { message } from 'antd';
+import { message, notification } from 'antd';
 import configApi from './configApi';
 import { getLoginUser } from './authUtils';
 import { encodeBase64 } from './Base64Utils';
-import {logout} from "@/utils/common";
+import { logout } from '@/utils/common';
 import router from 'umi/router';
+import React from 'react';
 
 function parseJSON(response) {
   return response.json();
@@ -21,15 +22,52 @@ function checkStatus(response) {
 }
 
 function checkDatas(data) {
+  //console.log(data);
   if(data.errCode !== "0") {
-    message.error(data.reason, 10); //出现错误时显示 X 秒
+
+    showError("error", data.reason, buildError(data.result));
+
+    //message.error(data.reason, 10); //出现错误时显示 X 秒
   } else {
     return data.result;
   }
 }
 
+function buildError(data) {
+  if(data.errors) {
+   // console.log(data.errors)
+    let res = "";
+    data.errors.map((err)=> {res += (err.msg+"###"); return res;});
+    res+="";
+    return res;
+  } else {return data.reason;}
+}
+
+const Desc = (obj) => {
+  //console.log("---->", obj);
+  return (
+    <div>
+      {obj.content.split("###").map((msg)=> {
+        return (msg?(<p> - {msg}</p>):"")
+      })}
+    </div>
+  )
+};
+
+function showError(type, msg, content) {
+  notification[type]({
+    message: msg,
+    description: <Desc content={content}/>,
+    duration: 6, //X 秒后关闭
+  });
+}
+
 function checkAuth(data) {
   //console.log(data);
+  if(data && data.flag==="0") {
+    showError("error", "出现错误", data.message);
+    return null;
+  }
   if(data && data.needLogin==="1") {
     message.warn(data.message, 2, ()=> {
       logout();

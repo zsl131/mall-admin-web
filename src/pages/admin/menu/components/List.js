@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Pagination, Table, Icon, Popover, Popconfirm} from 'antd';
+import { Icon, Pagination, Popconfirm, Popover, Table } from 'antd';
 
 const List = ({
   onPageChange,
@@ -32,7 +32,7 @@ const List = ({
     title: '操作',
     render: (text, record) => {
       return (
-        <Popover content={operators(record)} title="相关操作" placement="bottom">
+        <Popover content={operators(record)} placement="bottom">
             <span className="ant-dropdown-link">
               操作 <Icon type="down" />
             </span>
@@ -48,9 +48,9 @@ const List = ({
 
   const operators = (record) => {
     return (
-      <div style={{"textAlign":"center"}}>
-        <p><Button type="default" icon="edit" onClick={()=>handleUpdate(record)}>修改</Button></p>
-        <p><Popconfirm title={`确定删除【${record.name}】吗？`} {...delOpts} onConfirm={()=>handlerDel(record.id)}><Button type="danger" icon="close">删除</Button></Popconfirm></p>
+      <div>
+        <p><span onClick={()=>handleUpdate(record)}><Icon type="edit"/>&nbsp;&nbsp;修改</span></p>
+        <p><Popconfirm title={`确定删除【${record.name}】吗？`} {...delOpts} onConfirm={()=>handlerDel(record.id)}><span><Icon type="close"/>&nbsp;&nbsp;删除</span></Popconfirm></p>
       </div>
     );
   }

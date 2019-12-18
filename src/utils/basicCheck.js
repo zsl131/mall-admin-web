@@ -8,12 +8,12 @@ import { httpGet } from '@/utils/normalService';
 function check(pathname = "") {
   const appConfig = getAppConfigObj();
   if(!appConfig || !appConfig.id) {
-    //console.log("---------->need load-------");
+    //console.log("---------->need load-------"+pathname);
     const init = configApi.url.init;
     if(init!==pathname) {
       httpGet({apiCode: "webInterceptorService.loadWebBase"}).then((res) => {
-        //console.log(res.obj);
-        if (res.obj && res.obj.initFlag === "1") {
+        //console.log(res);
+        if (res && res.obj && res.obj.initFlag === "1") {
           setAppConfig(JSON.stringify(res.obj));
         } else {
           message.error("系统尚未初始化，请先初始化", 3, () => {

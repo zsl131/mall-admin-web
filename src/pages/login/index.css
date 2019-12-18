@@ -1,5 +1,24 @@
+body {
+
+}
 .loginMain {
   background:#00203f; min-height: 100vh;
+  font-family: "Exo", sans-serif;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG{
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .mainRow {
@@ -11,6 +30,7 @@
 }*/
 .loginCard {
   margin-top: 16%;
+  border-radius: 10px;
 }
 .title {
   text-align:center; border-bottom: 1px #f7f7f7 solid; padding-bottom:12px;
