@@ -25,9 +25,6 @@ body {
   height: 100%;
 }
 
-/*.loginCard {
-  width:50%; position:absolute; left:50%; top:18%;
-}*/
 .loginCard {
   margin-top: 16%;
   border-radius: 10px;
