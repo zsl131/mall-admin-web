@@ -9,10 +9,6 @@ const FormItem = Form.Item;
 @Form.create()
 class QiniuConfig extends React.Component {
 
-  state = {
-    // item: this.props.qiniuConfig.item,
-  }
-
   componentDidMount() {
     setTimeout(()=>{
       const { setFieldsValue } = this.props.form;
