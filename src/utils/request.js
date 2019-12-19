@@ -95,8 +95,10 @@ function catchError(error) {
 export default function request(apiCode, params, options) {
   let headers = {
     //'auth-token': configApi.authToken,
-    'api_code': apiCode
-  }
+    'api_code': apiCode,
+    "tmpHeader": "zslzsl131",
+    "temp_header": "123sdfsdfsdf"
+  };
 
   const loginUser = getLoginUser();
   if(loginUser) {
