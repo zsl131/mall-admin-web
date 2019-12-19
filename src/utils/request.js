@@ -96,8 +96,6 @@ export default function request(apiCode, params, options) {
   let headers = {
     //'auth-token': configApi.authToken,
     'apiCode': apiCode,
-    "tmpHeader": "zslzsl131",
-    "tempHeader": "123sdfsdfsdf"
   };
 
   const loginUser = getLoginUser();
