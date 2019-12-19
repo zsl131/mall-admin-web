@@ -47,9 +47,9 @@ const Desc = (obj) => {
   console.log("---->", obj);
   return (
     <div>
-      {obj.content.split("###").map((msg)=> {
+      {obj.content?obj.content.split("###").map((msg)=> {
         return (msg?(<p> - {msg}</p>):"")
-      })}
+      }):obj.content}
     </div>
   )
 };
