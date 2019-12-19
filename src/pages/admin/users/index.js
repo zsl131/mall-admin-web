@@ -26,7 +26,6 @@ const Users = ({ location, loading, users, dispatch }) => {
 
   const operatorOpts = {
     onAdd() {
-      // console.log("UserIndex operator");
       dispatch({ type: 'users/showModal'});
     }
   }
@@ -40,14 +39,12 @@ const Users = ({ location, loading, users, dispatch }) => {
       dispatch({ type: 'users/delete', payload: id }).then(() => {handleRefresh()});
     },
     onPageChange: (page) => {
-      // dispatch({ type: 'users/userList', payload: { page: page-1} });
       handleRefresh({page : page - 1});
     },
     onUpdate: (id) => {
       dispatch({ type: 'users/update', payload: id });
     },
     onMatchRole: (id, nickname) => {
-      // console.log(id, nickname);
       dispatch({ type: 'users/setModalVisible', payload: {curId: id, curNickname: nickname} });
       dispatch({ type: 'users/onMatchRole', payload: id });
     }
@@ -114,14 +111,12 @@ const Users = ({ location, loading, users, dispatch }) => {
       </Helmet>
       <div className="listHeader">
         <h3><Icon type="bars"/> 用户管理<b>（{users.totalElements}）</b></h3>
-        {/*<div className="listOperator"><Button type="primary" icon="plus">添加用户</Button></div>*/}
         <Operator {...operatorOpts}/>
       </div>
       <div className="listFilter">
         <Filter {...filterOpts}/>
       </div>
       <div className="listContent">
-        {/*<Table dataSource={users.datas} columns={columns} loading={loading.models.users} rowKey="id"/>*/}
         <List {...listOpts} />
       </div>
       {users.modalVisible && <AddModal {...addOpts}/>}
