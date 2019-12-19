@@ -35,7 +35,7 @@ function checkDatas(data) {
 
 function buildError(data) {
   if(data.errors) {
-   // console.log(data.errors)
+   console.log(data.errors)
     let res = "";
     data.errors.map((err)=> {res += (err.msg+"###"); return res;});
     res+="";
