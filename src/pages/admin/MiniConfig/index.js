@@ -9,10 +9,6 @@ const FormItem = Form.Item;
 @Form.create()
 class MiniConfig extends React.Component {
 
-  state = {
-    // item: this.props.miniConfig.item,
-  }
-
   componentDidMount() {
     setTimeout(()=>{
       const { setFieldsValue } = this.props.form;
