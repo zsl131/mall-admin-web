@@ -44,7 +44,7 @@ function buildError(data) {
 }
 
 const Desc = (obj) => {
-  //console.log("---->", obj);
+  console.log("---->", obj);
   return (
     <div>
       {obj.content.split("###").map((msg)=> {
