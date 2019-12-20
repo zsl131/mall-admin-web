@@ -1,4 +1,4 @@
-import request from '../../../../utils/request';
+import request from '../../../../../utils/request';
 
 function listRoot(query) {
   return request("menuService.listRoot", JSON.stringify(query), true);

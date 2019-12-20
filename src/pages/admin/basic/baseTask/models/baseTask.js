@@ -56,7 +56,7 @@ export default {
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen((location) => {
-        if(location.pathname === '/admin/baseTask') {
+        if(location.pathname === '/admin/basic/baseTask') {
           dispatch({ type: 'list', payload: location.query });
         }
       })

@@ -101,7 +101,7 @@ export default {
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen((location) => {
-        if(location.pathname === '/admin/users') {
+        if(location.pathname === '/admin/basic/users') {
           dispatch({ type: 'userList', payload: location.query });
         }
       });

@@ -28,7 +28,7 @@ export default {
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen((location) => {
-        if(location.pathname === '/admin/appConfig') {
+        if(location.pathname === '/admin/basic/appConfig') {
           dispatch({ type: 'config', payload: location.query });
         }
       })

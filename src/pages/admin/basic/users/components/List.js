@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, Icon, Table, Pagination } from 'antd';
-import ListOperator from '../../../../components/ListOperator/ListOperator';
+import ListOperator from '../../../../../components/ListOperator';
 import styles from './list.css';
 
 const List = ({

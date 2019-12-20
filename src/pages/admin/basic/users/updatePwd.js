@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Button, Card, Form, Icon, Input, Tabs } from 'antd';
 import styles from './index.css';
-import { getLoginUser } from '../../../utils/authUtils';
+import { getLoginUser } from '../../../../utils/authUtils';
 
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;

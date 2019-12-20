@@ -1,6 +1,6 @@
 import React from 'react';
 import {Menu, Pagination, Table, Icon} from 'antd';
-import ListOperator from '../../../../components/ListOperator/ListOperator';
+import ListOperator from '../../../../../components/ListOperator';
 
 const List = ({
   onDelConfirm,

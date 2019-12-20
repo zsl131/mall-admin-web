@@ -50,7 +50,7 @@ export default {
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen((location) => {
-        if(location.pathname === '/admin/menu') {
+        if(location.pathname === '/admin/basic/menu') {
           dispatch({ type: 'index', payload: location.query });
         }
       });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pagination, Table, Menu, Icon, Popconfirm, Tooltip } from 'antd';
-import ListOperator from '../../../../components/ListOperator/ListOperator';
+import ListOperator from '../../../../../components/ListOperator';
 
 const List = ({
   onDelConfirm,
