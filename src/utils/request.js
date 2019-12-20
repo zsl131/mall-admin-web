@@ -25,7 +25,7 @@ function checkDatas(data) {
   //console.log(data);
   if(data.errCode !== "0") {
 
-    showError("error", data.reason, buildError(data.result));
+    showError("error", "["+data.errCode+"]"+data.reason, buildError(data.result));
 
     //message.error(data.reason, 10); //出现错误时显示 X 秒
   } else {
@@ -44,7 +44,7 @@ function buildError(data) {
 }
 
 const Desc = (obj) => {
-  console.log("---->", obj);
+  //console.log("---->", obj);
   return (
     <div>
       {obj.content?obj.content.split("###").map((msg)=> {

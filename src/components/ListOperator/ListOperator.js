@@ -13,10 +13,10 @@ const ListOperator = ({
   const handleConfirm = () => {
     // console.log("handleConfirm", id,delName);
     onDelConfirm(id);
-  }
+  };
   const handleUpdate = () => {
     onUpdate(id);
-  }
+  };
 
   const dropdownMenu = (
     <Menu>

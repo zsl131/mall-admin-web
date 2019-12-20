@@ -10,10 +10,7 @@ class UpdateModal extends React.Component {
     this.setState({
       item: this.props.item,
       curIcon: this.props.item.icon
-    })
-  }
-
-  componentDidMount() {
+    });
     const {setFieldsValue} = this.props.form;
     // console.log("didMount", this.props.item);
     setFieldsValue(this.props.item);
@@ -40,11 +37,11 @@ class UpdateModal extends React.Component {
           this.props.onOk(values);
         }
       });
-    }
+    };
 
     const handleChange = (e) => {
       this.setState({ curIcon: e.target.value });
-    }
+    };
 
     return(
       <Modal {...this.props} onOk={handleOk}>

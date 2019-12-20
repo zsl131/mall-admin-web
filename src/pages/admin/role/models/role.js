@@ -56,8 +56,9 @@ export default {
     *update({ payload: id }, { call, put }) {
       const query = {id:id, apiCode: roleService+".loadOne"};
       const data = yield call(httpGet, query);
+      console.log(data);
       if(data) {
-        yield put({ type: 'updateItem', payload: data.datas });
+        yield put({ type: 'updateItem', payload: data.obj });
       } else {
         message.error("没有找到对应数据");
       }

@@ -18,7 +18,7 @@ const Init = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     validateFieldsAndScroll((errors, values) => {
-      console.log(errors, values);
+      //console.log(errors, values);
       if(!errors) {
         dispatch({ type: 'init/initSystem', payload: values });
       }
