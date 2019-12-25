@@ -51,7 +51,7 @@ class BasicLayout extends React.Component{
     } else if(pathname.indexOf("/admin")===0 ) { //需要进行登陆验证
       const hasAuth = checkAuthByUrl(pathname); //通过url检测权限
       if(!hasAuth) { //无权限
-        console.log("=======no auth =============="+pathname);
+        //console.log("=======no auth =============="+pathname);
         //router.push("/public/noAuth");
       }
     }

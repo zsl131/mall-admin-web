@@ -2,8 +2,7 @@ import fetch from 'dva/fetch';
 import { message, notification } from 'antd';
 import configApi from './configApi';
 import { getLoginUser } from './authUtils';
-import { encodeBase64 } from './Base64Utils';
-import { logout } from '@/utils/common';
+import { logout, password } from '@/utils/common';
 import router from 'umi/router';
 import React from 'react';
 
@@ -113,7 +112,7 @@ export default function request(apiCode, params, options) {
 
   Object.assign(defaultOption, options || {});
 
-  const paramsType = Object.prototype.toString.call(params);
+  /*const paramsType = Object.prototype.toString.call(params);
 
   if(paramsType === '[object Object]') {
     // params.loginUser = getLoginUser(); //强行加上登陆用户
@@ -123,6 +122,9 @@ export default function request(apiCode, params, options) {
   params = encodeURI(params);
   // params = toBase64(params);
   params = encodeBase64(params);
+  */
+
+  params = password(params);
 
   return fetch(configApi.api.get+params, defaultOption)
     .then(checkStatus)
