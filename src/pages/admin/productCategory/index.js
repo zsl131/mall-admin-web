@@ -50,6 +50,12 @@ const ProductCategory = ({
     deleteCategory: (obj) => {
       //console.log(obj);
       dispatch({type: 'productCategoryCategory/deleteCategory', payload: obj}).then(()=>{handleRefresh()});
+    },
+    handlerOrderNo: () => {
+      dispatch({ type: 'productCategory/initOrderNo', payload:{} }).then(()=>{handleRefresh()});
+    },
+    changeOrderNo: (obj) => {
+      dispatch({ type: "productCategory/changeOrderNo", payload: obj }).then(() => {handleRefresh()});
     }
   };
 

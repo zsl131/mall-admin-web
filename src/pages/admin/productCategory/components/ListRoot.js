@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon } from 'antd';
+import { Button, Icon, Popconfirm } from 'antd';
 import AddCategoryModal from '@/pages/admin/productCategory/components/AddCategoryModal';
 import ListCategory from '@/pages/admin/productCategory/components/ListCategory';
 import UpdateCategoryModal from '@/pages/admin/productCategory/components/UpdateCategoryModal';
@@ -20,7 +20,9 @@ class ListRoot extends React.Component {
       updateCategory,
       category,
       deleteCategory,
-      loading
+      loading,
+      handlerOrderNo,
+      changeOrderNo,
     } = this.props;
 
     //console.log(dataSource);
@@ -69,6 +71,9 @@ class ListRoot extends React.Component {
         // console.log(record);
         this.setState({item: record});
       },
+      changeOrderNo: (obj) => {
+        changeOrderNo(obj);
+      }
     };
 
     const updateOpts = {
@@ -90,8 +95,15 @@ class ListRoot extends React.Component {
     return(
       <div>
         <div className="listHeader">
-          <h3><Icon type="bars"/> 产品分类管理<b>（{dataSource.length}）[{category?category.name:"根"}]</b></h3>
-          <div className="listOperator"><Button type="primary" icon="plus" onClick={onAdd}>添加分类</Button></div>
+          <h3><Icon type="bars"/> 产品分类管理<b>（{dataSource.length}）[<span className="red">{category?category.name:"根"}</span>]</b></h3>
+          <div className="listOperator">
+            <Popconfirm title="确定重新生成分类序号吗？" placement="bottom" onConfirm={handlerOrderNo}>
+              <Button type="default" icon="reload">重构分类序号</Button>
+            </Popconfirm>
+            &nbsp;&nbsp;
+
+            <Button type="primary" icon="plus" onClick={onAdd}>添加分类</Button>
+          </div>
         </div>
         <div className="listContent">
           <ListCategory {...listOpts} />
@@ -99,15 +111,6 @@ class ListRoot extends React.Component {
 
         {addVisible && <AddCategoryModal {...addOpts}/>}
         {updateVisible && <UpdateCategoryModal {...updateOpts}/>}
-
-        {/*<div className="listFilter">
-          <Filter {...filterOpts}/>
-        </div>
-        <div className="listContent">
-          <List {...listOpts} />
-        </div>
-        {product.addVisible && <AddModal {...addOpts}/>}
-        {product.updateVisible && <UpdateModal {...updateOpts}/>}*/}
       </div>
     );
   }

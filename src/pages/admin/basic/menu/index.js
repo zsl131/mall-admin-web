@@ -27,8 +27,9 @@ const Menu = ({
 
   const treeOpts = {
     menuTree: menu.menuTree,
-    onSelect: (key) => {
-      handleRefresh({"pid": key[0]});
+    onSelect: (obj) => {
+      handleRefresh({"pid":obj.pid});
+      dispatch({ type: 'menu/setState', payload: { pid: obj.pid, curName: obj.name } });
       // dispatch({ type: 'menu/showChildren', payload: key[0] });
     }
   };
@@ -36,6 +37,7 @@ const Menu = ({
   const listOpts = {
     dataSource: menu.datas,
     rowKey: 'id',
+    pid: menu.pid,
     totalElements: menu.totalElements,
     loading: loading.models.menu,
     onUpdate: (item) => {
@@ -43,6 +45,12 @@ const Menu = ({
     },
     onDelete: (id) => {
       dispatch({ type: "menu/deleteMenu", payload: id }).then(() => {handleRefresh()});
+    },
+    onPageChange: (page) => {
+      console.log(page);
+    },
+    changeOrderNo: (obj) => {
+      dispatch({ type: "menu/changeOrderNo", payload: obj }).then(() => {handleRefresh()});
     }
   };
 
@@ -68,6 +76,10 @@ const Menu = ({
     dispatch({ type: 'menu/init', payload:{} }).then(()=>{handleRefresh()});
   };
 
+  const handlerOrderNo = () => {
+    dispatch({ type: 'menu/initOrderNo', payload:{} }).then(()=>{handleRefresh()});
+  };
+
   return(
     <div style={{"height":"100%", "overflowY": 'hidden'}}>
       <Row style={{"height":"100%"}}>
@@ -76,8 +88,12 @@ const Menu = ({
         </Col>
         <Col span={19}>
           <div className="listHeader">
-            <h3><Icon type="bars"/> 菜单管理<b>（{menu.totalElements}）</b></h3>
+            <h3><Icon type="bars"/> 菜单管理<b>（{menu.totalElements}）</b>【<span className="red">{menu.curName}</span>】</h3>
             <div className="listOperator">
+              <Popconfirm title="确定重新生成菜单序号吗？" placement="bottom" onConfirm={handlerOrderNo}>
+                <Button type="default" icon="reload">重构菜单序号</Button>
+              </Popconfirm>
+              &nbsp;&nbsp;
               <Popconfirm title="确定重构所有菜单吗？" placement="bottom" cancelText="取消" okText="确定" onConfirm={handlerConfirm}>
                 <Button type="dashed" icon="reload">重构菜单</Button>
               </Popconfirm>

@@ -8,6 +8,8 @@ export default {
     datas:[],
     item:{},
     menuTree:[],
+    curName:'根',
+    pid: 0,
     totalElements: 0,
     updateVisible: false,
   },
@@ -45,7 +47,17 @@ export default {
     *deleteMenu({ payload: id }, { call }) {
       const query = {id:id, apiCode: baseService+".delete"};
       yield call(httpGet, query);
-    }
+    },
+    *changeOrderNo({payload: obj}, {call}) {
+      obj.apiCode = baseService+".changeOrderNo";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
+    *initOrderNo({payload: obj}, {call}) {
+      obj.apiCode = baseService+".initOrderNo";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
   },
   subscriptions: {
     setup({ history, dispatch }) {

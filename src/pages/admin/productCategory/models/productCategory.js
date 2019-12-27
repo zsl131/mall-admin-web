@@ -24,7 +24,7 @@ export default {
     *list({ payload: query }, { call, put }) {
       query.apiCode = cateService+".listRoot";
       const data = yield call(httpGet, query);
-      console.log(data);
+      // console.log(data);
       yield put({ type:'modifyState', payload: data });
     },
     *addCategory({payload: obj}, {call}) {
@@ -61,6 +61,16 @@ export default {
       obj.apiCode = baseService+".delete";
       const data = yield call(httpGet, obj);
       if(data) {message.info(data.message);}
+    },
+    *changeOrderNo({payload: obj}, {call}) {
+      obj.apiCode = cateService+".changeOrderNo";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
+    *initOrderNo({payload: obj}, {call}) {
+      obj.apiCode = cateService+".initOrderNo";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
     },
   },
   subscriptions: {

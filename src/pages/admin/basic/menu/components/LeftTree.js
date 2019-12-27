@@ -10,9 +10,14 @@ const LeftTree = ({
 }) => {
 
   const handlerSelect = (key, e) => {
-    // console.log("key:::"+key, e);
-    onSelect(key);
-  }
+    let nodeName = "根";
+    try {
+      nodeName = e.selectedNodes[0].props.title;
+    } catch (e) {
+    }
+    // console.log("key:::"+key+"--->name:"+nodeName, e);
+    onSelect({pid: key[0], name: nodeName});
+  };
 
   const menus = menuTree.map((obj) => {
     return (

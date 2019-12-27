@@ -67,7 +67,14 @@ body {
 /*微信管理部份的样式*/
 
 
+/** 拖动表格 **/
+tr.drop-over-downward td {
+  border-bottom: 2px dashed #1890ff;
+}
 
-/*.w-e-text-container {
-  height: 75vh !important;
-}*/
+tr.drop-over-upward td {
+  border-top: 2px dashed #1890ff;
+}
+/** 拖动表格 **/
+
+

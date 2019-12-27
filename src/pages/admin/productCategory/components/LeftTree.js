@@ -18,8 +18,13 @@ export default class LeftTree extends React.Component {
     const {treeData, onSelect} = this.props;
     // const { searchValue, expandedKeys, autoExpandParent } = this.state;
     const handlerSelect = (key, e) => {
-      console.log(key);
-      onSelect(key, e.node.props.title);
+      // console.log(key);
+      let name = "根";
+      try {
+        name = e.node.props.title;
+      } catch (e) {
+      }
+      onSelect(key, name);
     };
 
     const onSearch = (e) => {
@@ -48,7 +53,7 @@ export default class LeftTree extends React.Component {
           {
             obj.children.map((sub)=> {return (<TreeNode title={buildTitle(sub.category.name + "("+ sub.proList.length +")")} key={`child_${sub.category.id}`}>
               {
-                sub.proList.map((c)=>{return (<TreeNode title={buildTitle(c.sectionNo+"-"+c.name)} key={`detail_${c.id}`}/>)})
+                sub.proList.map((c)=>{return (<TreeNode title={buildTitle(c.title)} key={`detail_${c.id}`}/>)})
               }
             </TreeNode>);})
           }
