@@ -1,7 +1,7 @@
 import React from 'react';
-import {Icon, Modal, Upload} from 'antd';
-import { encodeBase64 } from '@/utils/Base64Utils';
+import { Icon, Modal, Upload } from 'antd';
 import { password } from '@/utils/common';
+import styles from './upload.css';
 
 export default class PictureWall extends React.Component {
   state = {
@@ -54,7 +54,7 @@ export default class PictureWall extends React.Component {
       </div>
     );
     return (
-      <div className="clearfix">
+      <div className={styles.clearfix}>
         <Upload
           {...this.props}
           accept={accept}

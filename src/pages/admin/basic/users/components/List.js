@@ -15,14 +15,14 @@ const List = ({
 
   const handleMatchRole = (id, nickname) => {
     onMatchRole(id, nickname);
-  }
+  };
 
   const delOpts = {
     okText: '确定删除',
     cancelText: '取消',
     onDelConfirm: onDelConfirm,
     onUpdate: onUpdate,
-  }
+  };
 
   const columns = [{
     title: '用户名',
@@ -52,17 +52,17 @@ const List = ({
 
   const handlePageChange = (pageNumber) => {
     onPageChange(pageNumber);
-  }
+  };
 
   const pager = () => {
     return (
       <Pagination showQuickJumper defaultPageSize={15} total={totalElement} onChange={handlePageChange}/>
     );
-  }
+  };
 
   return (
     <Table {...listOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>
   );
-}
+};
 
 export default List;

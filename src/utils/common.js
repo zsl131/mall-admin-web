@@ -1,4 +1,5 @@
 import { encodeBase64 } from '@/utils/Base64Utils';
+import { Modal } from 'antd';
 
 /**
  * 生成CopyRight日期
@@ -65,6 +66,32 @@ function password(params) {
   return params;
 }
 
+/**
+ * 系统提示
+ * @param title
+ * @param content
+ * @param onOk
+ * @param onCancel
+ * @param okText
+ * @param cancelText
+ */
+function confirmModal({title="系统提示", content, onOk, onCancel, okText="确定", cancelText="取消"}) {
+  Modal.confirm({
+    title: title,
+    content: content,
+    okText: okText,
+    cancelText: cancelText,
+    onCancel: () => {
+      if(onCancel) {
+        onCancel();
+      }
+    },
+    onOk: ()=> {
+      onOk();
+    }
+  });
+}
+
 export {
   buildCopyYear,
   logout,
@@ -72,4 +99,5 @@ export {
   formItemLayout_large,
   uuid,
   password,
+  confirmModal,
 }

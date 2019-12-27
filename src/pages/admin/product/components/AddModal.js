@@ -144,10 +144,17 @@ class AddModal extends React.Component {
                 {getFieldDecorator('title', {rules: [{required: true, message: '产品标题不能为空'}]})(<Input placeholder="输入产品标题"/>)}
               </FormItem>
             </Col>
-            <Col span={10}>
+            <Col span={6}>
               <Tooltip title="成交一笔所提取的基金金额">
                 <FormItem {...formItemLayout} label="基金金额">
                   {getFieldDecorator('fund')(<InputNumber placeholder="基金金额"/>)}
+                </FormItem>
+              </Tooltip>
+            </Col>
+            <Col span={4}>
+              <Tooltip title="请输入正整数">
+                <FormItem {...formItemLayout} label="库存">
+                  {getFieldDecorator('surplusCount')(<InputNumber placeholder="库存"/>)}
                 </FormItem>
               </Tooltip>
             </Col>

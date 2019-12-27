@@ -4,6 +4,7 @@ import { httpGet } from '@/utils/normalService';
 const baseService = "productService";
 const cateService = "productCategoryService";
 const specsService = "productSpecsService";
+const mediumService = "mediumService";
 export default {
   state: {
     item:{},
@@ -14,6 +15,9 @@ export default {
     updateVisible: false,
     specsList:[],
     specsVisible: false,
+    picVisible: false,
+    videoVisible: false,
+    picList:[],
   },
   reducers: {
     modifyState(state, { payload: options }) {
@@ -79,6 +83,20 @@ export default {
         message.success("删除成功");
         yield put({type: "delSpecs", payload: obj});
       }
+    },
+    *modifyStatus({payload: obj}, {call}) {
+      obj.apiCode = baseService+".modifyStatus";
+      const data = yield call(httpGet, obj);
+      if(data.flag==="1") {
+        message.success(data.message);
+      } else {
+        message.error(data.message);
+      }
+    },
+    *onPic({payload:obj},{call,put}) {
+      const apiCode = mediumService+".listByObj";
+      const data = yield call(httpGet, {id: obj.id, objType: "Product", apiCode: apiCode});
+      yield put({type: "modifyState", payload: {item: obj, picVisible: true, picList: data.data}});
     },
 
 

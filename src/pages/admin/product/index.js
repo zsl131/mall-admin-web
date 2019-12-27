@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Icon } from 'antd';
+import { Button, Icon } from 'antd';
 import { routerRedux } from 'dva/router';
 
 import AddModal from './components/AddModal';
@@ -8,6 +8,7 @@ import UpdateModal from './components/UpdateModal';
 import Operator from './components/Operator';
 import List from './components/List';
 import Filter from './components/Filter';
+import PictureModal from '@/pages/admin/product/components/PictureModal';
 
 const Product = ({
   product,
@@ -65,7 +66,13 @@ const Product = ({
     },
     modifyState: (obj)=> {
       dispatch({ type: 'product/modifyState', payload: obj });
-    }
+    },
+    modifyStatus: (obj)=> {
+      dispatch({type: 'product/modifyStatus', payload:obj}).then(() => {handleRefresh()});
+    },
+    showPic: (obj) => {
+      dispatch({ type: 'product/onPic', payload: obj});
+    },
   };
 
   const addOpts = {
@@ -104,6 +111,21 @@ const Product = ({
     }
   };
 
+  const picOpts = {
+    visible: product.picVisible,
+    item: product.item,
+    title: `产品媒介[${product.item.title}]`,
+    maskClosable: false,
+    picList: product.picList,
+    footer: <Button onClick={()=> {dispatch({ type: 'product/modifyState', payload: { picVisible: false } })}}>关闭窗口</Button>,
+    onOk: (obj) => {
+      dispatch({ type: 'product/modifyState', payload: { picVisible: false } });
+    },
+    onCancel: () => {
+      dispatch({ type: 'product/modifyState', payload: { picVisible: false } });
+    }
+  };
+
   return(
     <div>
       <div className="listHeader">
@@ -118,6 +140,7 @@ const Product = ({
       </div>
       {product.addVisible && <AddModal {...addOpts}/>}
       {product.updateVisible && <UpdateModal {...updateOpts}/>}
+      {product.picVisible && <PictureModal {...picOpts}/>}
     </div>
   );
 }

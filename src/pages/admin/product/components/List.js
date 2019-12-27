@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Pagination, Table, Tag, Tooltip } from 'antd';
+import { Button, Pagination, Popconfirm, Table, Tag, Tooltip } from 'antd';
 import ListOperator from '@/components/ListOperator';
 import IconText from '@/components/common/IconText';
 import ListSpecs from '@/pages/admin/product/components/ListSpecs';
@@ -16,6 +16,9 @@ const List = ({
   modifyState,
   saveSpecs,
   deleteSpecs,
+  modifyStatus,
+  showVideo,
+  showPic,
   ...listOpts
 }) => {
 
@@ -27,13 +30,25 @@ const List = ({
   };
 
   const columns = [{
+    title: "媒介",
+    render: (record)=> {
+      return (<div>
+        <p>
+          <Tooltip title="图片数，点击查看">
+              <Button type="default" onClick={()=>showPic(record)} icon="picture">&nbsp;&nbsp;{record.picCount}</Button>
+          </Tooltip>
+        </p>
+        <p><Tooltip title="视频"><Button onClick={()=>showVideo(record)} icon="play-square">{record.videoCount>0?"已传":"未传"}</Button></Tooltip></p>
+      </div>);
+    }
+  }, {
     title: '产品名称',
     // dataIndex: 'title'
     render:(record)=> {
       return (
         <div>
           <b>{record.title}</b>
-          <p>基金：{record.fund}</p>
+          <p>基金：<b className="red">￥{record.fund}</b></p>
         </div>
       );
     }
@@ -71,7 +86,13 @@ const List = ({
       const status = record.status;
       return (
         <div>
-          <p><Button type={status==="0"?"danger":"primary"} icon={status==="0"?"eye-invisible":"eye"}>{status==="1"?"显示":"隐藏"}</Button></p>
+          <p>
+            <Tooltip title="点击修改状态">
+            <Popconfirm title={`确定修改状态为【${status==="0"?"上架":"下架"}】吗？`} onConfirm={() => modifyStatus({id: record.id, status: status==="1"?"0":"1"})}>
+              <Button type={status==="0"?"danger":"primary"} icon={status==="0"?"eye-invisible":"eye"}>{status==="1"?"上架":"下架"}</Button>
+            </Popconfirm>
+            </Tooltip>
+          </p>
           <p><Tooltip title="规格数，点击查看"><Button onClick={()=>onShowSpecs(record)}>规格：{record.specsCount}</Button></Tooltip></p>
         </div>
       );
@@ -80,7 +101,7 @@ const List = ({
     title: '操作',
     render: (text, record) => {
       return (
-        <ListOperator id={record} delName={record.name} {...delOpts}/>
+        <ListOperator id={record} delName={record.title} {...delOpts}/>
       );
     }
   }];
@@ -119,7 +140,7 @@ const List = ({
 
   return (
     <div>
-      <Table {...listOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>
+      <Table {...listOpts} columns={columns} rowKey={record=>record.id} pagination={false} footer={pager}/>
       {specsVisible && <ListSpecs {...specsOpts}/>}
     </div>
   );
