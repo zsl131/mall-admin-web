@@ -33,7 +33,7 @@ const AddModal = ({
       }
       // console.log("submit", errors, values);
     });
-  }
+  };
 
   const checkPassword = (rule, value, callback) => {
     //console.log("checkPassword", value);
@@ -42,7 +42,7 @@ const AddModal = ({
     } else {
       callback();
     }
-  }
+  };
 
   const checkConfirmPwd = (rule, value, callback) => {
     if(value && value !== getFieldValue('password')) {
@@ -50,12 +50,12 @@ const AddModal = ({
     } else {
       callback();
     }
-  }
+  };
 
   const modalOpts = {
     ...modalProps,
     onOk: handleOk
-  }
+  };
 
   return(
     <Modal {...modalOpts}>

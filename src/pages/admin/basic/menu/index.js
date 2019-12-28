@@ -5,6 +5,7 @@ import LeftTree from './components/LeftTree';
 import List from './components/List';
 import { routerRedux } from 'dva/router'
 import UpdateModal from './components/UpdateModal';
+import { httpSort } from '@/utils/normalService';
 
 const Menu = ({
   loading,
@@ -50,7 +51,8 @@ const Menu = ({
       console.log(page);
     },
     changeOrderNo: (obj) => {
-      dispatch({ type: "menu/changeOrderNo", payload: obj }).then(() => {handleRefresh()});
+      // dispatch({ type: "menu/changeOrderNo", payload: obj }).then(() => {handleRefresh()});
+      httpSort(obj).then(() => {handleRefresh()});
     }
   };
 

@@ -110,7 +110,7 @@ const List = ({
   };
 
   return (
-    <Table {...listOpts} columns={columns} rowKey="taskName" pagination={false} footer={pager}/>
+    <Table {...listOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>
   );
 };
 

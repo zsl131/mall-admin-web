@@ -7,6 +7,12 @@ function httpGet(values) {
   return request(apiCode, values, true);
 }
 
+function httpSort(values) {
+  values.apiCode = "adminPublicService.changeOrderNo";
+  return httpGet(values);
+}
+
 export {
-  httpGet
+  httpGet,
+  httpSort
 }

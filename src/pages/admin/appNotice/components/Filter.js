@@ -20,7 +20,7 @@ const Filter = ({
   return (
     <Form layout="inline" onSubmit={handleSubmit}>
       <FormItem>
-        {getFieldDecorator("name_like")(<Input placeholder="代理级别名称"/>)}
+        {getFieldDecorator("content_like")(<Input placeholder="公告内容"/>)}
       </FormItem>
       <FormItem>
         <Button type="dashed" htmlType="submit">筛选</Button>

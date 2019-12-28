@@ -20,8 +20,11 @@ const List = ({
   };
 
   const columns = [{
-    title: '标签名称',
+    title: '名称',
     dataIndex: 'name'
+  }, {
+    title: '级别',
+    dataIndex: 'level'
   }, {
     title: '操作',
     render: (text, record) => {
@@ -42,7 +45,7 @@ const List = ({
   };
 
   return (
-    <Table {...listOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>
+    <Table {...listOpts} columns={columns} rowKey="taskName" pagination={false} footer={pager}/>
   );
 };
 

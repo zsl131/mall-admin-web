@@ -5,6 +5,7 @@ import { routerRedux } from 'dva/router';
 import ListRoot from '@/pages/admin/productCategory/components/ListRoot';
 import ListProduct from '@/pages/admin/productCategory/components/ListProduct';
 import LeftTree from '@/pages/admin/productCategory/components/LeftTree';
+import { httpSort } from '@/utils/normalService';
 
 
 const ProductCategory = ({
@@ -55,7 +56,8 @@ const ProductCategory = ({
       dispatch({ type: 'productCategory/initOrderNo', payload:{} }).then(()=>{handleRefresh()});
     },
     changeOrderNo: (obj) => {
-      dispatch({ type: "productCategory/changeOrderNo", payload: obj }).then(() => {handleRefresh()});
+      // dispatch({ type: "productCategory/changeOrderNo", payload: obj }).then(() => {handleRefresh()});
+      httpSort(obj).then(() => {handleRefresh()});
     }
   };
 

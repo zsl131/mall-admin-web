@@ -3,6 +3,7 @@ import { Icon, Pagination, Popconfirm, Popover, Table } from 'antd';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragableBodyRow } from '@/components/common/DragTable';
+import { buildSortObj } from '@/utils/common';
 
 class List extends React.Component {
 
@@ -90,12 +91,8 @@ class List extends React.Component {
     };
 
     const handlerRow = (dragIndex, hoverIndex) => {
-      // this.setState({loading: true});
-      // console.log("------->pid::::", pid);
-      const obj1 = dataSource[dragIndex], obj2 = dataSource[hoverIndex];
-      // console.log(dataSource[dragIndex], dataSource[hoverIndex]);
-      // console.log(dragIndex, hoverIndex);
-      changeOrderNo({id1: obj1.id, no1: obj1.orderNo, id2: obj2.id, no2: obj2.orderNo});
+      const obj = buildSortObj(dataSource, dragIndex, hoverIndex);
+      changeOrderNo({type: "AdminMenu", data: obj});
     };
 
     const tableOpts = {

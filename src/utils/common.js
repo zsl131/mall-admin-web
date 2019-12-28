@@ -92,6 +92,41 @@ function confirmModal({title="系统提示", content, onOk, onCancel, okText="�
   });
 }
 
+/**
+ * 生成排序对象
+ * @param dataSource
+ * @param dragIndex
+ * @param hoverIndex
+ * @returns {[]}
+ */
+function buildSortObj(dataSource, dragIndex, hoverIndex) {
+  let result = [];
+  const obj2 = dataSource[hoverIndex];
+  dataSource.map((item, index)=> {
+    let obj = {id: item.id, name: item.name};
+    if(dragIndex>hoverIndex) { //从下往上拉
+      if(index>=hoverIndex && index<dragIndex) {
+        obj.orderNo = item.orderNo+1;
+      } else if(dragIndex===index) {
+        obj.orderNo = obj2.orderNo;
+      } else {
+      }
+    } else { //从上往下拉
+      if(index<=hoverIndex && index>dragIndex) {
+        obj.orderNo = item.orderNo-1;
+      } else if(dragIndex===index) {
+        obj.orderNo = obj2.orderNo;
+      } else {
+      }
+    }
+    if(obj.orderNo) { //即修改过orderNo的才可以被添加
+      result.push(obj);
+    }
+    return item;
+  });
+  return result;
+}
+
 export {
   buildCopyYear,
   logout,
@@ -100,4 +135,5 @@ export {
   uuid,
   password,
   confirmModal,
+  buildSortObj,
 }

@@ -4,6 +4,7 @@ import ListOperator from '@/components/ListOperator';
 import { DragableBodyRow } from '@/components/common/DragTable';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { buildSortObj } from '@/utils/common';
 
 const ListCategory = ({
   onDelConfirm,
@@ -64,8 +65,10 @@ const ListCategory = ({
   };
 
   const handlerRow = (dragIndex, hoverIndex) => {
-    const obj1 = dataSource[dragIndex], obj2 = dataSource[hoverIndex];
-    changeOrderNo({id1: obj1.id, no1: obj1.orderNo, id2: obj2.id, no2: obj2.orderNo});
+    // const obj1 = dataSource[dragIndex], obj2 = dataSource[hoverIndex];
+    // changeOrderNo({id1: obj1.id, no1: obj1.orderNo, id2: obj2.id, no2: obj2.orderNo});
+    const obj = buildSortObj(dataSource, dragIndex, hoverIndex);
+    changeOrderNo({type: "ProductCategory", data: obj});
   };
 
   return (
