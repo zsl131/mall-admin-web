@@ -101,7 +101,8 @@ export default function request(apiCode, params, options) {
   if(loginUser) {
     headers.authToken = loginUser.token;
     headers.userId = loginUser.id;
-    headers.username = loginUser.username;
+    headers.username = password(loginUser.username);
+    headers.nickname = password(loginUser.nickname);
     headers.isAdminUser = loginUser.isAdmin;
   }
 
@@ -111,18 +112,6 @@ export default function request(apiCode, params, options) {
   };
 
   Object.assign(defaultOption, options || {});
-
-  /*const paramsType = Object.prototype.toString.call(params);
-
-  if(paramsType === '[object Object]') {
-    // params.loginUser = getLoginUser(); //强行加上登陆用户
-    params = JSON.stringify(params); //如果是对象则转换成字符串
-  }
-
-  params = encodeURI(params);
-  // params = toBase64(params);
-  params = encodeBase64(params);
-  */
 
   params = password(params);
 

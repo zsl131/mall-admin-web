@@ -102,7 +102,7 @@ const List = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-    <Table {...tableOpts} columns={columns} rowKey="id" pagination={false} footer={pager}
+    <Table {...tableOpts} columns={columns} rowKey="title" pagination={false} footer={pager}
            components={components}
            onRow={(record, index) => ({
              index,

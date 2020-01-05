@@ -1,0 +1,16 @@
+.status1 {
+  color:#0000ff;
+}
+.status0 {
+  color:#F00;
+}
+
+.singleHref {
+  margin: 10px; padding: 5px; border:1px #ddd solid; border-radius: 5px; display: inline-block;
+}
+.singleHref p {
+  width: 100%; text-align: center;
+}
+.avatarImg {
+  width:200px;
+}
