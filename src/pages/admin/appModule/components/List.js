@@ -5,6 +5,7 @@ import { DragableBodyRow } from '@/components/common/DragTable';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { buildSortObj } from '@/utils/common';
+import MiniIcon from '@/components/common/MiniIcon';
 
 const List = ({
   onDelConfirm,
@@ -45,8 +46,8 @@ const List = ({
     render: (record) => {
       return (
         <div>
-          <p style={{"color":record.bgColor}}>{record.bgColor}</p>
-          <p>链接地址：{record.path}</p>
+          <p><span><MiniIcon type={record.icon} style={{"fontSize":"66px"}}/></span><b style={{"color":record.bgColor}}>{record.bgColor}</b></p>
+          <p>{record.navMode}：{record.path}</p>
         </div>
       )
     }

@@ -9,6 +9,13 @@ export default {
     datas:[],
     addVisible: false,
     updateVisible: false,
+    treeList:[],
+    category:{},
+    product:{},
+    specsList:[],
+    levelList:[],
+    rateList:[],
+    type: '', //base、
   },
   reducers: {
     modifyState(state, { payload: options }) {
@@ -17,11 +24,17 @@ export default {
   },
   effects: {
     *list({ payload: query }, { call, put }) {
-      query.apiCode = baseService+".list";
+      query.apiCode = baseService+".listRoot";
       const data = yield call(httpGet, query);
-      //console.log(data);
-      yield put({ type:'modifyState', payload: {totalElements: data.size, datas: data.datas} });
+      // console.log(data);
+      yield put({ type:'modifyState', payload: data });
     },
+    *addOrUpdate({payload: obj}, {call}) {
+      obj.apiCode = baseService+".addOrUpdateRate";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
+
     *addObj({payload: obj}, {call}) {
       obj.apiCode = baseService+".add";
       const data = yield call(httpGet, obj);

@@ -42,7 +42,6 @@ const List = ({
     dataIndex: 'title'
   }, {
     title: '状态',
-    // dataIndex: 'content'
     render: (record) => {
       const status = record.status;
       return (
@@ -60,13 +59,14 @@ const List = ({
       return (
         <div>
         <p><b>{openMode==="0"?"不打开":(openMode==="1"?"弹窗方式打开":"链接跳转方式")}</b></p>
-          {openMode==="2" && <span>链接地址：{record.content}</span>}
+          {openMode==="2" && <span>{record.navMode}：{record.content}</span>}
           {openMode==="1" && <span>弹窗内容：{record.content}</span>}
         </div>
       );
     }
   }, {
     title: '操作',
+    dataIndex: "id",
     render: (text, record) => {
       return (
         <ListOperator id={record} delName={record.content} {...delOpts}/>
@@ -102,7 +102,7 @@ const List = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-    <Table {...tableOpts} columns={columns} rowKey="title" pagination={false} footer={pager}
+    <Table {...tableOpts} columns={columns} rowKey="id" pagination={false} footer={pager}
            components={components}
            onRow={(record, index) => ({
              index,

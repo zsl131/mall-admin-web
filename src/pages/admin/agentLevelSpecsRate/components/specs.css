@@ -1,0 +1,35 @@
+.specsMain {
+  border:1px #ccc solid; border-width: 0px 1px 1px 0px;
+}
+.specsCol {
+  border:1px #ccc solid; border-width: 1px 0px 0px 1px; text-align: center; line-height: 40px; padding: 5px;
+}
+
+.specsRowHeader .specsCol {
+  background:#f8f8f8;
+}
+
+.specsRow  .specsCol {
+
+}
+
+.singleField {
+  width: 100%; line-height: 40px;
+}
+.hiddenIcon {
+  display: none;
+}
+.showIcon {
+  display: block;
+}
+
+.rateAmount, .noRateAmount {
+  padding:0px 5px;
+}
+
+.noRateAmount {
+  font-weight: normal; color:#999; font-size:12px;
+}
+.rateAmount {
+  color:#00F;
+}

@@ -1,13 +1,9 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Icon } from 'antd';
+import { Col, Row } from 'antd';
 import { routerRedux } from 'dva/router';
-
-import AddModal from './components/AddModal';
-import UpdateModal from './components/UpdateModal';
-import Operator from './components/Operator';
-import List from './components/List';
-import Filter from './components/Filter';
+import LeftTree from '@/pages/admin/agentLevelSpecsRate/components/LeftTree';
+import ListSpecs from '@/pages/admin/agentLevelSpecsRate/components/ListSpecs';
 
 const AgentLevelSpecsRate = ({
   agentLevelSpecsRate,
@@ -27,76 +23,45 @@ const AgentLevelSpecsRate = ({
     }));
   };
 
-  const operatorOpts = {
-    onAdd() {
-      dispatch({ type: 'agentLevelSpecsRate/modifyState', payload: {addVisible: true}});
+  const treeOpts = {
+    treeData: agentLevelSpecsRate.treeList,
+    onSelect: (key, title) => {
+      let selectKey = key[0];
+      if(!selectKey) {title = "根分类"; selectKey = 0;}
+
+      //console.log(selectKey, title)
+      handleRefresh({"pid": selectKey});
+      // console.log(key[0]);
+      dispatch({ type: 'agentLevelSpecsRate/modifyState', payload: {pid: selectKey, pname: title} });
     }
   };
 
-  const listOpts = {
-    dataSource: agentLevelSpecsRate.datas,
-    loading: loading.models.agentLevelSpecsRate,
-    location,
-    totalElement: agentLevelSpecsRate.totalElements,
-    onDelConfirm: (record) => {
-      dispatch({ type: 'agentLevelSpecsRate/deleteObj', payload: {id: record.id} }).then(() => {handleRefresh()});
-    },
-    onPageChange: (page) => {
-      handleRefresh({page : page - 1});
-    },
-    onUpdate: (record) => {
-        dispatch({ type: 'agentLevelSpecsRate/modifyState', payload: {item: record, updateVisible: true} });
-    },
-  };
-
-  const addOpts = {
-    visible: agentLevelSpecsRate.addVisible,
-    title: "添加数据",
-    maskClosable: false,
-    confirmLoading: loading.effects['agentLevelSpecsRate/addObj'],
-    onOk: (obj) => {
-      dispatch({ type: 'agentLevelSpecsRate/modifyState', payload: { addVisible: false } });
-      dispatch({ type: 'agentLevelSpecsRate/addObj', payload: obj }).then(() => {handleRefresh()});
-    },
-    onCancel() {
-      dispatch({ type: 'agentLevelSpecsRate/modifyState', payload: { addVisible: false } });
-    }
-  };
-  const updateOpts = {
-    visible: agentLevelSpecsRate.updateVisible,
-    title: `修改数据[${agentLevelSpecsRate.item.name}]`,
-    item: agentLevelSpecsRate.item,
-    maskClosable: false,
-    confirmLoading: loading.effects['agentLevelSpecsRate/updateObj'],
-    onOk: (obj) => {
-      dispatch({ type: 'agentLevelSpecsRate/modifyState', payload: { updateVisible: false } });
-      dispatch({ type: 'agentLevelSpecsRate/updateObj', payload: obj }).then(() => {handleRefresh()});
-    },
-    onCancel: () => {
-      dispatch({ type: 'agentLevelSpecsRate/modifyState', payload: { updateVisible: false } });
-    }
-  };
-
-  const filterOpts = {
-    onFilter(values) {
-      handleRefresh({conditions: JSON.stringify(values)});
+  const specsOpts = {
+    specsList: agentLevelSpecsRate.specsList,
+    levelList: agentLevelSpecsRate.levelList,
+    product: agentLevelSpecsRate.product,
+    rateList: agentLevelSpecsRate.rateList,
+    addOrUpdate: (obj)=> {
+      // console.log(obj)
+      dispatch({type: "agentLevelSpecsRate/addOrUpdate", payload: obj}).then(()=>handleRefresh());
     }
   };
 
   return(
-    <div>
-      <div className="listHeader">
-        <h3><Icon type="bars"/> 代理等级管理<b>（{agentLevelSpecsRate.totalElements}）</b></h3>
-        <Operator {...operatorOpts}/>
-      </div>
-      <div className="listFilter">
-        <Filter {...filterOpts}/>
-      </div>
-      <div className="listContent">
-        <List {...listOpts} />
-      </div>
-      {agentLevelSpecsRate.addVisible && <AddModal {...addOpts}/>}
-      {agentLevelSpecsRate.updateVisible && <UpdateModal {...updateOpts}/>}
+    <div style={{"minHeight":"100%", "overflowY": 'hidden'}}>
+      <Row>
+        <Col span={6} style={{"minHeight":"100%","borderRight": "1px #c8c8c8 solid"}}>
+          <LeftTree {...treeOpts}/>
+        </Col>
+        <Col span={18}>
+          {/*{(agentLevelSpecsRate.type==="base" || agentLevelSpecsRate.type==="root") && <ListRoot {...listRootOpts}/>}
+          {agentLevelSpecsRate.type==="child" && <ListProduct {...listproductCategoryOpts}/>}*/}
+          { agentLevelSpecsRate.type==="detail" && <ListSpecs {...specsOpts}/> }
+          { agentLevelSpecsRate.type!=='detail' && <div style={{"margin":"20px"}}>
+            <h2 className="red">点击左边的产品标题后方可设置对应规格下的提成标准</h2>
+          </div>}
+        </Col>
+      </Row>
     </div>
   );
 }

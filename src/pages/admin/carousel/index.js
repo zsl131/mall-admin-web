@@ -61,7 +61,7 @@ const Carousel = ({
 
   const addOpts = {
     visible: carousel.addVisible,
-    title: "添加通知公告",
+    title: "添加轮播图",
     maskClosable: false,
     confirmLoading: loading.effects['carousel/addObj'],
     onOk: (obj) => {
@@ -96,7 +96,7 @@ const Carousel = ({
   return(
     <div>
       <div className="listHeader">
-        <h3><Icon type="bars"/> APP端公告管理<b>（{carousel.totalElements}）</b></h3>
+        <h3><Icon type="bars"/> APP端轮播图管理<b>（{carousel.totalElements}）</b></h3>
         <Operator {...operatorOpts}/>
       </div>
       <div className="listFilter">

@@ -75,7 +75,7 @@ const AppModule = ({
   };
   const updateOpts = {
     visible: appModule.updateVisible,
-    title: `修改数据[${appModule.item.content}]`,
+    title: `修改数据[${appModule.item.txt}]`,
     item: appModule.item,
     maskClosable: false,
     confirmLoading: loading.effects['appModule/updateObj'],

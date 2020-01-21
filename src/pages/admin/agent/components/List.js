@@ -64,6 +64,7 @@ const List = ({
       return (
         <div>
           {record.paperCount===0?<b className="red">无证件</b>:<Button onClick={()=>showPapers(record)} type="primary">{record.paperCount} 份证件</Button>}
+          <p>{record.identity}</p>
         </div>
       )
     }

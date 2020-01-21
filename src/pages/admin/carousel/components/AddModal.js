@@ -124,6 +124,10 @@ class AddModal extends React.Component {
               </Radio.Group>
             )}
           </FormItem>
+          <FormItem {...formItemLayout_large} label="链接模式">
+            {getFieldDecorator('navMode')(<Input disabled={(openMode!=="2")} placeholder="链接模式，如：navigate"/>)}
+            <span className="dark">可选：navigate、redirect、switchTab、reLaunch、navigateBack、exit</span>
+          </FormItem>
           <FormItem {...formItemLayout_large} label="内容">
             {getFieldDecorator('content')(<Input disabled={(openMode==="0"||openMode==='')}  placeholder="内容部份，可以是链接地址、弹窗内容或不填"/>)}
           </FormItem>

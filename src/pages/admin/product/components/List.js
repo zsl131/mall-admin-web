@@ -99,6 +99,7 @@ const List = ({
     }
   }, {
     title: '操作',
+    dataIndex: "id",
     render: (text, record) => {
       return (
         <ListOperator id={record} delName={record.title} {...delOpts}/>
@@ -140,7 +141,7 @@ const List = ({
 
   return (
     <div>
-      <Table {...listOpts} columns={columns} rowKey={record=>record.id} pagination={false} footer={pager}/>
+      <Table {...listOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>
       {specsVisible && <ListSpecs {...specsOpts}/>}
     </div>
   );

@@ -33,7 +33,7 @@ const ProductCategory = ({
       if(!selectKey) {title = "根分类"; selectKey = 0;}
       handleRefresh({"pid": selectKey});
       // console.log(key[0]);
-      dispatch({ type: 'productCategoryCategory/modifyState', payload: {pid: selectKey, pname: title} });
+      dispatch({ type: 'productCategory/modifyState', payload: {pid: selectKey, pname: title} });
     }
   };
 
@@ -42,15 +42,15 @@ const ProductCategory = ({
     loading: loading,
     category: productCategory.category,
     addCategory: (obj) => {
-      dispatch({type: 'productCategoryCategory/addCategory', payload: obj}).then(()=>{handleRefresh()});
+      dispatch({type: 'productCategory/addCategory', payload: obj}).then(()=>{handleRefresh()});
     },
     updateCategory: (obj) => {
       // console.log(obj);
-      dispatch({type: 'productCategoryCategory/updateCategory', payload: obj}).then(()=>{handleRefresh()});
+      dispatch({type: 'productCategory/updateCategory', payload: obj}).then(()=>{handleRefresh()});
     },
     deleteCategory: (obj) => {
       //console.log(obj);
-      dispatch({type: 'productCategoryCategory/deleteCategory', payload: obj}).then(()=>{handleRefresh()});
+      dispatch({type: 'productCategory/deleteCategory', payload: obj}).then(()=>{handleRefresh()});
     },
     handlerOrderNo: () => {
       dispatch({ type: 'productCategory/initOrderNo', payload:{} }).then(()=>{handleRefresh()});

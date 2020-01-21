@@ -43,7 +43,7 @@ const List = ({
       return (
         <div>
         <p><b>{openMode==="0"?"不打开":(openMode==="1"?"弹窗方式打开":"链接跳转方式")}</b></p>
-          {openMode==="2" && <span>链接地址：{record.url}</span>}
+          {openMode==="2" && <span>{record.navMode}：{record.url}</span>}
         </div>
       );
     }
