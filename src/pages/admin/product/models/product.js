@@ -98,6 +98,11 @@ export default {
       const data = yield call(httpGet, {id: obj.id, objType: "Product", apiCode: apiCode});
       yield put({type: "modifyState", payload: {item: obj, picVisible: true, picList: data.data}});
     },
+    *modifySaleMode({payload: obj},{call}) {
+      obj.apiCode = baseService+".modifySaleMode";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
 
 
 

@@ -38,7 +38,7 @@ class PictureModal extends React.Component {
     };
 
     const onFileChange = (file) => {
-      //console.log("onFileChange", file);
+      console.log("onFileChange", file);
       if(file.status === 'done') {
         //setFieldsValue({"imgUrl": file.response});
         updateAmount("picCount", 1);

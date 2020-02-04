@@ -73,6 +73,10 @@ const Product = ({
     showPic: (obj) => {
       dispatch({ type: 'product/onPic', payload: obj});
     },
+    modifySaleMode: (obj)=> {
+      // console.log(obj);
+      dispatch({type: 'product/modifySaleMode', payload:obj}).then(() => {handleRefresh()});
+    }
   };
 
   const addOpts = {
