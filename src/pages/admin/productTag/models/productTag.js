@@ -18,6 +18,7 @@ export default {
   effects: {
     *list({ payload: query }, { call, put }) {
       query.apiCode = baseService+".list";
+      query.sort = "orderNo"; //排序
       const data = yield call(httpGet, query);
       //console.log(data);
       yield put({ type:'modifyState', payload: {totalElements: data.size, datas: data.datas} });
@@ -36,6 +37,17 @@ export default {
       obj.apiCode = baseService+".delete";
       const data = yield call(httpGet, obj);
       if(data) {message.info(data.message);}
+    },
+
+    *modifyStatus({payload: obj}, {call}) {
+      obj.apiCode = baseService+".modifyStatus";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
+    *initOrderNo({payload: obj}, {call}) {
+      obj.apiCode = baseService+".initOrderNo";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
     },
   },
   subscriptions: {

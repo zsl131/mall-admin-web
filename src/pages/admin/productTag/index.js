@@ -7,6 +7,7 @@ import UpdateModal from './components/UpdateModal';
 import Operator from './components/Operator';
 import List from './components/List';
 import Filter from './components/Filter';
+import { httpSort } from '@/utils/normalService';
 
 const ProductTag = ({
   productTag,
@@ -30,6 +31,9 @@ const ProductTag = ({
     msg:"添加标签",
     onAdd() {
       dispatch({ type: 'productTag/modifyState', payload: {addVisible: true}});
+    },
+    handlerOrderNo: () => {
+      dispatch({ type: 'productTag/initOrderNo', payload:{} }).then(()=>{handleRefresh()});
     }
   };
 
@@ -46,6 +50,12 @@ const ProductTag = ({
     },
     onUpdate: (record) => {
         dispatch({ type: 'productTag/modifyState', payload: {item: record, updateVisible: true} });
+    },
+    changeOrderNo: (obj) => {
+      httpSort(obj).then(() => {handleRefresh()});
+    },
+    modifyStatus: (obj)=> {
+      dispatch({ type: 'productTag/modifyStatus', payload: obj}).then(() => {handleRefresh()});
     },
   };
 
@@ -86,7 +96,7 @@ const ProductTag = ({
   return(
     <div>
       <div className="listHeader">
-        <h3><Icon type="bars"/> 产品标签管理<b>（{productTag.totalElements}）</b></h3>
+        <h3><Icon type="bars"/> 产品标签管理<b>（{productTag.totalElements}）</b><span className="dark">用于移动端搜索的推荐</span></h3>
         <Operator {...operatorOpts}/>
       </div>
       <div className="listFilter">

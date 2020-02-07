@@ -1,12 +1,18 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Popconfirm } from 'antd';
 
 const Operator = ({
   onAdd,
-  msg
+  msg,
+  handlerOrderNo
 }) => {
   return(
-    <div className="listOperator"><Button type="primary" icon="plus" onClick={onAdd}>{msg?msg:"添加数据"}</Button></div>
+    <div className="listOperator">
+      <Popconfirm title="确定重新生成序号吗？" placement="bottom" onConfirm={handlerOrderNo}>
+        <Button type="default" icon="reload">重构序号</Button>
+      </Popconfirm>
+      &nbsp;&nbsp;&nbsp;
+      <Button type="primary" icon="plus" onClick={onAdd}>{msg?msg:"添加数据"}</Button></div>
   );
 }
 
