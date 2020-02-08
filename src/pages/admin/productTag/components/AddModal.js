@@ -57,7 +57,7 @@ class AddModal extends React.Component {
     };
 
     const handleProductChange = (e) => {
-      console.log(e);
+      //console.log(e);
       setFieldsValue({proId: e.key, proTitle: e.label});
     };
 

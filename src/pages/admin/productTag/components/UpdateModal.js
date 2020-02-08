@@ -19,7 +19,6 @@ class UpdateModal extends React.Component {
     const item = this.props.item;
     const {setFieldsValue} = this.props.form;
     setFieldsValue(item);
-
   }
   render() {
 
@@ -50,7 +49,7 @@ class UpdateModal extends React.Component {
     };
 
     const handleProductChange = (e) => {
-      console.log(e);
+      //console.log(e);
       setFieldsValue({proId: e.key, proTitle: e.label});
     };
 
@@ -65,9 +64,11 @@ class UpdateModal extends React.Component {
           </FormItem>
           <FormItem {...formItemLayout} label="关联产品">
             {getFieldDecorator("pro")(
+              <div>
+                <p>{item.proTitle}</p>
               <Select
                 showSearch
-                value={keyword}
+                /*value={keyword}*/
                 placeholder="输入产品标题查找"
                 defaultActiveFirstOption={false}
                 showArrow={false}
@@ -82,6 +83,7 @@ class UpdateModal extends React.Component {
                   <Option key={d.id}>{d.title}</Option>
                 ))}
               </Select>
+              </div>
             )}
           </FormItem>
           <FormItem {...formItemLayout} label="显示状态">
