@@ -3,7 +3,6 @@ import { connect, routerRedux } from 'dva';
 import { Icon, message } from 'antd';
 import List from './components/List';
 import Filter from './components/Filter';
-import { httpSort } from '@/utils/normalService';
 
 const CustomAddress = ({
   customAddress,
@@ -23,7 +22,7 @@ const CustomAddress = ({
     }));
   };
 
-  const operatorOpts = {
+  /*const operatorOpts = {
     msg:"添加优惠券",
     onAdd() {
       dispatch({ type: 'customAddress/modifyState', payload: {addVisible: true}});
@@ -31,7 +30,7 @@ const CustomAddress = ({
     handlerOrderNo: () => {
       dispatch({ type: 'customAddress/initOrderNo', payload:{} }).then(()=>{handleRefresh()});
     }
-  };
+  };*/
 
   const listOpts = {
     dataSource: customAddress.datas,

@@ -1,58 +1,48 @@
 import React from 'react';
 import { Pagination, Table } from 'antd';
+import ListOperator from '@/components/ListOperator';
 
 const List = ({
+  onDelConfirm,
+  onUpdate,
   onPageChange,
   totalElement,
   dataSource,
   ...listOpts
 }) => {
 
-  /*const delOpts = {
+  const delOpts = {
     okText: '确定删除',
     cancelText: '取消',
     onDelConfirm: onDelConfirm,
     onUpdate: onUpdate,
-  };*/
+  };
 
   const columns = [{
-    title: "默认",
-    render:(record)=> {
-      return (
-        <p>{record.isDefault==='1'?"默认":"-"}</p>
-      )
-    }
-  }, {
-    title: "姓名",
-    // dataIndex: 'orderNo'
-    render:(record)=> {
+    title: '名称',
+    // dataIndex: 'name'
+    render: (record) => {
       return (
         <div>
-          <p>{record.name}</p>
-          <p>{record.nickname}</p>
+          <p>SN: <b className="blue">{record.ruleSn}</b></p>
+          <p>名称：{record.name}</p>
         </div>
       )
     }
   }, {
-    title: '地址',
-    // dataIndex: 'name'
+    title: '关联优惠券',
+    // dataIndex: 'proTitle'
     render: (record)=> {
       return (
-        <div>
-          <p>{record.phone}</p>
-          <p>{record.provinceName}{record.cityName}{record.countyName}{record.street}</p>
-        </div>
-      );
+        record.couponId?record.couponName:<span className='red'>未关联</span>
+      )
     }
   }, {
     title: '操作',
-    dataIndex: "id",
+    dataIndex: 'id',
     render: (text, record) => {
       return (
-        <p>
-        {/*<ListOperator id={record} delName={record.name} {...delOpts}/>*/}
-        -
-        </p>
+        <ListOperator id={record} delName={record.name} {...delOpts}/>
       );
     }
   }];
@@ -73,7 +63,7 @@ const List = ({
   };
 
   return (
-        <Table {...tableOpts} columns={columns} rowKey="id" pagination={false} footer={pager} />
+        <Table {...tableOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>
   );
 };
 
