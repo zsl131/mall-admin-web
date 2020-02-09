@@ -35,7 +35,7 @@ class UpdateModal extends React.Component {
       });
     };
 
-    const {fetching, keyword, proList} = this.state;
+    const {fetching, proList} = this.state;
 
     const fetchProduct = (e) => {
       if(!this.state.fetching) {
@@ -68,7 +68,6 @@ class UpdateModal extends React.Component {
                 <p>{item.proTitle}</p>
               <Select
                 showSearch
-                /*value={keyword}*/
                 placeholder="输入产品标题查找"
                 defaultActiveFirstOption={false}
                 showArrow={false}
