@@ -2,7 +2,7 @@ import React from "react";
 import { Icon } from 'antd';
 
 const IconFont = Icon.createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_1607054_ww9b6ea6hck.js',
+  scriptUrl: '//at.alicdn.com/t/font_1607054_4d4mdwvcpc.js',
 });
 export default class MyIcon extends React.Component {
   render() {

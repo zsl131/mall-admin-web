@@ -69,7 +69,7 @@ const List = ({
     dataIndex: "id",
     render: (text, record) => {
       return (
-        <ListOperator id={record} delName={record.content} {...delOpts}/>
+        <ListOperator id={record} delName={record.title} {...delOpts}/>
       );
     }
   }];
