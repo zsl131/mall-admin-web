@@ -105,7 +105,7 @@ class ListSpecs extends React.Component {
       if(curEk!==-1) {
         message.warn("请先保存或取消编辑中的数据。");
       } else {
-        const newData = {name: "", orderNo: 0, remark:'', oriPrice: 0, price:0, id:0};
+        const newData = {name: "", orderNo: 0, remark:'', oriPrice: 0, price:0, id:0, amount: 0};
         let dataSource = specsList || [];
 
         //console.log(dataSource);
@@ -145,6 +145,10 @@ class ListSpecs extends React.Component {
       editable: true,
       title: "售价",
       dataIndex: "price"
+    }, {
+      editable: true,
+      title: "库存",
+      dataIndex: "amount"
     }, {
       title: '操作',
       render: (text, record) => {
@@ -196,7 +200,7 @@ class ListSpecs extends React.Component {
     });
 
     const dataType = (type)=> {
-      if (type==="price" || type==="oriPrice" || type==="orderNo") {
+      if (type==="price" || type==="oriPrice" || type==="orderNo" || type==="amount") {
         return 'number';
       } else {
         return 'text';
@@ -204,7 +208,7 @@ class ListSpecs extends React.Component {
     };
 
     return(
-      <Modal {...modalOpts} style={{"minWidth":"80%", "top":"20px"}}>
+      <Modal {...modalOpts} style={{"minWidth":"90%", "top":"20px"}}>
         <EditableContext.Provider value={this.props.form}>
         <Table {...listOpts} columns={usedColumn} rowKey="id" pagination={false} />
         </EditableContext.Provider>
