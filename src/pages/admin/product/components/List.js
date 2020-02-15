@@ -75,7 +75,7 @@ const List = ({
       return (
         <div>
           <p>
-            <Tooltip title="阅读次数"><Tag color="orange"><IconText type="eye" text={record.readCount}/></Tag></Tooltip>
+            <Tooltip title="浏览次数"><Tag color="orange"><IconText type="eye" text={record.readCount}/></Tag></Tooltip>
             <Tooltip title="评论次数"><Tag color="blue"><IconText type="message" text={record.replyCount}/></Tag></Tooltip>
             <Tooltip title="库存数"><Tag color="gold"><IconText type="container" text={record.surplusCount}/></Tag></Tooltip>
           </p>

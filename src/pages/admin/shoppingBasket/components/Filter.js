@@ -20,16 +20,16 @@ const Filter = ({
   return (
     <Form layout="inline" onSubmit={handleSubmit}>
       <FormItem>
-        {getFieldDecorator("title_like")(<Input placeholder="产品名称"/>)}
+        {getFieldDecorator("nickname_like")(<Input placeholder="昵称"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("cateName_like")(<Input placeholder="分类名称"/>)}
+        {getFieldDecorator("proTitle_like")(<Input placeholder="产品标题"/>)}
       </FormItem>
       <FormItem>
         <Button type="dashed" htmlType="submit">筛选</Button>
       </FormItem>
     </Form>
   );
-}
+};
 
 export default Form.create()(Filter);

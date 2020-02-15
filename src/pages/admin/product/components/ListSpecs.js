@@ -151,6 +151,7 @@ class ListSpecs extends React.Component {
       dataIndex: "amount"
     }, {
       title: '操作',
+      dataIndex: 'id',
       render: (text, record) => {
         const { editingKey } = this.state;
         const editable = isEditing(record);
