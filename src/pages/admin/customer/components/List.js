@@ -40,12 +40,24 @@ const List = ({
       )
     }
   }, {
+    title: "代理",
+    render:(record)=> {
+      const agentId = record.agentId;
+      return (
+        agentId&&agentId>0?
+        <div>
+          <p>{record.name}</p>
+          <p>{record.phone}</p>
+        </div>:<span>未关联</span>
+      )
+    }
+  }, {
     title: 'id',
     render: (record)=> {
       return (
         <div>
-          <p>openid:{record.openid}</p>
-          <p>unionid:{record.unionid}</p>
+          <p>oid:{record.openid}</p>
+          <p>uid:{record.unionid}</p>
         </div>
       )
     }

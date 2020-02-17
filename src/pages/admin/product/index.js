@@ -9,6 +9,7 @@ import Operator from './components/Operator';
 import List from './components/List';
 import Filter from './components/Filter';
 import PictureModal from '@/pages/admin/product/components/PictureModal';
+import PreModal from '@/pages/admin/product/components/PreModal';
 
 const Product = ({
   product,
@@ -74,8 +75,13 @@ const Product = ({
       dispatch({ type: 'product/onPic', payload: obj});
     },
     modifySaleMode: (obj)=> {
-      // console.log(obj);
-      dispatch({type: 'product/modifySaleMode', payload:obj}).then(() => {handleRefresh()});
+      //console.log(obj);
+      const mode = obj.mode;
+      if(obj.mode==='2') {
+        dispatch({type: 'product/onPresale', payload:obj.obj}).then(() => {handleRefresh()});
+      } else {
+        dispatch({type: 'product/modifySaleMode', payload:{id: obj.obj.id, mode: mode}}).then(() => {handleRefresh()});
+      }
     }
   };
 
@@ -130,6 +136,21 @@ const Product = ({
     }
   };
 
+  const preOpts = {
+    visible: product.preVisible,
+    item: product.item,
+    title: `预售设置[${product.item.title}]`,
+    maskClosable: false,
+    preProduct: product.preProduct,
+    onOk: (obj) => {
+      console.log(obj)
+      dispatch({ type: 'product/savePresale', payload: obj }).then(() => {handleRefresh()});
+    },
+    onCancel: () => {
+      dispatch({ type: 'product/modifyState', payload: { preVisible: false } });
+    }
+  };
+
   return(
     <div>
       <div className="listHeader">
@@ -145,6 +166,7 @@ const Product = ({
       {product.addVisible && <AddModal {...addOpts}/>}
       {product.updateVisible && <UpdateModal {...updateOpts}/>}
       {product.picVisible && <PictureModal {...picOpts}/>}
+      {product.preVisible&&<PreModal {...preOpts}/>}
     </div>
   );
 }

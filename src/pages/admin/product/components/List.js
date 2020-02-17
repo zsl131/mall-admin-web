@@ -50,7 +50,7 @@ const List = ({
         <div>
           <p>
             <Tooltip title={record.saleMode==='1'?"当季销售":(record.saleMode==='2'?"预售":"其他")}>
-              <Popconfirm title={`设置销售模式为【${record.saleMode==='1'?"预售":"当季"}】`} onConfirm={()=>modifySaleMode({id:record.id, mode:record.saleMode==='1'?"2":"1"})}>
+              <Popconfirm title={`设置销售模式为【${record.saleMode==='1'?"预售":"当季"}】`} onConfirm={()=>modifySaleMode({obj:record, mode:record.saleMode==='1'?"2":"1"})}>
                 <Button type={record.saleMode==='1'?"primary":"danger"} shape="circle">{record.saleMode==='1'?"季":(record.saleMode==='2'?"预":"他")}</Button>
               </Popconfirm>
             </Tooltip>
