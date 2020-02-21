@@ -105,16 +105,8 @@ export default {
       const data = yield call(httpGet, obj);
       if(data) {message.success(data.message);}
     },
-    *onPresale({payload: obj}, {call,put}) {
-      const query = {
-        apiCode: baseService+".onPresale",
-        id: obj.id
-      };
-      const data = yield call(httpGet, query);
-     // console.log(data, obj);
-      if(data) {
-        yield put({type: "modifyState", payload: {item: obj, preVisible: true, preProduct: data.obj}});
-      }
+    *onPresale({payload: obj}, {put}) {
+      yield put({type: "modifyState", payload: {item: obj, preVisible: true}});
     },
     *savePresale({payload: obj}, {call, put}) {
       obj.apiCode = baseService+".savePresale";

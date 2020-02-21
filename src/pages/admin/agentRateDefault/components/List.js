@@ -26,7 +26,11 @@ const List = ({
     title: '默认提成标准',
     dataIndex: 'amount'
   }, {
+    title: '上级提成标准',
+    dataIndex: 'leaderAmount'
+  }, {
     title: '操作',
+    dataIndex: 'id',
     render: (text, record) => {
       return (
         <ListOperator id={record} delName={record.name} {...delOpts}/>
@@ -45,7 +49,7 @@ const List = ({
   };
 
   return (
-    <Table {...listOpts} columns={columns} rowKey="taskName" pagination={false} footer={pager}/>
+    <Table {...listOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>
   );
 };
 

@@ -17,6 +17,7 @@ class UpdateModal extends React.Component {
 
     const { getFieldDecorator, validateFieldsAndScroll} = this.props.form;
 
+    const item = this.props.item;
     const handleOk = (e) => {
       e.preventDefault();
       validateFieldsAndScroll((errors, values) => {
@@ -30,8 +31,14 @@ class UpdateModal extends React.Component {
       <Modal {...this.props} onOk={handleOk}>
         <Form layout="horizontal">
           {getFieldDecorator("id")(<Input type="hidden"/>)}
+          <FormItem {...formItemLayout} label="代理级别名称">
+            <b className="red">{item.levelName}</b>
+          </FormItem>
           <FormItem {...formItemLayout} label="默认提成标准">
             {getFieldDecorator('amount', {rules: [{required: true, message: '默认提成标准不能为空'}]})(<InputNumber placeholder="提成标准"/>)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="上级提成标准">
+            {getFieldDecorator('leaderAmount', {rules: [{required: true, message: '上级提成标准不能为空'}]})(<InputNumber placeholder="提成标准"/>)}
           </FormItem>
         </Form>
       </Modal>

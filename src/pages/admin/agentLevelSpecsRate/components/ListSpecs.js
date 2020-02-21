@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Icon, InputNumber, message, Row } from 'antd';
+import { Button, Col, Icon, InputNumber, Row, Tooltip } from 'antd';
 import styles from './specs.css';
 
 class ListSpecs extends React.Component {
@@ -12,7 +12,9 @@ class ListSpecs extends React.Component {
     item:{},
     product:{},
     specs:{},
-    level:{}
+    level:{},
+    thisRate: '', //本级提成
+    leaderRate: '', //上级提成
   };
 
   render() {
@@ -59,8 +61,16 @@ class ListSpecs extends React.Component {
                       return (
                         <Col key={"level_"+level.id} span={span} className={styles.specsCol}>
                           <span className={styles.singleField}>
-                            {curRate===singleKey && <span><InputNumber defaultValue={rateVal} onBlur={(e)=>onChangeAmount(e)} placeholder="提成标准"/></span>}
-                            {curRate!==singleKey && <span><b className={rateVal?styles.rateAmount:styles.noRateAmount}>{rateVal?rateVal:"未设置"}</b><Icon onClick={()=>onModify(product, specs, level)} type="edit"/></span>}
+                            {curRate===singleKey && <div>
+                              <Tooltip title="当级提成标准"><InputNumber defaultValue={rateVal.thisRate} onBlur={(e)=>onChangeAmount(e, 'thisRate')} placeholder="提成标准"/></Tooltip>
+                              <Tooltip title="上级提成标准"><InputNumber defaultValue={rateVal.leaderRate} onBlur={(e)=>onChangeAmount(e, 'leaderRate')} placeholder="提成标准"/></Tooltip>
+                              <p><Button type="primary" shape="circle" onClick={()=>saveChangeAmount()} icon="check"/></p>
+                            </div>}
+                            {curRate!==singleKey && <div>
+                              <Tooltip title="当级提成标准"><b className={rateVal.thisRate?styles.rateAmount:styles.noRateAmount}>{rateVal.thisRate?rateVal.thisRate:"当级未设"}</b></Tooltip>
+                              <Tooltip title="上级提成标准"><b className={rateVal.leaderRate?styles.rateAmount:styles.noRateAmount}>{rateVal.leaderRate?rateVal.leaderRate:"上级未设"}</b></Tooltip>
+                              <Icon onClick={()=>onModify(product, specs, level, rateVal)} type="edit"/>
+                            </div>}
                           </span>
                         </Col>
                       )
@@ -76,16 +86,18 @@ class ListSpecs extends React.Component {
     };
 
     const getRate = (specsId, levelId) => {
-      let val = "";
+      let val = {};
       rateList.map((item)=> {
-        if(item.specsId===specsId && item.levelId===levelId) {val = item.amount;}
+        if(item.specsId===specsId && item.levelId===levelId) {val = {thisRate: item.amount, leaderRate: item.leaderAmount};}
         return item;
       });
       return val;
     };
 
-    const onChangeAmount = (e) => {
+    const onChangeAmount = (e, key) => {
+      console.log(key)
       const amount = parseFloat(e.target.defaultValue);
+      /*
       //console.log(amount);
       if(isNaN(amount) || amount<=0) {message.warn("请输入提成金额"); return;}
       const {product, specs, level} = this.state;
@@ -93,12 +105,29 @@ class ListSpecs extends React.Component {
 
       // console.log(obj)
       addOrUpdate(obj);
-      onModify({}, {}, {}); //清空
+      onModify({}, {}, {}); //清空*/
+      if("thisRate"===key) {
+        this.setState({thisRate: amount});
+      } else {
+        this.setState({leaderRate: amount});
+      }
     };
 
-    const onModify = (product, specs, level) => {
+    const saveChangeAmount = () => {
+      const {product, specs, level, thisRate, leaderRate} = this.state;
+      const obj = {amount: thisRate, leaderAmount: leaderRate, proId: product.id, proTitle: product.title, specsId: specs.id, specsName: specs.name, levelId: level.id, levelName: level.name};
+
+      // console.log(obj);
+      addOrUpdate(obj);
+      onModify({}, {}, {});
+    };
+
+    const onModify = (product, specs, level, rateVal) => {
       // console.log(product)
       this.setState({product:product, specs: specs, level: level, curRate: specs.id+"_"+level.id});
+      if(rateVal) {
+        this.setState({thisRate: rateVal.thisRate, leaderRate: rateVal.leaderRate})
+      }
     };
 
     return(

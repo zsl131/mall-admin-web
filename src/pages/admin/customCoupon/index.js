@@ -47,6 +47,7 @@ const CustomCoupon = ({
 
   const filterOpts = {
     onFilter(values) {
+      delete query.page; //去除page属性
       handleRefresh({conditions: JSON.stringify(values)});
     }
   };
