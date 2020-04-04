@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination, Table } from 'antd';
+import { Button, Pagination, Table, Tooltip } from 'antd';
 import styles from '@/pages/admin/carousel/components/list.css';
 
 const List = ({
@@ -9,6 +9,7 @@ const List = ({
   startTask,
   onPageChange,
   totalElement,
+  onRelationImage,
   ...listOpts
 }) => {
 
@@ -77,7 +78,7 @@ const List = ({
       return (
         <div>
         {/*<ListOperator id={record} delName={record.name} {...delOpts}/>*/}
-        -
+        <Tooltip title="设置影像墙权限"><Button type="primary" shape="circle" icon="picture" onClick={()=>onRelationImage(record)}/></Tooltip>
         </div>
       );
     }

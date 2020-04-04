@@ -7,6 +7,7 @@ import AddModal from './components/AddModal';
 import UpdateModal from './components/UpdateModal';
 import List from './components/List';
 import Filter from './components/Filter';
+import RelationModal from '@/pages/admin/customer/components/RelationModal';
 
 const Customer = ({
   customer,
@@ -46,6 +47,9 @@ const Customer = ({
     onUpdate: (record) => {
         dispatch({ type: 'customer/modifyState', payload: {item: record, updateVisible: true} });
     },
+    onRelationImage: (record)=> {
+      dispatch({ type: 'customer/onImageRelation', payload: {item: record, relationVisible: true} });
+    }
   };
 
   const addOpts = {
@@ -83,6 +87,24 @@ const Customer = ({
     }
   };
 
+  const relationOpts = {
+    visible: customer.relationVisible,
+    title: `设置【${customer.item.nickname}】影像墙权限`,
+    item: customer.item,
+    type: customer.type,
+    maskClosable: false,
+    confirmLoading: loading.effects['customer/setRelationType'],
+    onOk: (obj) => {
+      dispatch({ type: 'customer/modifyState', payload: { relationVisible: false } });
+    },
+    onCancel() {
+      dispatch({ type: 'customer/modifyState', payload: { relationVisible: false } });
+    },
+    setRelation: (obj) => {
+      dispatch({ type: 'customer/setRelation', payload: obj });
+    }
+  };
+
   return(
     <div>
       <div className="listHeader">
@@ -97,6 +119,7 @@ const Customer = ({
       </div>
       {customer.addVisible && <AddModal {...addOpts}/>}
       {customer.updateVisible && <UpdateModal {...updateOpts}/>}
+      {customer.relationVisible && <RelationModal {...relationOpts}/>}
     </div>
   );
 }

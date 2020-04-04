@@ -42,7 +42,7 @@ class UpdateModal extends React.Component {
         this.setState({fetching: true, proList: []});
         let api = {apiCode: "productService.searchByTitle", title: e};
         httpGet(api).then((res)=> {
-          console.log(res);
+          //console.log(res);
           this.setState({fetching: false, proList: res.proList});
         })
       }

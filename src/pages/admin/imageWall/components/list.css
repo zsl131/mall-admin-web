@@ -1,0 +1,13 @@
+.status1 {
+  color:#0000ff;
+}
+.status0 {
+  color:#F00;
+}
+.avatarImg {
+  width:120px;
+}
+
+.singleDiv {
+  width: 300px; display: inline-block; margin: 8px; padding:5px; border:1px #ddd solid; border-radius: 5px; background:#F6f6f6;
+}

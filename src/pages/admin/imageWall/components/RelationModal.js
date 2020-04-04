@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Icon, Input, Modal, Select, Spin, Switch } from 'antd';
+import { Form, Input, message, Modal, Select, Spin } from 'antd';
 import { formItemLayout } from '@/utils/common';
 import { httpGet } from '@/utils/normalService';
 
@@ -7,7 +7,7 @@ const FormItem = Form.Item;
 const {Option} = Select;
 
 @Form.create()
-class AddModal extends React.Component {
+class RelationModal extends React.Component {
 
   state = {
     fetching: false,
@@ -16,30 +16,20 @@ class AddModal extends React.Component {
   };
 
   render() {
-    const {
-      onOk,
-      form: {
-        getFieldDecorator,
-        validateFieldsAndScroll,
-        setFieldsValue
-      },
-      ...modalProps
-    } = this.props;
+
+    const {item, form} = this.props;
+
+    const { getFieldDecorator, validateFieldsAndScroll,setFieldsValue} = form;
 
     const handleOk = (e) => {
       e.preventDefault();
-
       validateFieldsAndScroll((errors, values) => {
-        values.status = values.status?"1":"0";
-        if(!errors) {
-          onOk(values);
+        if(values.id && !errors) {
+         this.props.onOk(values);
+        } else {
+          message.error("请输入产品名称查找对应的产品关联后再点“确定”");
         }
       });
-    };
-
-    const modalOpts = {
-      ...modalProps,
-      onOk: handleOk
     };
 
     const {fetching, keyword, proList} = this.state;
@@ -58,18 +48,20 @@ class AddModal extends React.Component {
 
     const handleProductChange = (e) => {
       //console.log(e);
-      setFieldsValue({proId: e.key, proTitle: e.label});
+      setFieldsValue({id: item.id, proId: e.key, proTitle: e.label});
     };
 
     return(
-      <Modal {...modalOpts} >
+      <Modal {...this.props} onOk={handleOk}>
         <Form layout="horizontal">
+          {getFieldDecorator("id")(<Input type="hidden"/>)}
           {getFieldDecorator('proId')(<Input type="hidden" placeholder="输入标签名称"/>)}
           {getFieldDecorator('proTitle')(<Input type="hidden" placeholder="输入标签名称"/>)}
-          <FormItem {...formItemLayout} label="产品标签">
-            {getFieldDecorator('name', {rules: [{required: true, message: '标签名称不能为空'}]})(<Input placeholder="输入标签名称"/>)}
-          </FormItem>
           <FormItem {...formItemLayout} label="关联产品">
+            {item.relationFlag==='1'?item.relationProTitle:<b className="red">未关联</b>}
+          </FormItem>
+          <FormItem {...formItemLayout} label="修改关联产品">
+
             {getFieldDecorator("pro")(
               <Select
                 showSearch
@@ -90,14 +82,10 @@ class AddModal extends React.Component {
               </Select>
             )}
           </FormItem>
-          <FormItem {...formItemLayout} label="显示状态">
-            {getFieldDecorator("status")(<Switch checkedChildren={<Icon type="check"/>} unCheckedChildren={<Icon type="close" />}/>)}
-          </FormItem>
         </Form>
       </Modal>
     );
   }
 }
 
-export default AddModal;
-
+export default RelationModal;
