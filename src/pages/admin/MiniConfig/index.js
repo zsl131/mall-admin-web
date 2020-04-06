@@ -54,6 +54,12 @@ class MiniConfig extends React.Component {
               <FormItem {...formItemLayout} label="APPID">
                 {getFieldDecorator('appid', {rules: [{required: true, message: 'appid不能为空'}]})(<Input placeholder="输入appid"/>)}
               </FormItem>
+              <FormItem {...formItemLayout} label="商户ID">
+                {getFieldDecorator('mchid', {rules: [{required: true, message: '商户ID不能为空'}]})(<Input placeholder="输入商户ID，商户"/>)}
+              </FormItem>
+              <FormItem {...formItemLayout} label="API密钥">
+                {getFieldDecorator('apiKey', {rules: [{required: true, message: 'API密钥不能为空'}]})(<Input placeholder="输入API密钥，商户"/>)}
+              </FormItem>
               <FormItem {...formItemLayout} label="AppSecret">
                 {getFieldDecorator('appSecret', {rules: [{required: true, message: 'AppSecret不能为空'}]})(<Input placeholder="输入AppSecret"/>)}
               </FormItem>

@@ -7,9 +7,9 @@ import AddModal from './components/AddModal';
 import UpdateModal from './components/UpdateModal';
 import List from './components/List';
 import Filter from './components/Filter';
-import ListPaper from '@/pages/admin/agent/components/ListPaper';
-import VerifyModal from '@/pages/admin/agent/components/VerifyModal';
-import PassVerifyModal from '@/pages/admin/agent/components/PassVerifyModal';
+import ListPaper from './components/ListPaper';
+import VerifyModal from './components/VerifyModal';
+import PassVerifyModal from './components/PassVerifyModal';
 
 const Agent = ({
   agent,

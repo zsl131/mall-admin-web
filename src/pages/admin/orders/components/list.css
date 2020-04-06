@@ -1,0 +1,86 @@
+.singleDiv {
+  width:100%; border:1px #aed8ff solid; border-radius:5px; margin-bottom: 15px;
+}
+.titleDiv {
+  height: 40px; line-height: 40px; border-bottom: 1px #aed8ff solid; background:#eaf8ff; border-radius: 5px 5px 0px 0px; padding:0px 12px;
+  display: flex;
+}
+.titleDiv div {
+  flex:1;
+}
+.customer {
+  text-align: center;
+}
+.customer img {
+  width:25px; height:25px; border-radius: 25px; margin-right:5px;
+}
+.agentInfo {
+  text-align: right;
+}
+
+.ordersNo {
+  padding-left: 8px;
+}
+
+
+.productList {
+  width:100%;
+}
+
+.productList .singleProduct {
+  border-bottom: 1px #aed8ff solid; padding: 10px 0px 10px 15px; display: flex;
+}
+.singleProduct .proImg {
+  width: 60px;
+}
+.singleProduct .proImg img {width:60px;}
+
+.singleProduct .proContent {
+  flex: 1; padding-left:12px;
+}
+.singleProduct .proContent p {
+  margin:0px; color:#000;
+}
+.singleProduct .proContent p.specsName {
+  color:#aaa;
+}
+.singleProduct .proInfo {
+  flex: 1;
+}
+.singleProduct .proInfo p {
+  margin:0px;
+}
+.singleProduct .proInfo p.oriPrice {
+  text-decoration: line-through; color:#aaa;
+}
+.singleProduct .proInfo p.price  {
+  color:#000;
+}
+.singleProduct .amount {
+  padding-right: 15px;
+}
+.singleProduct .amount b {
+}
+
+
+.dateDiv {
+  width:100%; padding: 12px; border-bottom:1px #aed8ff solid;
+}
+
+.dateDiv span {
+  margin-right: 15px;
+}
+
+.customerDiv {
+  width:100%; padding:12px; border-bottom: 1px #aed8ff solid;
+}
+
+.moneyDiv {
+  width: 100%; padding:12px; text-align: right;
+}
+.moneyDiv span {
+  padding-left: 15px;
+}
+.moneyDiv span b {
+  font-size:16px;
+}
