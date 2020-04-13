@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Button, Icon } from 'antd';
+import { Button, Icon, message } from 'antd';
 import { routerRedux } from 'dva/router';
 
 import AddModal from './components/AddModal';
@@ -82,6 +82,12 @@ const Product = ({
       } else {
         dispatch({type: 'product/modifySaleMode', payload:{id: obj.obj.id, mode: mode}}).then(() => {handleRefresh()});
       }
+    },
+    showVideo:()=> {
+      message.warn("此功能暂未开通")
+    },
+    modifyRecommend:(obj)=> {
+      dispatch({type: 'product/modifyRecommend', payload:obj}).then(() => {handleRefresh()});
     }
   };
 

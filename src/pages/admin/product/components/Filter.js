@@ -36,6 +36,15 @@ const Filter = ({
         )}
       </FormItem>
       <FormItem>
+        {getFieldDecorator("isRecommend")(
+          <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="是否推荐">
+            <Option value="">==全部==</Option>
+            <Option value="0">不推荐</Option>
+            <Option value="1">推荐</Option>
+          </Select>
+        )}
+      </FormItem>
+      <FormItem>
         <Button type="dashed" htmlType="submit">筛选</Button>
       </FormItem>
     </Form>

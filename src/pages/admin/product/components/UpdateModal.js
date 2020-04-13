@@ -128,7 +128,7 @@ class UpdateModal extends React.Component {
           </Row>
           <Row>
             <Col span={14}>
-              <Tooltip title="请输入正整数">
+              <Tooltip title="请输入量词">
                 <FormItem {...formItemLayout} label="量词">
                   {getFieldDecorator('units')(<Input placeholder="量词，如：件"/>)}
                 </FormItem>
@@ -136,8 +136,8 @@ class UpdateModal extends React.Component {
             </Col>
             <Col span={10}>
               <Tooltip title="请输入正整数">
-                <FormItem {...formItemLayout} label="库存">
-                  {getFieldDecorator('surplusCount')(<InputNumber placeholder="库存"/>)}
+                <FormItem {...formItemLayout} label="序号">
+                  {getFieldDecorator('orderNo')(<InputNumber placeholder="序号"/>)}
                 </FormItem>
               </Tooltip>
             </Col>

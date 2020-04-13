@@ -60,6 +60,9 @@ class MiniConfig extends React.Component {
               <FormItem {...formItemLayout} label="API密钥">
                 {getFieldDecorator('apiKey', {rules: [{required: true, message: 'API密钥不能为空'}]})(<Input placeholder="输入API密钥，商户"/>)}
               </FormItem>
+              <FormItem {...formItemLayout} label="支付通知地址">
+                {getFieldDecorator('payNotifyUrl', {rules: [{required: true, message: '支付结果通知地址不能为空'}]})(<Input placeholder="支付结果通知地址，商户"/>)}
+              </FormItem>
               <FormItem {...formItemLayout} label="AppSecret">
                 {getFieldDecorator('appSecret', {rules: [{required: true, message: 'AppSecret不能为空'}]})(<Input placeholder="输入AppSecret"/>)}
               </FormItem>

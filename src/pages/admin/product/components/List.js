@@ -20,6 +20,7 @@ const List = ({
   showVideo,
   showPic,
   modifySaleMode,
+  modifyRecommend,
   ...listOpts
 }) => {
 
@@ -91,13 +92,20 @@ const List = ({
     title: "状态",
     render: (record) => {
       const status = record.status;
+      const isRecommend = record.isRecommend;
       return (
         <div>
           <p>
-            <Tooltip title="点击修改状态">
+            <Tooltip title="点击修改上架状态">
             <Popconfirm title={`确定修改状态为【${status==="0"?"上架":"下架"}】吗？`} onConfirm={() => modifyStatus({id: record.id, status: status==="1"?"0":"1"})}>
-              <Button type={status==="0"?"danger":"primary"} icon={status==="0"?"eye-invisible":"eye"}>{status==="1"?"上架":"下架"}</Button>
+              <Button type={status==="0"?"danger":"primary"} shape="circle" icon={status==="0"?"eye-invisible":"eye"}/>
             </Popconfirm>
+            </Tooltip>
+            &nbsp;&nbsp;
+            <Tooltip title="点击设置是否推荐">
+              <Popconfirm title={`确定修改为【${isRecommend==="0"?"推荐":"不推荐"}】吗？`} onConfirm={() => modifyRecommend({id: record.id, flag: isRecommend==="1"?"0":"1"})}>
+                <Button type={isRecommend==="0"?"danger":"primary"} shape="circle" icon={isRecommend==="0"?"frown":"smile"}/>
+              </Popconfirm>
             </Tooltip>
           </p>
           <p><Tooltip title="规格数，点击查看"><Button onClick={()=>onShowSpecs(record)}>规格：{record.specsCount}</Button></Tooltip></p>

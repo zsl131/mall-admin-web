@@ -1,10 +1,9 @@
 import React from 'react';
-import { Pagination, Tooltip } from 'antd';
+import { Button, Pagination, Tooltip } from 'antd';
 import styles from './list.css';
 
 const List = ({
-  onDelConfirm,
-  onUpdate,
+  onExpress,
   onPageChange,
   totalElement,
   dataSource,
@@ -41,8 +40,11 @@ const List = ({
       </div>
 
       <div className={styles.dateDiv}>
+        <div>
         <span>下单时间：{orders.createTime}</span>
         <span>付款时间：{orders.payTime?orders.payTime:<b className="red">未付款</b>}</span>
+        </div>
+        {orders.remark?<div className={styles.ordersRemark}>买家备注：{orders.remark}</div>:""}
       </div>
 
       <div className={styles.customerDiv}>
@@ -50,9 +52,16 @@ const List = ({
       </div>
 
       <div className={styles.moneyDiv}>
-        <span>订单总额：<b>￥ {orders.totalMoney}</b></span>
-        <span>公益基金：<b>￥ {orders.fundMoney?orders.fundMoney:0}</b></span>
-        <span>优惠金额：<b>￥ {orders.discountMoney?orders.discountMoney:0}</b></span>
+        <div className={styles.ordersOptsDiv}>
+          {orders.status==='1' && <Button type="primary" onClick={()=>onExpress(orders)}>发货</Button>}
+          {orders.status==='2' && <span>已发货</span>}
+          {orders.status==='3' && <span>已完成</span>}
+        </div>
+        <div className={styles.moneyDivCon}>
+          <span>订单总额：<b>￥ {orders.totalMoney}</b></span>
+          <span>公益基金：<b>￥ {orders.fundMoney?orders.fundMoney:0}</b></span>
+          <span>优惠金额：<b>￥ {orders.discountMoney?orders.discountMoney:0}</b></span>
+        </div>
       </div>
     </div>
   };
@@ -69,10 +78,11 @@ const List = ({
           <p className={styles.price}>￥ {item.price}</p>
         </div>
         <div className={styles.amount}><p>数量：<b>{item.amount}</b></p>
-          <p>{item.saleMode==='1'?<b className="blue">现发</b>:<Tooltip title="预售订单"><b className="red">预计发货：{item.deliveryDate}</b></Tooltip>}</p>
+          <p>{item.saleMode==='1'?<Tooltip title="现发产品"><span className="blue">现发</span></Tooltip>:
+            <Tooltip title="预售产品"><span className="red">预计发货：{item.deliveryDate}</span></Tooltip>}</p>
         </div>
         <div className={styles.proOperator}>
-          操作
+          -
         </div>
       </div>
     )

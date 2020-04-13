@@ -95,6 +95,15 @@ export default {
         message.error(data.message);
       }
     },
+    *modifyRecommend({payload: obj}, {call}) {
+      obj.apiCode = baseService+".modifyRecommend";
+      const data = yield call(httpGet, obj);
+      if(data) {
+        message.success(data.message);
+      } else {
+        message.error(data.message);
+      }
+    },
     *onPic({payload:obj},{call,put}) {
       const apiCode = mediumService+".listByObj";
       const data = yield call(httpGet, {id: obj.id, objType: "Product", apiCode: apiCode});

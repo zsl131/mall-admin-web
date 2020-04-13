@@ -154,9 +154,26 @@ class AddModal extends React.Component {
           </Row>
           <Row>
             <Col span={14}>
-              <Tooltip title="请输入正整数">
+              <Tooltip title="量词">
                 <FormItem {...formItemLayout} label="量词">
                   {getFieldDecorator('units')(<Input placeholder="量词，如：件"/>)}
+                </FormItem>
+              </Tooltip>
+            </Col>
+            <Col span={10}>
+              <Tooltip title="请输入正整数">
+                <FormItem {...formItemLayout} label="序号">
+                  {getFieldDecorator('orderNo')(<InputNumber placeholder="序号"/>)}
+                </FormItem>
+              </Tooltip>
+            </Col>
+          </Row>
+
+          {/*<Row>
+            <Col span={14}>
+              <Tooltip title="请输入正整数">
+                <FormItem {...formItemLayout} label="库存">
+                  {getFieldDecorator('surplusCount')(<InputNumber placeholder="库存"/>)}
                 </FormItem>
               </Tooltip>
             </Col>
@@ -167,7 +184,7 @@ class AddModal extends React.Component {
                 </FormItem>
               </Tooltip>
             </Col>
-          </Row>
+          </Row>*/}
 
           <FormItem {...formItemLayout_large} label="产品内容">
             {getFieldDecorator("content", {rules: [{required: true, message: '产品内容不能为空'}]})(<MyEditor placeholder="产品内容" onChangeContent={handleChangeContent}/>)}

@@ -114,6 +114,7 @@ class AddModal extends React.Component {
             {getFieldDecorator('url', {rules: [{required: true, message: '请上传轮播图'}]})(
               <PictureWall onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="轮播图片" data={dataConfig()} onFileChange={onFileChange}/>
             )}
+            <span className="dark">尺寸建议：750x400px</span>
           </FormItem>
           <FormItem {...formItemLayout_large} label="打开方式">
             {getFieldDecorator("openMode", {rules: [{required: true, message: '打开方式不能为空'}]})(

@@ -76,11 +76,27 @@
 }
 
 .moneyDiv {
-  width: 100%; padding:12px; text-align: right;
+  width: 100%; padding:12px; text-align: right; display: flex;
 }
-.moneyDiv span {
+.moneyDiv .moneyDivCon {
+  text-align: right; flex: 1;
+}
+.moneyDiv .moneyDivCon span {
   padding-left: 15px;
 }
-.moneyDiv span b {
+.moneyDiv .moneyDivCon span b {
   font-size:16px;
+}
+
+.moneyDiv .ordersOptsDiv {
+  text-align: left; flex: 1;
+}
+
+.ordersRemark {
+  padding-top: 6px; color:#F00;
+}
+
+
+.proOperator {
+   padding: 5px 10px;
 }
