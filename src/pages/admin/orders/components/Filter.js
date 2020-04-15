@@ -42,7 +42,8 @@ const Filter = ({
             <Option value="0">未付款</Option>
             <Option value="1">付款未发货</Option>
             <Option value="2">付款已发货</Option>
-            <Option value="3">订单完成</Option>
+            <Option value="3">收货未评价</Option>
+            <Option value="4">订单完成</Option>
           </Select>
         )}
       </FormItem>

@@ -41,7 +41,7 @@ export default {
       const data = yield call(httpGet, query);
       if(data) {message.success(data.message);}
     },
-    *onSynch({payload: {}}, {call}) {
+    *onSynch({payload: obj}, {call}) {
       const query = {apiCode: baseService+".synch"};
       // const data = yield call(objService.synch, {});
       const data = yield call(httpGet, query);

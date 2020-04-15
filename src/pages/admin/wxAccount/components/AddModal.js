@@ -1,18 +1,11 @@
 import React from 'react';
-import { Form, Input, Modal } from 'antd';
+import { Form, Input, InputNumber, Modal } from 'antd';
 import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
-const {TextArea} = Input;
 
 @Form.create()
 class AddModal extends React.Component {
-
-  state = {
-    fetching: false,
-    keyword: '',
-    proList: []
-  };
 
   render() {
     const {
@@ -28,6 +21,7 @@ class AddModal extends React.Component {
       e.preventDefault();
 
       validateFieldsAndScroll((errors, values) => {
+
         if(!errors) {
           onOk(values);
         }
@@ -39,17 +33,14 @@ class AddModal extends React.Component {
       onOk: handleOk
     };
 
-
-
     return(
       <Modal {...modalOpts} >
         <Form layout="horizontal">
-          <FormItem {...formItemLayout} label="物流公司名称">
-            {getFieldDecorator('name', {rules: [{required: true, message: '物流公司名称不能为空'}]})(<Input placeholder="输入物流公司名称"/>)}
+          <FormItem {...formItemLayout} label="等级名称">
+            {getFieldDecorator('name', {rules: [{required: true, message: '等级名称不能为空'}]})(<Input placeholder="输入等级名称"/>)}
           </FormItem>
-
-          <FormItem {...formItemLayout} label="备注">
-            {getFieldDecorator('remark')(<TextArea rows={5} placeholder="输入备注信息">&nbsp;</TextArea>)}
+          <FormItem {...formItemLayout} label="等级级别">
+            {getFieldDecorator('level', {rules: [{required: true, message: '等级级别不能为空'}]})(<InputNumber placeholder="级别"/>)}
           </FormItem>
         </Form>
       </Modal>

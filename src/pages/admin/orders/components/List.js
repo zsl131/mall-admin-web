@@ -24,7 +24,7 @@ const List = ({
         </div>
         <div className={styles.customer}>
           <Tooltip title="消费者信息">
-          <img src={orders.headImgUrl}/>
+          <img src={orders.headImgUrl} alt={orders.nickname}/>
           <span>{orders.nickname}</span>
           </Tooltip>
         </div>
@@ -69,7 +69,7 @@ const List = ({
   const SingleProduct = (item)=> {
     return (
       <div className={styles.singleProduct}>
-        <div className={styles.proImg}><img src={item.proImg}/></div>
+        <div className={styles.proImg}><img src={item.proImg} alt={item.proTitle}/></div>
         <div className={styles.proContent}>
           <p className={styles.proTitle}>{item.proTitle}</p><p className={styles.specsName}>规格：{item.specsName}</p>
         </div>

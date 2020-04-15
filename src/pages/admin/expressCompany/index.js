@@ -7,7 +7,6 @@ import UpdateModal from './components/UpdateModal';
 import Operator from './components/Operator';
 import List from './components/List';
 import Filter from './components/Filter';
-import { httpSort } from '@/utils/normalService';
 
 const ExpressCompany = ({
   expressCompany,
