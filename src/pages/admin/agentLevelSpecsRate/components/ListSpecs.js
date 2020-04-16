@@ -67,8 +67,8 @@ class ListSpecs extends React.Component {
                               <p><Button type="primary" shape="circle" onClick={()=>saveChangeAmount()} icon="check"/></p>
                             </div>}
                             {curRate!==singleKey && <div>
-                              <Tooltip title="当级提成标准"><b className={rateVal.thisRate?styles.rateAmount:styles.noRateAmount}>{rateVal.thisRate?rateVal.thisRate:"当级未设"}</b></Tooltip>
-                              <Tooltip title="上级提成标准"><b className={rateVal.leaderRate?styles.rateAmount:styles.noRateAmount}>{rateVal.leaderRate?rateVal.leaderRate:"上级未设"}</b></Tooltip>
+                              <Tooltip title="当级提成标准"><b className={(rateVal.thisRate||rateVal.thisRate===0)?styles.rateAmount:styles.noRateAmount}>{(rateVal.thisRate||rateVal.thisRate===0)?rateVal.thisRate:"当级未设"}</b></Tooltip>
+                              <Tooltip title="上级提成标准"><b className={(rateVal.leaderRate||rateVal.leaderRate===0)?styles.rateAmount:styles.noRateAmount}>{(rateVal.leaderRate||rateVal.leaderRate===0)?rateVal.leaderRate:"上级未设"}</b></Tooltip>
                               <Icon onClick={()=>onModify(product, specs, level, rateVal)} type="edit"/>
                             </div>}
                           </span>
@@ -95,7 +95,7 @@ class ListSpecs extends React.Component {
     };
 
     const onChangeAmount = (e, key) => {
-      console.log(key)
+      //console.log(key)
       const amount = parseFloat(e.target.defaultValue);
       /*
       //console.log(amount);

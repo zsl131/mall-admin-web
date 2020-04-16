@@ -21,39 +21,31 @@ const Filter = ({
   return (
     <Form layout="inline" onSubmit={handleSubmit}>
       <FormItem>
-        {getFieldDecorator("ordersNo_like")(<Input placeholder="订单编号"/>)}
+        {getFieldDecorator("agentName_like")(<Input placeholder="代理姓名"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("nickname_like")(<Input placeholder="购买者昵称"/>)}
+        {getFieldDecorator("agentPhone_like")(<Input placeholder="代理电话"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("addressCon_like")(<Input placeholder="收货人信息"/>)}
+        {getFieldDecorator("proTitle_like")(<Input placeholder="产品标题"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("agentName_like")(<Input placeholder="代理人"/>)}
+        {getFieldDecorator("specsName_like")(<Input placeholder="产品规格"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("agentPhone_like")(<Input placeholder="代理人电话"/>)}
+        {getFieldDecorator("customNickname_like")(<Input placeholder="顾客昵称"/>)}
       </FormItem>
+
       <FormItem>
         {getFieldDecorator("status")(
           <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="状态">
             <Option value="">==全部==</Option>
-            <Option value="-1">已关闭</Option>
+            <Option value="-1">已取消</Option>
             <Option value="0">未付款</Option>
-            <Option value="1">付款未发货</Option>
-            <Option value="2">付款已发货</Option>
-            <Option value="3">收货未评价</Option>
-            <Option value="4">订单完成</Option>
-          </Select>
-        )}
-      </FormItem>
-      <FormItem>
-        {getFieldDecorator("hasAgent")(
-          <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="有无代理">
-            <Option value="">==全部==</Option>
-            <Option value="0">无代理</Option>
-            <Option value="1">有代理</Option>
+            <Option value="1">已付款</Option>
+            <Option value="2">可提现</Option>
+            <Option value="3">纳入结算</Option>
+            <Option value="4">已转款</Option>
           </Select>
         )}
       </FormItem>
