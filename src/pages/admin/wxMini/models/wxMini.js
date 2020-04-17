@@ -1,11 +1,16 @@
 import { httpGet } from '@/utils/normalService';
 
-const baseService = "customCommissionRecordService";
+const baseService = "wxMiniService";
 export default {
   state: {
     item:{},
     totalElements:0,
     datas:[],
+    addVisible: false,
+    updateVisible: false,
+
+    relationVisible: false,
+    type: '',
   },
   reducers: {
     modifyState(state, { payload: options }) {
@@ -23,7 +28,7 @@ export default {
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen((location) => {
-        if(location.pathname === '/admin/customCommissionRecord') {
+        if(location.pathname === '/admin/wxMini') {
           dispatch({ type: 'list', payload: location.query });
         }
       })

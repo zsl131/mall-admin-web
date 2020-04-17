@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Pagination, Popconfirm, Table, Tooltip } from 'antd';
+import { Pagination, Table } from 'antd';
 
 const List = ({
   onDelConfirm,

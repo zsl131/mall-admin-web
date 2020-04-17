@@ -30,6 +30,11 @@ export default {
       const data = yield call(httpGet, obj);
       if(data) {message.success("保存成功");}
     },
+    *updateType ({ payload: obj }, { call, put }) {
+      obj.apiCode = baseService+".updateType";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
   },
   subscriptions: {
     setup({ history, dispatch }) {

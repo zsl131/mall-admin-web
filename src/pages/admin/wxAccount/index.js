@@ -40,6 +40,9 @@ const WxAccount = ({
     },
     onRelationImage: (record)=> {
       dispatch({ type: 'wxAccount/onImageRelation', payload: {item: record, relationVisible: true} });
+    },
+    onUpdateType: (record, newType) => {
+      dispatch({ type: 'wxAccount/updateType', payload: { id: record.id, type: newType, oldType: record.type, openid: record.openid } }).then(()=>{handleRefresh()});
     }
   };
 

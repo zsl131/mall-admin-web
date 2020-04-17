@@ -33,6 +33,17 @@ const Filter = ({
         )}
       </FormItem>
       <FormItem>
+        {getFieldDecorator("type")(
+          <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="用户类型">
+            <Option value="">==全部==</Option>
+            <Option value="0">顾客</Option>
+            <Option value="1">代理</Option>
+            <Option value="5">员工</Option>
+            <Option value="10">管理员</Option>
+          </Select>
+        )}
+      </FormItem>
+      <FormItem>
         <Button type="dashed" htmlType="submit">筛选</Button>
       </FormItem>
     </Form>
