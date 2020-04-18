@@ -55,7 +55,7 @@ const List = ({
                 <Button type={record.saleMode==='1'?"primary":"danger"} shape="circle">{record.saleMode==='1'?"季":(record.saleMode==='2'?"预":"他")}</Button>
               </Popconfirm>
             </Tooltip>
-            <b>{record.title}</b></p>
+            <Tooltip title={`产品ID：${record.id}`}><b>{record.title}</b></Tooltip></p>
           <p>基金：<b className="red">￥{record.fund}</b></p>
         </div>
       );

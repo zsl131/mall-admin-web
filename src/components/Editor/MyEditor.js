@@ -17,6 +17,7 @@ export default class MyEditor extends React.Component {
 
   componentDidMount() {
     const editor = new Editor(ReactDOM.findDOMNode(this._div));
+
     editor.customConfig.onchange = (html) => {
       this.setState({
         content: html,

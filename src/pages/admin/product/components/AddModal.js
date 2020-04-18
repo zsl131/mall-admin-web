@@ -2,7 +2,7 @@ import React from 'react';
 import { Cascader, Col, Form, Input, InputNumber, Modal, Row, Tooltip } from 'antd';
 import { formItemLayout, formItemLayout_large, uuid } from '@/utils/common';
 import division from '@/tools/division';
-import MyEditor from '@/components/Editor/MyEditor';
+import BraEditor from '@/components/common/BraEditor';
 
 const FormItem = Form.Item;
 
@@ -95,9 +95,9 @@ class AddModal extends React.Component {
       }
     };*/
 
-    const handleChangeContent = (html) => {
-      // console.log("add===", html);
-      setFieldsValue({"content": html});
+    const handleChangeContent = (obj) => {
+      //console.log("add===", obj);
+      setFieldsValue({"content": obj.content, rawContent: obj.raw});
     };
 
     return(
@@ -187,7 +187,10 @@ class AddModal extends React.Component {
           </Row>*/}
 
           <FormItem {...formItemLayout_large} label="产品内容">
-            {getFieldDecorator("content", {rules: [{required: true, message: '产品内容不能为空'}]})(<MyEditor placeholder="产品内容" onChangeContent={handleChangeContent}/>)}
+            {getFieldDecorator('rawContent')(<Input type="hidden" placeholder=""/>)}
+            {getFieldDecorator("content", {rules: [{required: true, message: '产品内容不能为空'}]})(
+              <BraEditor onChangeContent={handleChangeContent}/>
+              )}
           </FormItem>
         </Form>
       </Modal>

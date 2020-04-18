@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { httpGet } from '@/utils/normalService';
+import { httpGet, httpPost } from '@/utils/normalService';
 
 const baseService = "productService";
 const cateService = "productCategoryService";
@@ -130,12 +130,12 @@ export default {
 
     *addObj({payload: obj}, {call}) {
       obj.apiCode = baseService+".add";
-      const data = yield call(httpGet, obj);
+      const data = yield call(httpPost, obj);
       if(data) {message.success("保存成功");}
     },
     *updateObj({payload: obj},{call}) {
       obj.apiCode = baseService+".update";
-      const data = yield call(httpGet, obj);
+      const data = yield call(httpPost, obj);
       if(data) {message.success("保存成功");}
     },
     *deleteObj({payload: obj}, {call}) {

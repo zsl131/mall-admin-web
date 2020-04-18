@@ -2,7 +2,7 @@ import React from 'react';
 import { Cascader, Col, Form, Input, InputNumber, Modal, Row, Tooltip } from 'antd';
 import { formItemLayout, formItemLayout_large } from '@/utils/common';
 import division from '@/tools/division';
-import MyEditor from '@/components/Editor/MyEditor';
+import BraEditor from '@/components/common/BraEditor';
 
 const FormItem = Form.Item;
 
@@ -66,9 +66,10 @@ class UpdateModal extends React.Component {
       return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
     }
 
-    const handleChangeContent = (html) => {
+    const handleChangeContent = (obj) => {
       // console.log("add===", html);
-      setFieldsValue({"content": html});
+      //setFieldsValue({"content": html});
+      setFieldsValue({"content": obj.content, rawContent: obj.raw});
     };
 
     return(
@@ -144,7 +145,10 @@ class UpdateModal extends React.Component {
           </Row>
 
           <FormItem {...formItemLayout_large} label="产品内容">
-            {getFieldDecorator("content", {rules: [{required: true, message: '产品内容不能为空'}]})(<MyEditor content={this.props.item.content} placeholder="产品内容" onChangeContent={handleChangeContent}/>)}
+            {getFieldDecorator('rawContent')(<Input type="hidden" placeholder=""/>)}
+            {getFieldDecorator("content", {rules: [{required: true, message: '产品内容不能为空'}]})(
+              <BraEditor content={this.props.item.rawContent} onChangeContent={handleChangeContent}/>
+              )}
           </FormItem>
         </Form>
       </Modal>

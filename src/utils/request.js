@@ -80,6 +80,7 @@ function catchError(error) {
   if(error.message.search("Gateway Timeout")>=0 || error.message.search("Bad Gateway")>=0) {
     message.error("服务端网络异常", 6);
   } else {
+    console.log(error)
     message.error("出现错误：" + error.message, 6);
   }
 }
@@ -113,9 +114,20 @@ export default function request(apiCode, params, options) {
 
   Object.assign(defaultOption, options || {});
 
-  params = password(params);
+  //console.log(defaultOption);
 
-  return fetch(configApi.api.get+params, defaultOption)
+  params = password(params);
+  //console.log(params)
+
+  let finalUrl = '';
+  if(defaultOption.method!=="GET") {
+    finalUrl = configApi.api.get;
+    defaultOption.body = params;
+  } else {
+    finalUrl = configApi.api.get+params;
+  }
+
+  return fetch(finalUrl, defaultOption)
     .then(checkStatus)
     .then(parseJSON)
     .then(checkDatas)
