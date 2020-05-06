@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Pagination, Table, Tooltip } from 'antd';
+import { Pagination, Table } from 'antd';
 import styles from '@/pages/admin/carousel/components/list.css';
 
 const List = ({
@@ -19,44 +19,35 @@ const List = ({
   };*/
 
   const columns = [{
-    title:"图片",
+    title:"客户",
     dataIndex: "id",
     render:(text, record)=> {
       return (
-        <a href={record.headImgUrl} target="_blank" rel="noopener noreferrer"><img src={record.headImgUrl} alt={record.nickname} className={styles.avatarImg}/></a>
+        <div>
+          <p><a href={record.headImgUrl} target="_blank" rel="noopener noreferrer"><img src={record.headImgUrl} alt={record.nickname} className={styles.avatarImg}/></a></p>
+          <p>{record.nickname}</p>
+        </div>
       );
     }
   }, {
-    title: '昵称',
-    dataIndex: 'nickname',
+    title: '消息',
     render:(text, record) => {
-      const status = record.status;
       return (
         <div>
-          <p>{record.nickname}</p>
-          <p>{status==='1'?<b className="blue">关注</b>:<b className="red">取消关注</b>}</p>
+          <p>msgId: {record.msgId}</p>
+          <p>msgType: {record.msgType}</p>
         </div>
       )
     }
   }, {
-    title: "代理",
+    title: "内容",
     render:(record)=> {
-      const agentId = record.agentId;
-      return (
-        agentId&&agentId>0?
-        <div>
-          <p>{record.name}</p>
-          <p>{record.phone}</p>
-        </div>:<span>未关联</span>
-      )
-    }
-  }, {
-    title: 'id',
-    render: (record)=> {
+      const msgType = record.msgType;
       return (
         <div>
-          <p>oid:{record.openid}</p>
-          <p>uid:{record.unionid}</p>
+          {msgType==='text'?<p>{record.content}</p>:
+            <a href={record.picUrl} target="_blank" rel="noopener noreferrer"><img src={record.picUrl} alt={record.nickname} className={styles.avatarImg}/></a>
+          }
         </div>
       )
     }
@@ -65,8 +56,7 @@ const List = ({
     render: (record)=> {
       return (
         <div>
-          <p>初次关注：{record.firstFollowTime}</p>
-          <p>最近关注：{record.followTime}</p>
+          {record.createTime}
         </div>
       )
     }
@@ -76,7 +66,6 @@ const List = ({
       return (
         <div>
         {/*<ListOperator id={record} delName={record.name} {...delOpts}/>*/}
-        <Tooltip title="设置影像墙权限"><Button type="primary" shape="circle" icon="picture" onClick={()=>onRelationImage(record)}/></Tooltip>
         </div>
       );
     }
