@@ -1,7 +1,7 @@
-import { httpGet } from '@/utils/normalService';
 import { message } from 'antd';
+import { httpGet } from '@/utils/normalService';
 
-const baseService = "customMessageService";
+const baseService = "matterApplyService";
 export default {
   state: {
     item:{},
@@ -9,8 +9,6 @@ export default {
     datas:[],
     addVisible: false,
     updateVisible: false,
-    replyVisible: false,
-
   },
   reducers: {
     modifyState(state, { payload: options }) {
@@ -24,19 +22,17 @@ export default {
       //console.log(data);
       yield put({ type:'modifyState', payload: {totalElements: data.size, datas: data.datas} });
     },
-    *onReply({payload: values}, { call }) {
-      values.apiCode = baseService+".reply";
-      const data = yield call(httpGet, values);
-      // const data = yield call(feedbackService.reply, values);
-      if(data) {
-        message.success("回复成功");
-      }
-    }
+
+    *modifyStatus({payload: obj}, {call}) {
+      obj.apiCode = baseService+".modifyStatus";
+      const data = yield call(httpGet, obj);
+      if(data) {message.success(data.message);}
+    },
   },
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen((location) => {
-        if(location.pathname === '/admin/customMessage') {
+        if(location.pathname === '/admin/matterApply') {
           dispatch({ type: 'list', payload: location.query });
         }
       })

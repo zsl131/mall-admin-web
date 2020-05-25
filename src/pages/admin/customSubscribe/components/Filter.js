@@ -26,7 +26,7 @@ const Filter = ({
         {getFieldDecorator("messageSn_like")(<Input placeholder="消息SN"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("messageName")(<Input placeholder="消息名称"/>)}
+        {getFieldDecorator("messageName_like")(<Input placeholder="消息名称"/>)}
       </FormItem>
       <FormItem>
         <Button type="dashed" htmlType="submit">筛选</Button>

@@ -71,7 +71,7 @@ class PictureModal extends React.Component {
     };
 
     const dataConfig = (orderNo) => {
-      let config = {objClassName: "Product", objId: item.id, width: 500};
+      let config = {objClassName: "Product", objId: item.id, width: 800};
       config.orderNo=orderNo;
       return config;
     };
@@ -99,7 +99,7 @@ class PictureModal extends React.Component {
           <PictureWall fileList={getFile(3)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="封面图片" data={dataConfig(4)} onFileChange={onFileChange}/>
           <PictureWall fileList={getFile(4)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="封面图片" data={dataConfig(5)} onFileChange={onFileChange}/>
         </div>
-        <p className="dark">建议尺寸：900x480px</p>
+        <p className="dark">建议尺寸：800x450px</p>
       </Modal>
     );
   }

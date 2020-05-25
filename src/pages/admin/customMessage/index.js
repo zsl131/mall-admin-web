@@ -4,6 +4,7 @@ import { Icon } from 'antd';
 import { routerRedux } from 'dva/router';
 import List from './components/List';
 import Filter from './components/Filter';
+import ReplyModal from '@/pages/admin/feedback/components/ReplyModal';
 
 const CustomMessage = ({
   customMessage,
@@ -40,7 +41,28 @@ const CustomMessage = ({
     onPageChange: (page) => {
       handleRefresh({page : page - 1});
     },
+    onReply: (record) => {
+      dispatch({ type: 'customMessage/modifyState', payload: {item: record, replyVisible: true} });
+    }
   };
+
+  const replyOpts = {
+    visible: customMessage.replyVisible,
+    item: customMessage.item,
+    title: '回复反馈',
+    okText: '确定回复',
+    cancelText: '取消',
+    maskClosable:false,
+    onCancel: () => {
+      dispatch({type: 'customMessage/modifyState', payload: {replyVisible:false}});
+    },
+    onOk: (values) => {
+      dispatch({ type: 'customMessage/onReply', payload: values }).then(()=>{
+        dispatch({ type: 'customMessage/modifyState', payload: {replyVisible: false} });
+        handleRefresh();
+      });
+    }
+  }
 
   const filterOpts = {
     onFilter(values) {
@@ -61,6 +83,7 @@ const CustomMessage = ({
       <div className="listContent">
         <List {...listOpts} />
       </div>
+      {customMessage.replyVisible && <ReplyModal {...replyOpts}/>}
     </div>
   );
 }

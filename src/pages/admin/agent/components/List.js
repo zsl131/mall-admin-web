@@ -36,7 +36,7 @@ const List = ({
       return (
         <div>
           {status==="0"?<span className="dark">待审核</span>:(status==="1"?<span><b className="blue">审核通过</b><b>[{record.levelName}]</b></span>:<b className="red">驳回</b>)}
-          <p>{record.hasExperience==="1"?<b className="blue">有经验</b>:<b className="red">无经验</b>}</p>
+          <p>{record.hasExperience==="1"?<b className="blue">有经验</b>:<b className="red">无经验</b>}<Tooltip title="自己的邀请码">[{record.ownCode}]</Tooltip></p>
         </div>
       )
     }
@@ -46,7 +46,7 @@ const List = ({
       //console.log(record)
       return (
         record.leaderId?<div>
-          <p>{record.leaderName}</p>
+          <p>{record.leaderName}<Tooltip title="上级邀请码">[{record.leaderCode}]</Tooltip></p>
           <p>{record.leaderPhone}</p>
         </div>:<span className="red">无上级</span>
       )

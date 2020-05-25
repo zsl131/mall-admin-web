@@ -50,7 +50,7 @@ const List = ({
       return (
         <div>
           <p>{record.nickname}</p>
-          <p>状态：{status===1?"待使用":(status===2?<span className="red">过期</span>:<span className="blue">已使用</span>)}</p>
+          <p>状态：{status==='1'?"待使用":(status==='2'?<span className="red">过期</span>:<span className="blue">已使用</span>)}</p>
         </div>
       )
     }

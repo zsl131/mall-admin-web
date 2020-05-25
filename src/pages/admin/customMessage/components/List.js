@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination, Table } from 'antd';
+import { Icon, Pagination, Table } from 'antd';
 import styles from '@/pages/admin/carousel/components/list.css';
 
 const List = ({
@@ -8,6 +8,7 @@ const List = ({
   onPageChange,
   totalElement,
   onRelationImage,
+  onReply,
   ...listOpts
 }) => {
 
@@ -65,7 +66,7 @@ const List = ({
     render: (text, record) => {
       return (
         <div>
-        {/*<ListOperator id={record} delName={record.name} {...delOpts}/>*/}
+          <a href="###" onClick={()=>onReply(record)}><Icon type="export"/> 回复</a>
         </div>
       );
     }
