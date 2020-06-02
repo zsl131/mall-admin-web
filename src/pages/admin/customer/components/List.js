@@ -34,7 +34,7 @@ const List = ({
       return (
         <div>
           <p>{record.nickname}</p>
-          <p>{status==='1'?<b className="blue">关注</b>:<b className="red">取消关注</b>}</p>
+          {record.inviterId>0 && <p>推荐者：{record.inviterNickname}</p>}
         </div>
       )
     }
@@ -56,7 +56,7 @@ const List = ({
       return (
         <div>
           <p>oid:{record.openid}</p>
-          <p>uid:{record.unionid}</p>
+          {/*<p>uid:{record.unionid}</p>*/}
         </div>
       )
     }
@@ -65,8 +65,8 @@ const List = ({
     render: (record)=> {
       return (
         <div>
-          <p>初次关注：{record.firstFollowTime}</p>
           <p>最近关注：{record.followTime}</p>
+          <p>初次关注：{record.firstFollowTime}</p>
         </div>
       )
     }

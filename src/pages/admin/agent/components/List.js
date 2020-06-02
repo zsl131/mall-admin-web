@@ -16,7 +16,7 @@ const List = ({
     title: '姓名',
     dataIndex: 'id',
     render:(text, record)=> {
-      return (<div><b>{record.name}</b>[{record.sex==="1"?"男":"女"}]<p>{record.nickname}</p></div>)
+      return (<div><b>{record.name}</b><p>{record.nickname}</p></div>)
     }
   }, {
     title: '联系方式',

@@ -24,6 +24,9 @@ const Filter = ({
         {getFieldDecorator("nickname_like")(<Input placeholder="昵称"/>)}
       </FormItem>
       <FormItem>
+        {getFieldDecorator("inviterNickname_like")(<Input placeholder="推荐者昵称"/>)}
+      </FormItem>
+      <FormItem>
         {getFieldDecorator("status")(
           <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="关注状态">
             <Option value="">==全部==</Option>

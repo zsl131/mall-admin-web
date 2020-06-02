@@ -98,8 +98,14 @@ class PictureModal extends React.Component {
           <PictureWall fileList={getFile(2)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="封面图片" data={dataConfig(3)} onFileChange={onFileChange}/>
           <PictureWall fileList={getFile(3)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="封面图片" data={dataConfig(4)} onFileChange={onFileChange}/>
           <PictureWall fileList={getFile(4)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="封面图片" data={dataConfig(5)} onFileChange={onFileChange}/>
+          <PictureWall fileList={getFile(5)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="分享图" data={dataConfig(6)} onFileChange={onFileChange}/>
+          <PictureWall fileList={getFile(6)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="分享图" data={dataConfig(7)} onFileChange={onFileChange}/>
+          <PictureWall fileList={getFile(7)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="分享图" data={dataConfig(8)} onFileChange={onFileChange}/>
+          <PictureWall fileList={getFile(8)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="分享图" data={dataConfig(9)} onFileChange={onFileChange}/>
+          <PictureWall fileList={getFile(9)} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="分享图" data={dataConfig(10)} onFileChange={onFileChange}/>
         </div>
-        <p className="dark">建议尺寸：800x450px</p>
+        <p className="dark">建议尺寸：封面图片：800x430px，分享图：宽度不低于800px，高度不低于460px</p>
+        <p className="dark">封面图片：显示在详情页顶部的轮播图中，分享图：用于下载分享</p>
       </Modal>
     );
   }
