@@ -49,6 +49,9 @@ const List = ({
           {msgType==='text'?<p>{record.content}</p>:
             <a href={record.picUrl} target="_blank" rel="noopener noreferrer"><img src={record.picUrl} alt={record.nickname} className={styles.avatarImg}/></a>
           }
+          {
+            record.reply?<p>回复：{record.reply}</p>:""
+          }
         </div>
       )
     }

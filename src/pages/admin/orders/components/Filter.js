@@ -24,6 +24,9 @@ const Filter = ({
         {getFieldDecorator("ordersNo_like")(<Input placeholder="订单编号"/>)}
       </FormItem>
       <FormItem>
+        {getFieldDecorator("proTitles_like")(<Input placeholder="产品标题"/>)}
+      </FormItem>
+      <FormItem>
         {getFieldDecorator("nickname_like")(<Input placeholder="购买者昵称"/>)}
       </FormItem>
       <FormItem>
@@ -39,6 +42,8 @@ const Filter = ({
         {getFieldDecorator("status")(
           <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="状态">
             <Option value="">==全部==</Option>
+            <Option value="-10">已删除</Option>
+            <Option value="-2">售后订单</Option>
             <Option value="-1">已关闭</Option>
             <Option value="0">未付款</Option>
             <Option value="1">付款未发货</Option>
@@ -54,6 +59,14 @@ const Filter = ({
             <Option value="">==全部==</Option>
             <Option value="0">无代理</Option>
             <Option value="1">有代理</Option>
+          </Select>
+        )}
+      </FormItem>
+      <FormItem>
+        {getFieldDecorator("status_ne")(
+          <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="删除标记">
+            <Option value="">==全部==</Option>
+            <Option value="-10">不显示删除订单</Option>
           </Select>
         )}
       </FormItem>

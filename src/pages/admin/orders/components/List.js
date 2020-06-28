@@ -56,6 +56,10 @@ const List = ({
           {orders.status==='1' && <Button type="primary" onClick={()=>onExpress(orders)}>发货</Button>}
           {orders.status==='2' && <span>已发货</span>}
           {orders.status==='3' && <span>已完成</span>}
+          {orders.status==='0' && <span className="dark">待付款</span>}
+          {orders.status==='-1' && <span className="red">已取消</span>}
+          {orders.status==='-2' && <span className="red">整单退款</span>}
+          {orders.status==='-10' && <span className="red">已删除</span>}
         </div>
         <div className={styles.moneyDivCon}>
           <span>订单总额：<b>￥ {orders.totalMoney}</b></span>

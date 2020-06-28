@@ -44,9 +44,10 @@ class PictureModal extends React.Component {
         updateAmount("picCount", 1);
       }
       if(file.status==="removed") {
-        const id = file.objId?file.objId:file.response.data[0].id;
-        const obj = {id: id, apiCode: "mediumService.delete"};
-        httpGet(obj); //删除
+        //先不要删除图片，否则会导致之前订单的图片显示不出来
+        //const id = file.objId?file.objId:file.response.data[0].id;
+        //const obj = {id: id, apiCode: "mediumService.delete"};
+       // httpGet(obj); //删除
         updateAmount("picCount", -1);
       }
     };
