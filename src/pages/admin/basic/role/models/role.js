@@ -56,7 +56,7 @@ export default {
     *update({ payload: id }, { call, put }) {
       const query = {id:id, apiCode: roleService+".loadOne"};
       const data = yield call(httpGet, query);
-      console.log(data);
+      //console.log(data);
       if(data) {
         yield put({ type: 'updateItem', payload: data.obj });
       } else {
@@ -72,6 +72,8 @@ export default {
       //console.log("queryMenus::", query);
       query.apiCode = roleService+".onAuth";
       const data = yield call(httpGet, query);
+
+     // console.log(data)
 
       yield put({ type: 'setModalVisible', payload: { curAuthMenu: data.mids } });
       yield put({ type: 'showMenus', payload: data.tree });

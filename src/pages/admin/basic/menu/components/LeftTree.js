@@ -15,7 +15,7 @@ const LeftTree = ({
       nodeName = e.selectedNodes[0].props.title;
     } catch (e) {
     }
-    // console.log("key:::"+key+"--->name:"+nodeName, e);
+    //console.log("key:::"+key+"--->name:"+nodeName, e);
     onSelect({pid: key[0], name: nodeName});
   };
 

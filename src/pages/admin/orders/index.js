@@ -5,6 +5,8 @@ import { routerRedux } from 'dva/router';
 import List from './components/List';
 import Filter from './components/Filter';
 import ExpressModal from '@/pages/admin/orders/components/ExpressModal';
+import AfterSaleModal from '@/pages/admin/orders/components/AfterSaleModal';
+import ShowExpressModal from '@/pages/admin/orders/components/ShowExpressModal';
 
 const Orders = ({
   orders,
@@ -46,6 +48,12 @@ const Orders = ({
     },
     onExpress: (obj)=> {
       dispatch({ type: 'orders/onExpress', payload: obj });
+    },
+    showExpress: (obj)=> {
+      dispatch({ type: 'orders/showExpress', payload: obj });
+    },
+    onAfterSale: (obj)=> {
+      dispatch({ type: 'orders/modifyState', payload: {ordersProduct: obj, afterSaleVisible: true} });
     }
   };
 
@@ -62,7 +70,8 @@ const Orders = ({
     maskClosable: false,
     orders: orders.item,
     companyList: orders.companyList,
-    express: orders.express,
+    productList: orders.productList,
+    ordersProduct: orders.ordersProduct,
     confirmLoading: loading.effects['orders/express'],
     onOk: (obj) => {
       dispatch({ type: 'orders/modifyState', payload: { expressVisible: false } });
@@ -70,6 +79,38 @@ const Orders = ({
     },
     onCancel() {
       dispatch({ type: 'orders/modifyState', payload: { expressVisible: false } });
+    }
+  };
+
+  const showExpOpts = {
+    visible: orders.listExpressVisible,
+    title: "发货",
+    maskClosable: false,
+    orders: orders.item,
+    expressList: orders.expressList,
+    confirmLoading: loading.effects['orders/express'],
+    onOk: (obj) => {
+      dispatch({ type: 'orders/modifyState', payload: { listExpressVisible: false } });
+    },
+    onCancel() {
+      dispatch({ type: 'orders/modifyState', payload: { listExpressVisible: false } });
+    }
+  };
+
+  const saleOpts = {
+    visible: orders.afterSaleVisible,
+    title: "售后处理",
+    maskClosable: false,
+    ordersProduct: orders.ordersProduct,
+    confirmLoading: loading.effects['orders/express'],
+    onOk: (obj) => {
+      //console.log(obj)
+      dispatch({ type: 'orders/modifyState', payload: { afterSaleVisible: false } });
+      dispatch({ type: 'orders/afterSale', payload: obj }).then(() => {
+        handleRefresh()});
+    },
+    onCancel() {
+      dispatch({ type: 'orders/modifyState', payload: { afterSaleVisible: false } });
     }
   };
 
@@ -86,6 +127,8 @@ const Orders = ({
         <List {...listOpts} />
       </div>
       {orders.expressVisible && <ExpressModal {...expOpts}/>}
+      {orders.afterSaleVisible && <AfterSaleModal {...saleOpts}/>}
+      {orders.listExpressVisible && <ShowExpressModal {...showExpOpts}/>}
     </div>
   );
 }

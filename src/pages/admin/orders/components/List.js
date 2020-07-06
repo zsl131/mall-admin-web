@@ -4,6 +4,8 @@ import styles from './list.css';
 
 const List = ({
   onExpress,
+  showExpress,
+  onAfterSale,
   onPageChange,
   totalElement,
   dataSource,
@@ -53,12 +55,12 @@ const List = ({
 
       <div className={styles.moneyDiv}>
         <div className={styles.ordersOptsDiv}>
-          {orders.status==='1' && <Button type="primary" onClick={()=>onExpress(orders)}>发货</Button>}
-          {orders.status==='2' && <span>已发货</span>}
+          {/*{orders.status==='1' && <Button type="primary" onClick={()=>onExpress(orders)}>发货</Button>}*/}
+          {orders.status==='2' && <div>已发货 </div>}
           {orders.status==='3' && <span>已完成</span>}
           {orders.status==='0' && <span className="dark">待付款</span>}
           {orders.status==='-1' && <span className="red">已取消</span>}
-          {orders.status==='-2' && <span className="red">整单退款</span>}
+          {orders.status==='-2' && <span className="red">有售后，已退<b>{orders.backMoney}</b></span>}
           {orders.status==='-10' && <span className="red">已删除</span>}
         </div>
         <div className={styles.moneyDivCon}>
@@ -86,7 +88,22 @@ const List = ({
             <Tooltip title="预售产品"><span className="red">预计发货：{item.deliveryDate}</span></Tooltip>}</p>
         </div>
         <div className={styles.proOperator}>
-          -
+          {
+            item.backMoney>=item.price*item.amount?<div>
+                <p>已退<b>{item.backMoney}</b></p>
+                <p className="red">此件取消</p>
+            </div>:
+            <div>
+              {item.status==='1' &&  <div><p><Button type="primary" onClick={()=>onExpress(item)}>发货</Button></p>
+                <p><Button type="danger" onClick={()=>onAfterSale(item)}>退款</Button></p>
+              </div>}
+              {item.status==='2' &&  <div><p><Button type="default" onClick={()=>showExpress(item)}>物流</Button></p>
+                <p><Tooltip title={"出现售后理赔时点这里"}><Button type="danger" onClick={()=>onAfterSale(item)}>售后</Button></Tooltip></p></div>}
+              {item.status==='-2' && <div><p><Tooltip title={"出现售后理赔时点这里"}><Button type="danger" onClick={()=>onAfterSale(item)}>售后</Button></Tooltip></p>
+                <p>已退<b>{item.backMoney}</b></p>
+              </div>}
+            </div>
+          }
         </div>
       </div>
     )

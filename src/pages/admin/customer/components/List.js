@@ -30,7 +30,7 @@ const List = ({
     title: '昵称',
     dataIndex: 'nickname',
     render:(text, record) => {
-      const status = record.status;
+      // const status = record.status;
       return (
         <div>
           <p>{record.nickname}</p>

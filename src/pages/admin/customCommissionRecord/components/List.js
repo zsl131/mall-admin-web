@@ -50,11 +50,11 @@ const List = ({
         <div>
           <p>可提：{record.money} 元</p>
           <p>
-            {status==='-2' && <span title="顾客退单">退单</span>}
-            {status==='-1' && <span title="顾客取消订单">取消</span>}
+            {status==='-2' && <span className="red" title="有售后">售后单</span>}
+            {status==='-1' && <span className="red" title="顾客取消订单">取消</span>}
             {status==='0' && <span>待付款</span>}
-            {status==='1' && <span title="已付款，但不可提现">已付款</span>}
-            {status==='2' && <span title="可提现">可提现</span>}
+            {status==='1' && <span className="blue" title="已付款，但不可提现">已付款</span>}
+            {status==='2' && <span className="blue" title="可提现">可提现</span>}
             {status==='3' && <span title="已提交提现申请">纳入结算</span>}
             {status==='4' && <span title="已转款">已转款</span>}
           </p>

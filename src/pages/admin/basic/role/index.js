@@ -94,7 +94,8 @@ const Role = ({
   const treeOpts = {
     role: role,
     onSelect: (key) => {
-      dispatch({ type: 'role/queryMenus', payload: { pid: key[0], rid: role.curRole.id } });
+      //console.log(key)
+      dispatch({ type: 'role/queryMenus', payload: { pid: key.pid, rid: role.curRole.id } });
     },
     onCancel: ()=>{
       dispatch({ type: 'role/setModalVisible', payload: { matchMenuVisible: false } });

@@ -1,0 +1,6 @@
+.singleProduct {
+  /*display: flex;*/
+}
+.singleCard {
+  width: 300px; margin: 10px; float: left;
+}

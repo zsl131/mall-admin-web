@@ -11,6 +11,11 @@ export default {
     expressVisible: false,
     express: {}, //发货信息
     companyList:[], //物流公司
+    productList:[], //对应产品列表
+    afterSaleVisible: false,
+    expressList: [],
+    ordersProduct:{}, //订单产品
+    listExpressVisible: false,
   },
   reducers: {
     modifyState(state, { payload: options }) {
@@ -27,16 +32,36 @@ export default {
     *onExpress({payload: obj}, {call,put}) {
       let query = {
         apiCode: 'ordersExpressService.onExpress',
-        ordersNo: obj.ordersNo
+        ordersNo: obj.ordersNo,
+        proId: obj.id
       };
       // obj.apiCode = "ordersExpressService.onExpress";
       const data = yield call(httpGet, query);
-      ////console.log(data);
-      yield put({ type:'modifyState', payload: {item: obj, express: data.express, companyList: data.companyList, expressVisible: true} })
+      //console.log(data);
+      yield put({ type:'modifyState', payload: {item: obj, expressList: data.expressList,
+          ordersProduct: data.product, companyList: data.companyList, expressVisible: true} })
+    },
+    *showExpress({payload: obj}, {call,put}) {
+      let query = {
+        apiCode: 'ordersExpressService.showExpress',
+        proId: obj.id
+      };
+      // obj.apiCode = "ordersExpressService.onExpress";
+      const data = yield call(httpGet, query);
+      //console.log(data);
+
+      yield put({ type:'modifyState', payload: {item: obj, expressList: data.expressList, listExpressVisible: true} })
     },
 
     *express({payload: obj}, {call}) {
       obj.apiCode = "ordersExpressService.express";
+      const data = yield call(httpGet, obj);
+      if(data) {
+        message.success(data.message);
+      }
+    },
+    *afterSale({payload: obj}, {call,put}) {
+      obj.apiCode = "miniOrdersService.afterSale";
       const data = yield call(httpGet, obj);
       if(data) {
         message.success(data.message);
