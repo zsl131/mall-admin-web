@@ -1,0 +1,17 @@
+.mytable {
+  border:1px #ddd solid; border-width: 1px 0px 0px 1px; width:100%;
+}
+.mytable thead tr td {
+  border:1px #ddd solid; border-width: 0px 1px 1px 0px; height:45px; text-align:center;
+}
+.mytable tbody tr td {
+  border:1px #ddd solid; border-width: 0px 1px 1px 0px; height:45px; text-align:center;
+}
+
+.mytable tbody tr td.left {
+  text-align: left; padding-left:10px;
+}
+
+.img {
+  width:120px; float:left; padding:8px;
+}
