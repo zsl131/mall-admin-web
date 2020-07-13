@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'dva';
 import {Icon, Tooltip} from 'antd';
 import {routerRedux} from 'dva/router'
-import Operator from './components/Operator';
 import Filter from './components/Filter';
 import List from './components/List';
 import AddModal from './components/AddModal';
@@ -26,20 +25,20 @@ const FinanceDetail = ({
         ...newQuery,
       },
     }));
-  }
+  };
 
-  const operatorOpts = {
+  /*const operatorOpts = {
     onAdd: () => {
       dispatch({ type: 'financeDetail/modifyState', payload: {downloadVisible: true}});
     }
-  }
+  };*/
 
   const filterOpts = {
     cateList:financeDetail.cateList,
     onFilter: (params) => {
       handleRefresh({conditions: JSON.stringify(params)});
     }
-  }
+  };
 
   const listOpts = {
     dataSource: financeDetail.data,
@@ -59,7 +58,7 @@ const FinanceDetail = ({
     onRecord: (obj)=> {
       dispatch({type: 'financeDetail/loadOne', payload: obj.id});
     }
-  }
+  };
 
   const addOpts = {
     maskClosable: false,
@@ -76,7 +75,7 @@ const FinanceDetail = ({
     onCancel() {
       dispatch({ type: 'financeDetail/modifyState', payload: { addVisible: false } });
     }
-  }
+  };
 
   const invalidOpts = {
     visible: financeDetail.invalidVisible,
@@ -93,7 +92,7 @@ const FinanceDetail = ({
     onCancel() {
       dispatch({ type: 'financeDetail/modifyState', payload: { invalidVisible: false } });
     }
-  }
+  };
 
   const downloadOpts = {
     visible: financeDetail.downloadVisible,
@@ -106,7 +105,7 @@ const FinanceDetail = ({
     onCancel() {
       dispatch({ type: 'financeDetail/modifyState', payload: { downloadVisible: false } });
     }
-  }
+  };
 
   return(
     <div>

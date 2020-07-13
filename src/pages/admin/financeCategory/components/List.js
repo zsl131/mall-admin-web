@@ -21,6 +21,14 @@ const List = ({
     title: 'ID',
     dataIndex:'id'
   }, {
+    title: "类别",
+    render: (record)=> {
+      const flag = record.flag;
+      return (
+        flag==='1'?<span className="blue">进账</span>:<span className="red">出账</span>
+      )
+    }
+  }, {
     title: '名称',
     dataIndex: 'name'
   }, {

@@ -18,11 +18,11 @@ const List = ({
 
   const onClick = (record, status) => {
     onVerify(record, status);
-  }
+  };
 
-  const onRecordClick = (record) => {
+  /*const onRecordClick = (record) => {
     onRecord(record)
-  }
+  };*/
 
   const columns = [{
     title: '账目日期',
@@ -40,7 +40,7 @@ const List = ({
     render:(record)=> {
       return (
         <div>
-          <p>{record.flag=='1'?<b className="blue">+{record.amount}</b>:<b className="red">-{record.amount}</b>}（{record.detailCount}条明细）</p>
+          <p>{record.flag==='1'?<b className="blue">+{record.amount}</b>:<b className="red">-{record.amount}</b>}（{record.detailCount}条明细）</p>
           <p>据号：<Button onClick={()=>onShowDetail(record)}>{record.ticketNo}</Button></p>
         </div>
       )
@@ -49,8 +49,8 @@ const List = ({
     title: "状态",
     render:(record)=> {
       return(
-        record.status=='1' ? <div><p className="blue">有效</p><a href={"/api/showFinancePdf?ticketNo="+record.ticketNo} target="_blank">打印存档</a></div>:
-          (record.status=="-1"?<span className="red">{record.invalidName}:{record.invalidReason}</span>:
+        record.status==='1' ? <div><p className="blue">有效</p><a href={"/api/showFinancePdf?ticketNo="+record.ticketNo} target="_blank" rel="noopener noreferrer">打印存档</a></div>:
+          (record.status==="-1"?<span className="red">{record.invalidName}:{record.invalidReason}</span>:
             <div><p>待审核</p>{(!record.recordName.startsWith(loginUsername) || loginUsername==='root')?
               <span><Popconfirm onConfirm={()=>onClick(record, "1")} title="确定通过审核吗？此操作不可逆"><Button type="primary" size="small">通过</Button></Popconfirm>
                 <Button type="danger" size="small" onClick={()=>onClick(record, "-1")}>作废</Button></span>:""}</div>)
@@ -60,13 +60,13 @@ const List = ({
 
   const handlePageChange = (pageNumber) => {
     onPageChange(pageNumber);
-  }
+  };
 
   const pager = () => {
     return (
       <Pagination showQuickJumper defaultPageSize={15} total={totalElement} onChange={handlePageChange}/>
     );
-  }
+  };
 
   return (
     <Table {...listOpts} columns={columns} rowKey="id" pagination={false} footer={pager}/>

@@ -27,20 +27,20 @@ const FinanceRecord = ({
         ...newQuery,
       },
     }));
-  }
+  };
 
   const operatorOpts = {
     onAdd: () => {
       dispatch({ type: 'financeRecord/modifyState', payload: {addVisible: true}});
     }
-  }
+  };
 
   const filterOpts = {
     cateList:financeRecord.cateList,
     onFilter: (params) => {
       handleRefresh({conditions: JSON.stringify(params)});
     }
-  }
+  };
 
   const listOpts = {
     dataSource: financeRecord.data,
@@ -55,7 +55,7 @@ const FinanceRecord = ({
     },
     onVerify: (obj, status) => {
       // console.log("update::", id);
-      if("-1"==status) {
+      if("-1"===status) {
         dispatch({type: 'financeRecord/modifyState', payload: {invalidVisible: true, item: obj}});
       } else {
         obj.status = "1";
@@ -70,7 +70,7 @@ const FinanceRecord = ({
     onRecord: (obj)=> {
       dispatch({type: 'financeRecord/loadOne', payload: obj.id});
     }
-  }
+  };
 
   const addOpts = {
     maskClosable: false,
@@ -87,7 +87,7 @@ const FinanceRecord = ({
     onCancel() {
       dispatch({ type: 'financeRecord/modifyState', payload: { addVisible: false } });
     }
-  }
+  };
 
   const invalidOpts = {
     visible: financeRecord.invalidVisible,
@@ -104,7 +104,7 @@ const FinanceRecord = ({
     onCancel() {
       dispatch({ type: 'financeRecord/modifyState', payload: { invalidVisible: false } });
     }
-  }
+  };
 
   const downloadOpts = {
     visible: financeRecord.downloadVisible,
@@ -117,7 +117,7 @@ const FinanceRecord = ({
     onCancel() {
       dispatch({ type: 'financeRecord/modifyState', payload: { downloadVisible: false } });
     }
-  }
+  };
 
   const showOpts = {
     maskClosable: false,
@@ -133,7 +133,7 @@ const FinanceRecord = ({
     onOk: () => {
       dispatch({ type: 'financeRecord/modifyState', payload: { showVisible: false } });
     }
-  }
+  };
 
   return(
     <div>

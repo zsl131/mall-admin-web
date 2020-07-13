@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import {Form, Input, Modal} from 'antd';
 
 const FormItem = Form.Item;
@@ -32,12 +31,12 @@ const InvalidModal = ({
         onOk(values);
       }
     });
-  }
+  };
 
   const modalOpts = {
     ...modalProps,
     onOk: handleOk
-  }
+  };
 
   return(
     <Modal {...modalOpts}>

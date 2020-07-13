@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form, Input, Modal} from 'antd';
+import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
 
@@ -14,16 +15,6 @@ export default class UpdateModal extends React.Component {
   render() {
 
     const { getFieldDecorator, validateFieldsAndScroll} = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 17 },
-      },
-    };
 
     const handleOk = (e) => {
       e.preventDefault();

@@ -1,6 +1,6 @@
 import React from 'react';
 import {DatePicker, Form, Modal} from 'antd';
-import ReplyModal from '@/pages/admin/feedback/components/ReplyModal';
+import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
 const {MonthPicker} = DatePicker;
@@ -10,11 +10,11 @@ class DownloadModal extends React.Component {
 
   state = {
     month:'',
-  }
+  };
 
   onChange = (date, value) => {
     this.setState({month: value});
-  }
+  };
 
   render() {
     const {
@@ -26,17 +26,6 @@ class DownloadModal extends React.Component {
       ...modalProps
     } = this.props;
 
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 17 },
-      },
-    };
-
     const handleOk = (e) => {
       e.preventDefault();
 
@@ -45,12 +34,12 @@ class DownloadModal extends React.Component {
           onOk({month: this.state.month});
         }
       });
-    }
+    };
 
     const modalOpts = {
       ...modalProps,
       onOk: handleOk
-    }
+    };
 
     return(
       <Modal {...modalOpts} >

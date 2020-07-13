@@ -13,11 +13,11 @@ class AddDetailModal extends React.Component {
     cateList:[],
     fetching: false,
     recordDate:'',
-  }
+  };
 
   fetchCate = ()=> {
     if(this.state.cateList<=0) {
-      request("financeCategoryService.listNoPage", {}, true).then((response) => {
+      request("financeCategoryService.listNoPage", {flag: this.props.flag}, true).then((response) => {
         let data = [];
         data.push( ...response.list.map((item) => ({
           value: ""+item.id,
@@ -27,13 +27,13 @@ class AddDetailModal extends React.Component {
         this.setState({cateList: data, fetching: false});
       });
     }
-  }
+  };
 
   validMoney=(rule, value, callback) => {
     if(value<=0) {
       callback("请输入大于0的数");
     } else {callback()}
-  }
+  };
 
   render() {
     const {
@@ -49,7 +49,7 @@ class AddDetailModal extends React.Component {
     const disabledDate=(current) => {
       // Can not select days before today and today
       return current && current > moment().endOf('day');
-    }
+    };
 
     const formItemLayout = {
       labelCol: {
@@ -64,13 +64,13 @@ class AddDetailModal extends React.Component {
 
     const onChangeDate = (time, dateString) => {
       this.setState({recordDate: dateString});
-    }
+    };
 
     const getCateName = (cateId)=> {
       let res = '';
-      this.state.cateList.map((item)=>{if(item.value==cateId) {res = item.text}});
+      this.state.cateList.map((item)=>{if(item.value===cateId) {res = item.text}return item.value;});
       return res;
-    }
+    };
 
     const handleOk = (e) => {
       e.preventDefault();
@@ -84,12 +84,13 @@ class AddDetailModal extends React.Component {
           resetFields();
         }
       });
-    }
+    };
 
     const modalOpts = {
       ...modalProps,
+      title: '添加流水详情【'+(this.state.flag==='1'?"入账":"出账")+'】',
       onOk: handleOk,
-    }
+    };
 
     return(
       <Modal {...modalOpts} style={{ "minWidth": '50%', top: 20 }}>

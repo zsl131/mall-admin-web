@@ -1,9 +1,7 @@
 import React from 'react';
-import {Form, Modal, Radio, Select} from 'antd';
+import { Modal } from 'antd';
 import styles from './edit.css';
 
-const RadioGroup = Radio.Group;
-const Option = Select.Option;
 
 export default class ShowDetailModal extends React.Component {
 
@@ -12,7 +10,7 @@ export default class ShowDetailModal extends React.Component {
     record: this.props.record,
     ticketList: this.props.ticketList,
     chineseMoney: this.props.chineseMoney,
-  }
+  };
 
 
   render() {
@@ -26,7 +24,7 @@ export default class ShowDetailModal extends React.Component {
 
     const modalOpts = {
       ...modalProps,
-    }
+    };
 
     const dataTr = ()=> {
       return detail.map((item)=>{
@@ -42,7 +40,7 @@ export default class ShowDetailModal extends React.Component {
           </tr>
         )
       })
-    }
+    };
 
     return(
       <Modal {...modalOpts} style={{ "minWidth": '80%', top: 20 }}>
@@ -50,7 +48,7 @@ export default class ShowDetailModal extends React.Component {
           <thead>
           <tr>
             <td colSpan={7}>
-              <b>{record.flag=='-1'?"费用报销单":"收益入账单"}</b>（{record.status=='0'?"待审":(record.status=='1'?<span className="blue">已通过</span>:<span className="red">已作废</span>)}）
+              <b>{record.flag==='-1'?"费用报销单":"收益入账单"}</b>（{record.status==='0'?"待审":(record.status==='1'?<span className="blue">已通过</span>:<span className="red">已作废</span>)}）
               <span style={{"float":"right","paddingRight":"10px"}}>编号：{record.ticketNo}号</span>
             </td>
           </tr>
@@ -90,7 +88,7 @@ export default class ShowDetailModal extends React.Component {
             <td colSpan={7}>
               {ticketList.map((item)=> {
                 return (
-                  <a href={item.picUrl} target="_blank"><img src={item.picUrl} className={styles.img}/></a>
+                  <a href={item.picUrl} target="_blank" rel="noopener noreferrer"><img  alt="图片" src={item.picUrl} className={styles.img}/></a>
                 )
               })}
             </td>

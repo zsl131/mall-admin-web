@@ -1,12 +1,12 @@
 import React from 'react';
-import {Button, Form, message, Modal, Radio, Select, Tooltip} from 'antd';
+import { Button, Form, message, Modal, Radio, Tooltip } from 'antd';
 import styles from './edit.css';
 import AddDetailModal from './AddDetailModal';
-import PictureWall from "../../../../components/common/PictureWall";
+import PictureWall from '../../../../components/common/PictureWall';
+import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
-const Option = Select.Option;
 
 @Form.create()
 class AddModal extends React.Component {
@@ -15,9 +15,10 @@ class AddModal extends React.Component {
     cateList:[],
     addVisible: false,
     fetching: false,
+    flag: '',
     index:1,
     detail:[],
-  }
+  };
 
   componentDidMount() {
     const {setFieldsValue} = this.props.form;
@@ -49,35 +50,26 @@ class AddModal extends React.Component {
           }
         }
       });
-    }
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 17 },
-      },
     };
 
     const setAddVisible = (flag) => {
       this.setState({addVisible: flag});
-    }
+    };
 
     const modalOpts = {
       ...modalProps,
       onOk: handleOk
-    }
+    };
 
     const onAddDetail = () => {
-      if(this.state.detail.length>=6) {
+      if(this.state.flag!=='1' && this.state.flag!=='-1') {
+        message.warn("请先选择账目类别");
+      } else if(this.state.detail.length>=6) {
         message.warn("最多只能记录6条流水信息");
       } else {
         this.setState({addVisible: true});
       }
-    }
+    };
 
     const addDetail = (obj) => {
       let list = this.state.detail;
@@ -86,7 +78,7 @@ class AddModal extends React.Component {
       obj.tickets=[];
       list.push(obj);
       this.setState({detail: list, index: index+1});
-    }
+    };
 
     const onFileChange = (file, extra) => {
       // console.log("onFileChange", file);
@@ -96,25 +88,27 @@ class AddModal extends React.Component {
         // console.log(file.response);
         resetDataByUploadTicket(file.response, extra.index);
       }
-    }
+    };
 
     const resetDataByUploadTicket = (url, index) => {
       let detailList = this.state.detail;
       let newDetail = [];
       detailList.map((item) => {
-        if(item.index == index) {
+        if(item.index === index) {
           item.tickets.push(url);
         }
         newDetail.push(item);
-      })
+        return item;
+      });
       // console.log(newDetail);
       this.setState({detail: newDetail});
-    }
+    };
 
     const detailOpts = {
       maskClosable: false,
       visible: this.state.addVisible,
       title: '添加流水详情',
+      flag: this.state.flag,
       onOk:(values) => {
         setAddVisible(false);
         addDetail(values);
@@ -122,7 +116,7 @@ class AddModal extends React.Component {
       onCancel:()=> {
         setAddVisible(false);
       }
-    }
+    };
 
     const dataTr = ()=> {
         return this.state.detail.map((item)=>{
@@ -141,14 +135,19 @@ class AddModal extends React.Component {
             </tr>
           )
         })
-    }
+    };
+
+    const changeFlag = (e) => {
+      const flag = e.target.value;
+      this.setState({flag: flag});
+    };
 
     return(
       <Modal {...modalOpts}  style={{ "minWidth": '80%', top: 20 }}>
         <Form layout="horizontal">
           <FormItem {...formItemLayout} label="账目类别">
             {getFieldDecorator('flag', {rules: [{required: true, message: '请选择类别'}]})(
-              <RadioGroup>
+              <RadioGroup onChange={changeFlag}>
                 <Radio value="1">进账</Radio>
                 <Radio value="-1">出账</Radio>
               </RadioGroup>

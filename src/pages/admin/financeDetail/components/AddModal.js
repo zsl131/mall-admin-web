@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {Col, DatePicker, Form, Input, InputNumber, Modal, Radio, Row, Select, Spin, Tooltip} from 'antd';
 import request from "../../../../utils/request";
+import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -13,7 +14,7 @@ class AddModal extends React.Component {
   state = {
     cateList:[],
     fetching: false,
-  }
+  };
 
   componentDidMount() {
     const {setFieldsValue} = this.props.form;
@@ -32,13 +33,13 @@ class AddModal extends React.Component {
         this.setState({cateList: data, fetching: false});
       });
     }
-  }
+  };
 
   validMoney=(rule, value, callback) => {
     if(value<=0) {
       callback("请输入大于0的金额");
     } else {callback()}
-  }
+  };
 
   render() {
     const {
@@ -53,17 +54,6 @@ class AddModal extends React.Component {
     const disabledDate=(current) => {
       // Can not select days before today and today
       return current && current > moment().endOf('day');
-    }
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 17 },
-      },
     };
 
     const handleOk = (e) => {
@@ -74,12 +64,12 @@ class AddModal extends React.Component {
           onOk(values);
         }
       });
-    }
+    };
 
     const modalOpts = {
       ...modalProps,
       onOk: handleOk
-    }
+    };
 
     return(
       <Modal {...modalOpts} style={{ "minWidth": '50%', top: 20 }}>

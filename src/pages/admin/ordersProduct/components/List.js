@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Icon, Pagination, Popconfirm, Table, Tooltip } from 'antd';
-import styles from './list.css';
+import { Pagination, Table, Tooltip } from 'antd';
 
 const List = ({
   onPageChange,
@@ -63,10 +62,6 @@ const List = ({
       );
     }
   }];
-
-  const handleSetStatus = (record) => {
-    //onSetStatus(record);
-  };
 
   const handlePageChange = (pageNumber) => {
     onPageChange(pageNumber);

@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment';
-import {Form, Input, Modal} from 'antd';
+import { Form, Input, Modal } from 'antd';
+import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
 
@@ -13,17 +13,6 @@ const InvalidModal = ({
   ...modalProps
 }) => {
 
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 6 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 17 },
-    },
-  };
-
   const handleOk = (e) => {
     e.preventDefault();
 
@@ -32,12 +21,12 @@ const InvalidModal = ({
         onOk(values);
       }
     });
-  }
+  };
 
   const modalOpts = {
     ...modalProps,
     onOk: handleOk
-  }
+  };
 
   return(
     <Modal {...modalOpts}>

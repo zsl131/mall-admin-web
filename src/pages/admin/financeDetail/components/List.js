@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button, Pagination, Table} from 'antd';
-import {getLoginUser} from "../../../../utils/authUtils";
+import { Pagination, Table } from 'antd';
 
 const List = ({
   onInvalid,
@@ -10,18 +9,18 @@ const List = ({
   ...listOpts
 }) => {
 
-  const obj = getLoginUser();
-  const loginUsername = obj.username;
+  // const obj = getLoginUser();
+  // const loginUsername = obj.username;
   //console.log(loginUsername.startsWith(""))
   // console.log(obj);
 
-  const onClick = (record) => {
+  /*const onClick = (record) => {
     onInvalid(record);
   }
 
   const onRecordClick = (record) => {
     onRecord(record)
-  }
+  }*/
 
   const columns = [{
     title: '日期',
@@ -50,7 +49,7 @@ const List = ({
     render:(record)=> {
       return (
         <div>
-          <p>{record.status=='0'?<span className="blue">{record.amount}</span>:(record.flag=='1'?<b className="blue">+{record.amount}</b>:<b className="red">-{record.amount}</b>)}</p>
+          <p>{record.status==='0'?<span className="blue">{record.amount}</span>:(record.flag==='1'?<b className="blue">+{record.amount}</b>:<b className="red">-{record.amount}</b>)}</p>
           <p>据号：<b>{record.ticketNo}</b></p>
         </div>
       )
@@ -69,7 +68,7 @@ const List = ({
     render:(record)=> {
       return(
         <div>
-          {record.status=='1'?<span className="blue">有效</span>:(record.status=='-1'?<span className="red">作废</span>:"未审")}
+          {record.status==='1'?<span className="blue">有效</span>:(record.status==='-1'?<span className="red">作废</span>:"未审")}
         </div>
         /*record.status=='1' ? <div><p className="blue">有效</p>{(record.recordName.startsWith(loginUsername) || loginUsername==='root')?<Button type="danger" size="small" onClick={()=>onClick(record)}>作废</Button>:""}</div>:
           (record.status=="-1"?<span className="red">{record.invalidName}:{record.invalidReason}</span>:<div><p className="blue">初始</p><Button type="primary" size="small" onClick={()=>onRecordClick(record)}>记账</Button></div>)*/

@@ -1,7 +1,9 @@
 import React from 'react';
-import {Form, Input, Modal} from 'antd';
+import { Form, Input, Modal, Radio } from 'antd';
+import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 
 @Form.create()
 class UpdateModal extends React.Component {
@@ -14,16 +16,6 @@ class UpdateModal extends React.Component {
   render() {
 
     const { getFieldDecorator, validateFieldsAndScroll} = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 17 },
-      },
-    };
 
     const handleOk = (e) => {
       e.preventDefault();
@@ -38,6 +30,16 @@ class UpdateModal extends React.Component {
       <Modal {...this.props} onOk={handleOk}>
         <Form layout="horizontal">
           {getFieldDecorator("id")(<Input type="hidden"/>)}
+
+          <FormItem {...formItemLayout} label="分类类别">
+            {getFieldDecorator('flag', {rules: [{required: true, message: '请选择类别'}]})(
+              <RadioGroup>
+                <Radio value="1">进账</Radio>
+                <Radio value="-1">出账</Radio>
+              </RadioGroup>
+            )}
+          </FormItem>
+
           <FormItem {...formItemLayout} label="分类名称">
             {getFieldDecorator('name', {rules: [{required: true, message: '分类名称不能为空'}]})(<Input placeholder="输入分类名称"/>)}
           </FormItem>
