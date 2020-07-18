@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, message, Modal, Radio, Tooltip } from 'antd';
+import { Button, Form, message, Modal, Popconfirm, Radio, Tooltip } from 'antd';
 import styles from './edit.css';
 import AddDetailModal from './AddDetailModal';
 import PictureWall from '../../../../components/common/PictureWall';
@@ -18,6 +18,8 @@ class AddModal extends React.Component {
     flag: '',
     index:1,
     detail:[],
+    totalMoney: 0,
+    curDetail:{},
   };
 
   componentDidMount() {
@@ -52,6 +54,8 @@ class AddModal extends React.Component {
       });
     };
 
+    //console.log(Math.random().toString(36).substr(3,20));
+
     const setAddVisible = (flag) => {
       this.setState({addVisible: flag});
     };
@@ -61,23 +65,39 @@ class AddModal extends React.Component {
       onOk: handleOk
     };
 
-    const onAddDetail = () => {
+    const onAddDetail = (obj) => {
+      //console.log(obj);
       if(this.state.flag!=='1' && this.state.flag!=='-1') {
         message.warn("请先选择账目类别");
-      } else if(this.state.detail.length>=6) {
+      } else if(this.state.detail.length>=6 && !obj.randomId) {
         message.warn("最多只能记录6条流水信息");
       } else {
-        this.setState({addVisible: true});
+        this.setState({addVisible: true, curDetail: obj});
       }
     };
 
     const addDetail = (obj) => {
       let list = this.state.detail;
+      let newList = [];
       let index = this.state.index;
       obj.index = index;
       obj.tickets=[];
+
+      // console.log(list.findIndex(item => item.randomId===obj.randomId))
+
+      // list.splice(list.findIndex(item => item.randomId===obj.randomId), 1);
+
+      list.map((item)=> {if(item.randomId!==obj.randomId) {newList.push(item);} return item;});
+      newList.push(obj);
+      //console.log(newList)
       list.push(obj);
-      this.setState({detail: list, index: index+1});
+      //console.log(obj, newList);
+      let totalMoney = 0;
+      newList.map((item)=> {
+        totalMoney += item.amount;
+        return item;
+      });
+      this.setState({detail: newList, index: index+1, totalMoney: totalMoney, curDetail:{}});
     };
 
     const onFileChange = (file, extra) => {
@@ -109,6 +129,7 @@ class AddModal extends React.Component {
       visible: this.state.addVisible,
       title: '添加流水详情',
       flag: this.state.flag,
+      curDetail: this.state.curDetail,
       onOk:(values) => {
         setAddVisible(false);
         addDetail(values);
@@ -132,9 +153,37 @@ class AddModal extends React.Component {
               <td><Tooltip title="上传凭据">
                 <PictureWall fileListLength={5} multiple accept="image/png, image/jpeg, image/gif" showMsg="上传凭据" extra={{"index":item.index}} data={{'path':item.index}} onFileChange={onFileChange}/>
               </Tooltip></td>
+              <td>
+                <p>
+                <Popconfirm title={"确定删除此记录吗？"} onConfirm={()=>removeDetail(item)}>
+                <Button icon="close" type="danger">删除</Button>
+                </Popconfirm>
+                </p>
+                <p>
+                  <Button icon="edit" type="default" onClick={()=>onAddDetail(item)}>修改</Button>
+                </p>
+              </td>
             </tr>
           )
         })
+    };
+
+    const removeDetail = (obj) => {
+      //console.log(obj)
+      let detailList = [];
+      this.state.detail.map((item)=> {
+        if(obj.randomId!==item.randomId) {
+          detailList.push(item);
+        }
+        return item;
+      });
+
+      let totalMoney = 0;
+      detailList.map((item)=> {
+        totalMoney += item.amount;
+        return item;
+      });
+      this.setState({detail: detailList, totalMoney: totalMoney});
     };
 
     const changeFlag = (e) => {
@@ -164,12 +213,18 @@ class AddModal extends React.Component {
                 <td>金额（元）</td>
                 {/*<td>附单（张）</td>*/}
                 <td>附件</td>
+                <td>操作</td>
               </tr>
             </thead>
             <tbody>
               {dataTr()}
               <tr>
-                <td colSpan={7}>
+                <td colSpan={8}>
+                  合计金额：<b>{this.state.totalMoney}</b> 元
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={8}>
                   <Button icon="plus" type="primary" onClick={()=>onAddDetail()}>添加流水</Button>
                 </td>
               </tr>

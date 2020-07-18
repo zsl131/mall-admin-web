@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Col, DatePicker, Form, Input, InputNumber, Modal, Row, Select, Spin, Tooltip } from 'antd';
 import request from '../../../../utils/request';
+import { formItemLayout } from '@/utils/common';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -13,7 +14,16 @@ class AddDetailModal extends React.Component {
     cateList:[],
     fetching: false,
     recordDate:'',
+    hasSet: false, //是否已经设置
+    curDetail: this.props.curDetail,
   };
+
+  componentDidMount() {
+    //const {setFieldsValue} = this.props.form;
+    //console.log("-------------")
+
+    //setFieldsValue(this.state.curDetail);
+  }
 
   fetchCate = ()=> {
     if(this.state.cateList<=0) {
@@ -41,25 +51,30 @@ class AddDetailModal extends React.Component {
       form: {
         getFieldDecorator,
         validateFieldsAndScroll,
+        setFieldsValue,
         resetFields,
       },
       ...modalProps
     } = this.props;
 
+    const curDetail = this.props.curDetail;
+
+   // console.log(curDetail);
+
+    if(curDetail && curDetail.randomId && !this.state.hasSet) {
+      //console.log(curDetail);
+      this.setState({hasSet: true});
+      const date = curDetail.recordDate;
+      delete curDetail.recordDate;
+      setFieldsValue(curDetail);
+      if(date) {
+        setFieldsValue({recordDate: moment(date, "YYYY-MM-DD")})
+      }
+    }
+
     const disabledDate=(current) => {
       // Can not select days before today and today
       return current && current > moment().endOf('day');
-    };
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 17 },
-      },
     };
 
     const onChangeDate = (time, dateString) => {
@@ -80,8 +95,13 @@ class AddDetailModal extends React.Component {
           values.recordDate = this.state.recordDate;
           values.amount = values.count* values.price;
           values.cateName = getCateName(values.cateId);
+          if(!values.randomId) {
+            values.randomId = Math.random().toString(36).substr(3,20);
+          }
+          //console.log(values)
           onOk(values);
           resetFields();
+          this.setState({hasSet: false})
         }
       });
     };
@@ -96,6 +116,7 @@ class AddDetailModal extends React.Component {
       <Modal {...modalOpts} style={{ "minWidth": '50%', top: 20 }}>
         <Form layout="horizontal">
           {getFieldDecorator("id")(<Input type="hidden"/>)}
+          {getFieldDecorator("randomId")(<Input type="hidden"/>)}
           <FormItem {...formItemLayout} label="账目分类">
             {getFieldDecorator("cateId", {rules: [{required: true, message: '请选择账目分类'}]})(
               <Select
