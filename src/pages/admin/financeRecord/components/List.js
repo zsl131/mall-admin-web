@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Pagination, Table,Popconfirm} from 'antd';
+import { Button, Pagination, Table, Popconfirm, Tooltip } from 'antd';
 import {getLoginUser} from "../../../../utils/authUtils";
 
 const List = ({
@@ -53,7 +53,7 @@ const List = ({
           (record.status==="-1"?<span className="red">{record.invalidName}:{record.invalidReason}</span>:
             <div><p>待审核</p>{(!record.recordName.startsWith(loginUsername) || loginUsername==='root')?
               <span><Popconfirm onConfirm={()=>onClick(record, "1")} title="确定通过审核吗？此操作不可逆"><Button type="primary" size="small">通过</Button></Popconfirm>
-                <Button type="danger" size="small" onClick={()=>onClick(record, "-1")}>作废</Button></span>:""}</div>)
+                </span>:""}{<Tooltip title="点击按钮作废此记录"><Button type="danger" size="small" onClick={()=>onClick(record, "-1")}>作废</Button></Tooltip>}</div>)
       )
     }
   }];
