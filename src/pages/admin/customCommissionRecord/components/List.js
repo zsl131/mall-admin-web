@@ -57,6 +57,9 @@ const List = ({
             {status==='2' && <span className="blue" title="可提现">可提现</span>}
             {status==='3' && <span title="已提交提现申请">纳入结算</span>}
             {status==='4' && <span title="已转款">已转款</span>}
+            {record.saleFlag==='2'?<span className="red" title="有售后">-不可提现</span>:
+              <span>{record.saleFlag==='1'?<span className="red" title="有售后">-可提</span>:""}</span>
+            }
           </p>
         </div>
       )

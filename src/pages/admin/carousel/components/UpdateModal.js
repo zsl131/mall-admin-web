@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, Icon, Input, InputNumber, Modal, Radio, Switch } from 'antd';
-import { formItemLayout_large } from '@/utils/common';
+import { Form, Icon, Input, InputNumber, message, Modal, Radio, Switch } from 'antd';
+import { confirmModal, formItemLayout_large } from '@/utils/common';
+import PictureWall from '@/components/common/PictureWall';
+import { httpGet } from '@/utils/normalService';
 
 const FormItem = Form.Item;
 
@@ -8,20 +10,29 @@ const FormItem = Form.Item;
 class UpdateModal extends React.Component {
 
   state = {
-    openMode: ''
+    openMode: '',
+    oldPic: [],
   };
 
   componentDidMount() {
     const item = this.props.item;
     const {setFieldsValue} = this.props.form;
     setFieldsValue(item);
-    this.setState({openMode: item.openMode});
+    this.setState({openMode: item.openMode, oldPic: [{
+        uid: item.id,
+        objId: item.id,
+        name: item.title,
+        status: 'done',
+        url: item.url,
+      }]});
   }
   render() {
 
     const {item, form} = this.props;
 
-    const { getFieldDecorator, validateFieldsAndScroll} = form;
+    //console.log(item)
+
+    const { getFieldDecorator, validateFieldsAndScroll,setFieldsValue} = form;
 
     const handleOk = (e) => {
       e.preventDefault();
@@ -38,6 +49,49 @@ class UpdateModal extends React.Component {
       this.setState({openMode: val});
     };
 
+    const onBeforeUpload = (file) => {
+      if(file.type.indexOf("image")<0) {
+        message.error("只能上传图片格式文件");
+        return false;
+      }
+      return true;
+    };
+
+    const onRemove = (file) => {
+      return new Promise(function(resolve, reject) {
+        confirmModal({
+          content: "确定要删除该图片吗？",
+          onOk: () => {
+            resolve(true);
+          },
+          onCancel: () => {
+            resolve(false);
+          }
+        });
+      });
+    };
+
+    const dataConfig = (orderNo) => {
+      let config = {objClassName: "Carousel", ticket: this.state.uuid, width: 800};
+      config.orderNo=orderNo;
+      return config;
+    };
+
+    const onFileChange = (file) => {
+      //console.log("onFileChange", file);
+      if (file.status === 'done') {
+        //setFieldsValue({"imgUrl": file.response});
+        const url = file.response.data[0].url;
+        setFieldsValue({ url: url });
+      }
+      if (file.status === "removed") {
+        const id = file.objId ? file.objId : file.response.data[0].id;
+        const obj = { id: id, apiCode: "mediumService.delete" };
+        httpGet(obj); //删除
+        setFieldsValue({ url: "" });
+      }
+    };
+
     const openMode = this.state.openMode;
 
     return(
@@ -52,6 +106,12 @@ class UpdateModal extends React.Component {
           </FormItem>
           <FormItem {...formItemLayout_large} label="显示状态">
             {getFieldDecorator("status")(<Switch defaultChecked={item.status==="1"} checkedChildren={<Icon type="check"/>} unCheckedChildren={<Icon type="close" />}/>)}
+          </FormItem>
+          <FormItem {...formItemLayout_large} label="轮播图片">
+            {getFieldDecorator('url', {rules: [{required: true, message: '请上传轮播图'}]})(
+              <PictureWall fileList={this.state.oldPic} onBeforeUpload={onBeforeUpload} onRemove={onRemove} type="image" showMsg="轮播图片" data={dataConfig()} onFileChange={onFileChange}/>
+            )}
+            <span className="dark">尺寸建议：800x430px</span>
           </FormItem>
           <FormItem {...formItemLayout_large} label="打开方式">
             {getFieldDecorator("openMode", {rules: [{required: true, message: '打开方式不能为空'}]})(

@@ -16,7 +16,7 @@ const List = ({
     title: '姓名',
     dataIndex: 'id',
     render:(text, record)=> {
-      return (<div><b>{record.name}</b><p>{record.nickname}</p></div>)
+      return (<b>{record.name}</b>)
     }
   }, {
     title: '联系方式',
@@ -36,7 +36,7 @@ const List = ({
       return (
         <div>
           {status==="0"?<span className="dark">待审核</span>:(status==="1"?<span><b className="blue">审核通过</b><b>[{record.levelName}]</b></span>:<b className="red">驳回</b>)}
-          <p>{record.hasExperience==="1"?<b className="blue">有经验</b>:<b className="red">无经验</b>}<Tooltip title="自己的邀请码">[{record.ownCode}]</Tooltip></p>
+          <p><Tooltip title="自己的邀请码">[{record.ownCode}]</Tooltip></p>
         </div>
       )
     }
@@ -64,16 +64,6 @@ const List = ({
             <Tooltip title="子代理数"><Tag color="purple"><IconText type="apartment" text={record.subCount}/></Tag></Tooltip>
             <Tooltip title="销量"><Tag color="red"><IconText type="shopping-cart" text={record.ordersCount}/></Tag></Tooltip>
           </p>
-        </div>
-      )
-    }
-  }, {
-    title: "证件",
-    render: (record)=> {
-      return (
-        <div>
-          {record.paperCount===0?<b className="red">无证件</b>:<Button onClick={()=>showPapers(record)} type="primary">{record.paperCount} 份证件</Button>}
-          <p>{record.identity}</p>
         </div>
       )
     }

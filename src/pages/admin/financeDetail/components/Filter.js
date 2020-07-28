@@ -40,10 +40,10 @@ const Filter = ({
         {getFieldDecorator("title_like")(<Input placeholder="摘要"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("operator_like")(<Input placeholder="经办人"/>)}
+        {getFieldDecorator("operator_like")(<Input placeholder="登记人"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("recordName_like")(<Input placeholder="记账人"/>)}
+        {getFieldDecorator("handleName_like")(<Input placeholder="经办人"/>)}
       </FormItem>
       <FormItem>
         {getFieldDecorator("flag")(

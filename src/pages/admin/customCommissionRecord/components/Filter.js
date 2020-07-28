@@ -35,6 +35,9 @@ const Filter = ({
       <FormItem>
         {getFieldDecorator("customNickname_like")(<Input placeholder="顾客昵称"/>)}
       </FormItem>
+      <FormItem>
+        {getFieldDecorator("cashOutBatchNo_like")(<Input placeholder="批次号"/>)}
+      </FormItem>
 
       <FormItem>
         {getFieldDecorator("status")(

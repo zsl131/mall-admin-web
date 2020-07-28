@@ -25,7 +25,10 @@ const Filter = ({
         {getFieldDecorator("ticketNo_like")(<Input placeholder="单据号"/>)}
       </FormItem>
       <FormItem>
-        {getFieldDecorator("operator_like")(<Input placeholder="经办人"/>)}
+        {getFieldDecorator("operator_like")(<Input placeholder="登记人"/>)}
+      </FormItem>
+      <FormItem>
+        {getFieldDecorator("handleName_like")(<Input placeholder="经办人"/>)}
       </FormItem>
       <FormItem>
         {getFieldDecorator("flag")(

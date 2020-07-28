@@ -144,7 +144,9 @@ class AddModal extends React.Component {
           return (
             <tr>
               <td>{item.recordDate}</td>
-              <td>{item.title}</td>
+              <td style={{"textAlign":"left"}}>{item.title}
+                <p>经办人{item.handleName}</p>
+              </td>
               <td>{item.cateName}</td>
               <td>{item.price}</td>
               <td>{item.count}</td>

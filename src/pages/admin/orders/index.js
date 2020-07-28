@@ -52,8 +52,9 @@ const Orders = ({
     showExpress: (obj)=> {
       dispatch({ type: 'orders/showExpress', payload: obj });
     },
-    onAfterSale: (obj)=> {
-      dispatch({ type: 'orders/modifyState', payload: {ordersProduct: obj, afterSaleVisible: true} });
+    onAfterSale: (orders, obj)=> {
+      //console.log(orders, obj)
+      dispatch({ type: 'orders/modifyState', payload: {ordersProduct: obj, item: orders, afterSaleVisible: true} });
     }
   };
 
@@ -101,6 +102,7 @@ const Orders = ({
     visible: orders.afterSaleVisible,
     title: "售后处理",
     maskClosable: false,
+    orders: orders.item,
     ordersProduct: orders.ordersProduct,
     confirmLoading: loading.effects['orders/express'],
     onOk: (obj) => {

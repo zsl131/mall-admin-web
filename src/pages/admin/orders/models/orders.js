@@ -61,10 +61,16 @@ export default {
       }
     },
     *afterSale({payload: obj}, {call,put}) {
+      //console.log(obj)
       obj.apiCode = "miniOrdersService.afterSale";
       const data = yield call(httpGet, obj);
       if(data) {
-        message.success(data.message);
+        const res = data.res;
+        if(res.status==='0') {
+          message.success(data.message);
+        } else {
+          message.warn(res.errCodeDes);
+        }
       }
     },
   },

@@ -38,7 +38,7 @@ const List = ({
       </div>
 
       <div className={styles.productList}>
-        {productList.map((pro)=> {return SingleProduct(pro)})}
+        {productList.map((pro)=> {return SingleProduct(orders, pro)})}
       </div>
 
       <div className={styles.dateDiv}>
@@ -62,17 +62,23 @@ const List = ({
           {orders.status==='-1' && <span className="red">已取消</span>}
           {orders.status==='-2' && <span className="red">有售后，已退<b>{orders.backMoney}</b></span>}
           {orders.status==='-10' && <span className="red">已删除</span>}
+          {orders.saleFlag==='1'?<span className="red"> 有售后，已退<b>{orders.backMoney}</b></span>:""}
         </div>
         <div className={styles.moneyDivCon}>
-          <span>订单总额：<b>￥ {orders.totalMoney}</b></span>
+          {/*<span>订单总额：<b>￥ {orders.totalMoney}</b></span>*/}
           <span>公益基金：<b>￥ {orders.fundMoney?orders.fundMoney:0}</b></span>
-          <span>优惠金额：<b>￥ {orders.discountMoney?orders.discountMoney:0}</b></span>
+          {/*<span>优惠金额：<b>￥ {orders.discountMoney?orders.discountMoney:0}</b></span>*/}
+          <span>实收：<Tooltip title="订单总额"><b>￥ {orders.totalMoney}</b></Tooltip> -
+            <Tooltip title="优惠金额"><b>￥{orders.discountMoney?orders.discountMoney:0}</b></Tooltip> -
+            <Tooltip title="退款金额"><b>￥{orders.backMoney}</b></Tooltip>=
+            <Tooltip title="实收金额"><b className="blue">￥{orders.totalMoney-(orders.discountMoney?orders.discountMoney:0)-orders.backMoney}</b></Tooltip>
+          </span>
         </div>
       </div>
     </div>
   };
 
-  const SingleProduct = (item)=> {
+  const SingleProduct = (orders, item)=> {
     return (
       <div className={styles.singleProduct}>
         <div className={styles.proImg}><img src={item.proImg} alt={item.proTitle}/></div>
@@ -95,11 +101,11 @@ const List = ({
             </div>:
             <div>
               {item.status==='1' &&  <div><p><Button type="primary" onClick={()=>onExpress(item)}>发货</Button></p>
-                <p><Button type="danger" onClick={()=>onAfterSale(item)}>退款</Button></p>
+                <p><Button type="danger" onClick={()=>onAfterSale(orders, item)}>退款</Button></p>
               </div>}
               {item.status==='2' &&  <div><p><Button type="default" onClick={()=>showExpress(item)}>物流</Button></p>
-                <p><Tooltip title={"出现售后理赔时点这里"}><Button type="danger" onClick={()=>onAfterSale(item)}>售后</Button></Tooltip></p></div>}
-              {item.status==='-2' && <div><p><Tooltip title={"出现售后理赔时点这里"}><Button type="danger" onClick={()=>onAfterSale(item)}>售后</Button></Tooltip></p>
+                <p><Tooltip title={"出现售后理赔时点这里"}><Button type="danger" onClick={()=>onAfterSale(orders, item)}>售后</Button></Tooltip></p></div>}
+              {item.status==='-2' && <div><p><Tooltip title={"出现售后理赔时点这里"}><Button type="danger" onClick={()=>onAfterSale(orders, item)}>售后</Button></Tooltip></p>
                 <p>已退<b>{item.backMoney}</b></p>
               </div>}
             </div>

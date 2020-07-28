@@ -59,7 +59,8 @@ const List = ({
     render:(record)=> {
       return (
         <div>
-          <p>经办人：{record.operator}</p>
+          <p>登记人：{record.operator}</p>
+          <p>经办人：{record.handleName}</p>
         </div>
       )
     }

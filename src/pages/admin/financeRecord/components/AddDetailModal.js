@@ -113,7 +113,7 @@ class AddDetailModal extends React.Component {
     };
 
     return(
-      <Modal {...modalOpts} style={{ "minWidth": '50%', top: 20 }}>
+      <Modal {...modalOpts} style={{ "minWidth": '70%', top: 20 }}>
         <Form layout="horizontal">
           {getFieldDecorator("id")(<Input type="hidden"/>)}
           {getFieldDecorator("randomId")(<Input type="hidden"/>)}
@@ -150,9 +150,26 @@ class AddDetailModal extends React.Component {
               </Tooltip>
             </Row>
           </FormItem>
-          <FormItem {...formItemLayout} label="账目日期">
-            {getFieldDecorator('recordDate', {rules: [{required: true, message: '账目不能为空'}]})(<DatePicker onChange={onChangeDate} disabledDate={disabledDate} placeholder="请选择账目日期" />)}
+
+          <FormItem {...formItemLayout} label="账目">
+            <Row>
+              <Tooltip placement="topLeft" title="账目日期" arrowPointAtLeft>
+                <Col span={12}>
+                  <FormItem {...formItemLayout} label="日期">
+                    {getFieldDecorator('recordDate', {rules: [{required: true, message: '账目不能为空'}]})(<DatePicker onChange={onChangeDate} disabledDate={disabledDate} placeholder="请选择账目日期" />)}
+                  </FormItem>
+                </Col>
+              </Tooltip>
+              <Tooltip placement="topLeft" title="输入数量" arrowPointAtLeft>
+                <Col span={12}>
+                  <FormItem  {...formItemLayout} label="经办人">
+                    {getFieldDecorator('handleName', {rules: [{required: true, message: '经办人不能为空'}]})(<Input placeholder="经办人"/>)}
+                  </FormItem>
+                </Col>
+              </Tooltip>
+            </Row>
           </FormItem>
+
           {/*<FormItem {...formItemLayout} label="单据张数">
             {getFieldDecorator('ticketCount', {rules: [{required: true, message: '单据张数不能为空'},{validator:this.validMoney}]})(<InputNumber placeholder="正数数量"/>)}
           </FormItem>*/}

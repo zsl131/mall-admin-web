@@ -105,7 +105,7 @@ export default {
       }
     },
     *onPic({payload:obj},{call,put}) {
-      const apiCode = mediumService+".listByObj";
+      const apiCode = mediumService+".listProPics";
       const data = yield call(httpGet, {id: obj.id, objType: "Product", apiCode: apiCode});
       yield put({type: "modifyState", payload: {item: obj, picVisible: true, picList: data.data}});
     },
