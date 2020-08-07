@@ -63,6 +63,7 @@ const List = ({
           {orders.status==='-2' && <span className="red">有售后，已退<b>{orders.backMoney}</b></span>}
           {orders.status==='-10' && <span className="red">已删除</span>}
           {orders.saleFlag==='1'?<span className="red"> 有售后，已退<b>{orders.backMoney}</b></span>:""}
+          {orders.refundFlag==='1'?<span className="red" style={{"paddingLeft":"10px"}}>此订单已申请退款，请及时审核</span>:""}
         </div>
         <div className={styles.moneyDivCon}>
           {/*<span>订单总额：<b>￥ {orders.totalMoney}</b></span>*/}

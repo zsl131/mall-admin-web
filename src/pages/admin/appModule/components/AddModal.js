@@ -65,12 +65,16 @@ class AddModal extends React.Component {
           <Row>
             <Col span={12}>
               <FormItem {...formItemLayout} label="背景颜色">
-                {getFieldDecorator('bgColor')(<Tooltip title="支持RGB和16进制"><Input addonAfter={<span style={{"color":this.state.bgColor}}>效果</span>} onChange={onColorChange} placeholder="背景颜色"/></Tooltip>)}
+                <Tooltip title="支持RGB和16进制">
+                {getFieldDecorator('bgColor')(<Input addonAfter={<span style={{"color":this.state.bgColor}}>效果</span>} onChange={onColorChange} placeholder="背景颜色"/>)}
+                </Tooltip>
               </FormItem>
             </Col>
             <Col span={12}>
               <FormItem {...formItemLayout} label="图标样式">
-                {getFieldDecorator('icon')(<Tooltip title="在iconfont项目中查看"><Input addonAfter={<MiniIcon type={this.state.icon}/>} onChange={onIconChange} placeholder="图标样式"/></Tooltip>)}
+                <Tooltip title="在iconfont项目中查看">
+                {getFieldDecorator('icon')(<Input addonAfter={<MiniIcon type={this.state.icon}/>} onChange={onIconChange} placeholder="图标样式"/>)}
+                </Tooltip>
               </FormItem>
             </Col>
           </Row>
@@ -93,12 +97,16 @@ class AddModal extends React.Component {
           <Row>
             <Col span={12}>
               <FormItem {...formItemLayout} label="序号">
-                {getFieldDecorator('orderNo')( <Tooltip title="排序序号，越小排在越前面"><InputNumber placeholder="排序序号"/></Tooltip>)}
+                <Tooltip title="排序序号，越小排在越前面">
+                {getFieldDecorator('orderNo')(<InputNumber placeholder="排序序号"/>)}
+                </Tooltip>
               </FormItem>
             </Col>
             <Col span={12}>
               <FormItem {...formItemLayout} label="显示状态">
-                {getFieldDecorator("status")(<Tooltip title="是否显示在小程序端"><Switch checkedChildren={<Icon type="check"/>} unCheckedChildren={<Icon type="close" />}/></Tooltip>)}
+                <Tooltip title="是否显示在小程序端">
+                {getFieldDecorator("status")(<Switch checkedChildren={<Icon type="check"/>} unCheckedChildren={<Icon type="close" />}/>)}
+                </Tooltip>
               </FormItem>
             </Col>
           </Row>

@@ -1,13 +1,14 @@
-import { httpGet } from '@/utils/normalService';
 import { message } from 'antd';
+import { httpGet } from '@/utils/normalService';
 
-const baseService = "refundRecordService";
+const baseService = "refundReasonService";
 export default {
   state: {
     item:{},
     totalElements:0,
     datas:[],
-    verifyVisible: false,
+    addVisible: false,
+    updateVisible: false,
   },
   reducers: {
     modifyState(state, { payload: options }) {
@@ -17,29 +18,31 @@ export default {
   effects: {
     *list({ payload: query }, { call, put }) {
       query.apiCode = baseService+".list";
+      query.sort = "orderNo"; //排序
       const data = yield call(httpGet, query);
       //console.log(data);
       yield put({ type:'modifyState', payload: {totalElements: data.size, datas: data.datas} });
     },
-    *handleCash({payload: obj}, {call}) {
-      obj.apiCode = baseService+".handleCash";
+    *addObj({payload: obj}, {call}) {
+      obj.apiCode = baseService+".add";
       const data = yield call(httpGet, obj);
-      if(data) {
-        message.success(data.message);
-      }
+      if(data) {message.success("保存成功");}
     },
-    *verify({payload: obj}, {call}) {
-      obj.apiCode = baseService+".verify";
+    *updateObj({payload: obj},{call}) {
+      obj.apiCode = baseService+".update";
       const data = yield call(httpGet, obj);
-      if(data) {
-        message.success(data.message);
-      }
+      if(data) {message.success("保存成功");}
+    },
+    *deleteObj({payload: obj}, {call}) {
+      obj.apiCode = baseService+".delete";
+      const data = yield call(httpGet, obj);
+      if(data) {message.info(data.message);}
     },
   },
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen((location) => {
-        if(location.pathname === '/admin/refundRecord') {
+        if(location.pathname === '/admin/refundReason') {
           dispatch({ type: 'list', payload: location.query });
         }
       })

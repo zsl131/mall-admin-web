@@ -7,6 +7,7 @@ const List = ({
   onPageChange,
   totalElement,
   handleCash,
+  verifyApply,
   ...listOpts
 }) => {
 
@@ -43,7 +44,7 @@ const List = ({
       );
     }
   }, {
-    title: "日期",
+    title: "产品/日期",
     render: (record)=> {
       return (
         <div>
@@ -57,17 +58,38 @@ const List = ({
     // dataIndex: 'money'
     render:(record)=> {
       return (
+        <div>
+          {record.type==='1' && <p className="red">{record.reason}</p>}
         <b className="blue">{record.backMoney} 元</b>
+        </div>
       )
     }
   }, {
     title: '状态',
     render:(record)=> {
       const status = record.status;
+      const type = record.type;
+      const flag = record.verifyFlag;
       return (
         <div>
-          <p>{status==='-1'?<span className="red">退款失败</span>:<span className="blue">退款成功</span>}</p>
-          <p>{record.resCode}-{record.resCodeDes}</p>
+          {
+            type!=='1' &&
+            <div>
+              <p>{status==='-1'?<span className="red">退款失败</span>:<span className="blue">退款成功</span>}</p>
+              <p>{record.resCode}-{record.resCodeDes}</p>
+            </div>
+          }
+          {
+            type==='1' &&
+            <div>
+              {
+                flag ==='0' && <p><Tooltip title="同意退款"><Popconfirm title="确定同意退款申请吗？此操作将直接退钱给客户且无法撤回！" onConfirm={()=>verifyApply("1", record)}><Button type="primary">同意</Button></Popconfirm></Tooltip>
+                  <Tooltip title="拒绝退款"><Button type="danger" onClick={()=>verifyApply("2", record)}>拒绝</Button></Tooltip></p>
+              }
+              {flag==='1' && <b className="blue">同意退款</b>}
+              {flag==='2' && <div><b className="red">拒绝退款</b><p>{record.verfiyReason}</p></div>}
+            </div>
+          }
         </div>
       )
     }

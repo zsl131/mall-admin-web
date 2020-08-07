@@ -4,6 +4,7 @@ import { Icon } from 'antd';
 import { routerRedux } from 'dva/router';
 import List from './components/List';
 import Filter from './components/Filter';
+import VerifyModal from './components/VerifyModal';
 
 const RefundRecord = ({
   refundRecord,
@@ -45,6 +46,14 @@ const RefundRecord = ({
     },
     handleCash: (record)=> {
       dispatch({ type: 'refundRecord/handleCash', payload: {id: record.id} }).then(() => {handleRefresh()});
+    },
+    verifyApply: (flag, record) => {
+      if(flag==='2') {
+        dispatch({ type: 'refundRecord/modifyState', payload: {item: record, verifyVisible: true} });
+      } else {
+        dispatch({ type: 'refundRecord/verify', payload: {id: record.id, flag: flag, reason: '通过'} }).then(() => {handleRefresh()});
+      }
+      // console.log(flag, record)
     }
   };
 
@@ -52,6 +61,21 @@ const RefundRecord = ({
     onFilter(values) {
       delete query.page; //去除page属性
       handleRefresh({conditions: JSON.stringify(values)});
+    }
+  };
+
+  const verifyOpts = {
+    visible: refundRecord.verifyVisible,
+    title: "驳回退款申请",
+    item: refundRecord.item,
+    maskClosable: false,
+    confirmLoading: loading.effects['refundRecord/updateObj'],
+    onOk: (obj) => {
+      dispatch({ type: 'refundRecord/modifyState', payload: { verifyVisible: false } });
+      dispatch({ type: 'refundRecord/verify', payload: obj }).then(() => {handleRefresh()});
+    },
+    onCancel: () => {
+      dispatch({ type: 'refundRecord/modifyState', payload: { verifyVisible: false } });
     }
   };
 
@@ -67,6 +91,7 @@ const RefundRecord = ({
       <div className="listContent">
         <List {...listOpts} />
       </div>
+      {refundRecord.verifyVisible && <VerifyModal {...verifyOpts}/>}
     </div>
   );
 }

@@ -94,7 +94,9 @@ class UpdateModal extends React.Component {
             </Col>
             <Col span={12}>
               <FormItem {...formItemLayout} label="显示状态">
-                {getFieldDecorator("status")(<Tooltip title="是否显示在小程序端"><Switch defaultChecked={this.state.status} checkedChildren={<Icon type="check"/>} unCheckedChildren={<Icon type="close" />}/></Tooltip>)}
+                <Tooltip title="是否显示在小程序端">
+                {getFieldDecorator("status")(<Switch defaultChecked={this.state.status} checkedChildren={<Icon type="check"/>} unCheckedChildren={<Icon type="close" />}/>)}
+                </Tooltip>
               </FormItem>
             </Col>
           </Row>
