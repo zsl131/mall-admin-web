@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination, Table } from 'antd';
+import { Icon, Menu, Pagination, Table } from 'antd';
 import ListOperator from '@/components/ListOperator';
 
 const List = ({
@@ -8,6 +8,7 @@ const List = ({
   onPageChange,
   totalElement,
   dataSource,
+  handleDetail,
   ...listOpts
 }) => {
 
@@ -19,22 +20,24 @@ const List = ({
   };
 
   const columns = [{
-    title: '名称',
+    title: 'SN',
     // dataIndex: 'name'
     render: (record) => {
       return (
         <div>
-          <p>SN: <b className="blue">{record.ruleSn}</b></p>
-          <p>名称：{record.name}</p>
+          <b className="blue">{record.ruleSn}</b>
         </div>
       )
     }
   }, {
-    title: '关联优惠券',
+    title: '名称',
     // dataIndex: 'proTitle'
     render: (record)=> {
       return (
-        record.couponId?record.couponName:<span className='red'>未关联</span>
+        <div>
+        {/*record.couponId?record.couponName:<span className='red'>未关联</span>*/}
+          <p>{record.name}</p>
+        </div>
       )
     }
   }, {
@@ -42,7 +45,11 @@ const List = ({
     dataIndex: 'id',
     render: (text, record) => {
       return (
-        <ListOperator id={record} delName={record.name} {...delOpts}/>
+        <ListOperator id={record} delName={record.name} {...delOpts}>
+          <Menu.Item>
+            <span onClick={()=>handleDetail(record)}><Icon type="team"/> 配置券</span>
+          </Menu.Item>
+        </ListOperator>
       );
     }
   }];

@@ -2,6 +2,7 @@ import { message } from 'antd';
 import { httpGet } from '@/utils/normalService';
 
 const baseService = "couponRuleService";
+const couponService = "couponService";
 export default {
   state: {
     item:{},
@@ -9,6 +10,10 @@ export default {
     datas:[],
     addVisible: false,
     updateVisible: false,
+    couponList: [],
+    couponIds: [],
+    tempIds: [],
+    settingVisible: false,
   },
   reducers: {
     modifyState(state, { payload: options }) {
@@ -47,6 +52,21 @@ export default {
       obj.apiCode = baseService+".initOrderNo";
       const data = yield call(httpGet, obj);
       if(data) {message.success(data.message);}
+    },
+
+    *settingDetail({payload: obj}, {call, put}) {
+      obj.apiCode = couponService+".queryCoupon";
+      const data = yield call(httpGet, obj);
+      if(data) {
+        yield put({ type:'modifyState', payload: {item: obj, couponIds: data.couponIds, couponList: data.couponList, settingVisible: true} });
+      }
+    },
+    *authCoupon({payload: obj}, {call}) {
+      obj.apiCode = couponService+".authCoupon";
+      const data = yield call(httpGet, obj);
+      if(data) {
+        message.success(data.message);
+      }
     },
   },
   subscriptions: {

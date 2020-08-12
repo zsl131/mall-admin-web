@@ -7,6 +7,7 @@ import UpdateModal from './components/UpdateModal';
 import Operator from './components/Operator';
 import List from './components/List';
 import Filter from './components/Filter';
+import SettingModal from '@/pages/admin/couponRule/components/SettingModal';
 
 const CouponRule = ({
   couponRule,
@@ -47,6 +48,10 @@ const CouponRule = ({
     onUpdate: (record) => {
         dispatch({ type: 'couponRule/modifyState', payload: {item: record, updateVisible: true} });
     },
+    handleDetail: (record) => {
+      //console.log(record)
+      dispatch({ type: 'couponRule/settingDetail', payload: record })
+    }
   };
 
   const addOpts = {
@@ -84,6 +89,25 @@ const CouponRule = ({
     }
   };
 
+  const settingOpts = {
+    visible: couponRule.settingVisible,
+    title: `配置抵价券[${couponRule.item.name}]`,
+    item: couponRule.item,
+    maskClosable: false,
+    couponList: couponRule.couponList,
+    couponIds: couponRule.couponIds,
+    confirmLoading: loading.effects['couponRule/updateObj'],
+    onOk: (obj) => {
+      //console.log(obj);
+      dispatch({ type: 'couponRule/modifyState', payload: { settingVisible: false } });
+      dispatch({ type: 'couponRule/authCoupon', payload: {ruleId: obj.id, ruleSn: obj.sn, cids: couponRule.tempIds} }).then(() => {handleRefresh()});
+    },
+    onCancel: () => {
+      dispatch({ type: 'couponRule/modifyState', payload: { settingVisible: false } });
+    },
+    onSetIds: (ids) => {dispatch({ type: 'couponRule/modifyState', payload: { tempIds: ids } });}
+  };
+
   return(
     <div>
       <div className="listHeader">
@@ -98,6 +122,7 @@ const CouponRule = ({
       </div>
       {couponRule.addVisible && <AddModal {...addOpts}/>}
       {couponRule.updateVisible && <UpdateModal {...updateOpts}/>}
+      {couponRule.settingVisible && <SettingModal {...settingOpts}/>}
     </div>
   );
 }

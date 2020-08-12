@@ -55,7 +55,7 @@ const List = ({
 
       <div className={styles.moneyDiv}>
         <div className={styles.ordersOptsDiv}>
-          {/*{orders.status==='1' && <Button type="primary" onClick={()=>onExpress(orders)}>发货</Button>}*/}
+          {/*{orders.status==='1' && <span className="blue">已付款，待发货 </span>}*/}
           {orders.status==='2' && <div>已发货 </div>}
           {orders.status==='3' && <span>已完成</span>}
           {orders.status==='0' && <span className="dark">待付款</span>}

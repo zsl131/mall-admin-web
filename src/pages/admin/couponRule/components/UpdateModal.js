@@ -1,10 +1,8 @@
 import React from 'react';
-import { Form, Input, Modal, Select, Spin } from 'antd';
+import { Form, Input, Modal } from 'antd';
 import { formItemLayout } from '@/utils/common';
-import { httpGet } from '@/utils/normalService';
 
 const FormItem = Form.Item;
-const {Option} = Select;
 
 @Form.create()
 class UpdateModal extends React.Component {
@@ -23,7 +21,7 @@ class UpdateModal extends React.Component {
   render() {
 
     const {item, form} = this.props;
-    const { getFieldDecorator, validateFieldsAndScroll,setFieldsValue} = form;
+    const { getFieldDecorator, validateFieldsAndScroll} = form;
 
     const handleOk = (e) => {
       e.preventDefault();
@@ -34,7 +32,7 @@ class UpdateModal extends React.Component {
       });
     };
 
-    const {fetching, couponList} = this.state;
+    /*const {fetching, couponList} = this.state;
 
     const fetchProduct = (e) => {
       if(!this.state.fetching) {
@@ -49,7 +47,7 @@ class UpdateModal extends React.Component {
     const handleProductChange = (e) => {
       //console.log(e);
       setFieldsValue({couponId: e.key, couponName: e.label});
-    };
+    };*/
 
     return(
       <Modal {...this.props} onOk={handleOk}>
@@ -63,7 +61,7 @@ class UpdateModal extends React.Component {
           <FormItem {...formItemLayout} label="规则SN">
             <b className="red">{item.ruleSn}</b>
           </FormItem>
-          <FormItem {...formItemLayout} label="关联优惠券">
+          {/*<FormItem {...formItemLayout} label="关联优惠券">
             {getFieldDecorator("pro")(
               <div>
                 <p>{item.couponId?item.couponName:"未关联"}</p>
@@ -85,7 +83,7 @@ class UpdateModal extends React.Component {
               </Select>
               </div>
             )}
-          </FormItem>
+          </FormItem>*/}
         </Form>
       </Modal>
     );

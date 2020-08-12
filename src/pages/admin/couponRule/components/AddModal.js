@@ -1,10 +1,8 @@
 import React from 'react';
-import { Form, Input, Modal, Select, Spin } from 'antd';
+import { Form, Input, Modal } from 'antd';
 import { formItemLayout } from '@/utils/common';
-import { httpGet } from '@/utils/normalService';
 
 const FormItem = Form.Item;
-const {Option} = Select;
 
 @Form.create()
 class AddModal extends React.Component {
@@ -21,7 +19,6 @@ class AddModal extends React.Component {
       form: {
         getFieldDecorator,
         validateFieldsAndScroll,
-        setFieldsValue
       },
       ...modalProps
     } = this.props;
@@ -41,7 +38,7 @@ class AddModal extends React.Component {
       onOk: handleOk
     };
 
-    const {fetching, keyword, couponList} = this.state;
+    /*const {fetching, keyword, couponList} = this.state;
 
     const fetchProduct = (e) => {
       console.log(e);
@@ -57,7 +54,7 @@ class AddModal extends React.Component {
     const handleProductChange = (e) => {
       //console.log(e);
       setFieldsValue({couponId: e.key, couponName: e.label});
-    };
+    };*/
 
     return(
       <Modal {...modalOpts} >
@@ -70,7 +67,7 @@ class AddModal extends React.Component {
           <FormItem {...formItemLayout} label="规则SN">
             {getFieldDecorator('ruleSn', {rules: [{required: true, message: '规则SN不能为空'}]})(<Input placeholder="输入规则SN"/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="关联优惠券">
+          {/*<FormItem {...formItemLayout} label="关联优惠券">
             {getFieldDecorator("pro")(
               <Select
                 showSearch
@@ -90,7 +87,7 @@ class AddModal extends React.Component {
                 ))}
               </Select>
             )}
-          </FormItem>
+          </FormItem>*/}
         </Form>
       </Modal>
     );

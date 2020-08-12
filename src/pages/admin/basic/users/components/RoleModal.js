@@ -8,7 +8,7 @@ export default class RoleModal extends React.Component {
     const handleOk = (e) => {
       e.preventDefault();
       this.props.onOk();
-    }
+    };
 
     const columns = [{
       title: '角色名称',
