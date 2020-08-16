@@ -54,7 +54,7 @@ const BaseTask = ({
       // console.log("update::", record);
       // dispatch({ type: 'baseTask/update', payload: id });
       if(record.status==="1") {
-        message.warn("暂时不提供修改功能，可以先删除该任务再重新发布新任务");
+        message.warn("暂时不提供修改功能，可以先停止该任务再修改");
       } else {
         dispatch({ type: 'baseTask/modifyState', payload: {item: record, updateVisible: true} });
       }
