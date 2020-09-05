@@ -71,8 +71,9 @@ const List = ({
           {/*<span>优惠金额：<b>￥ {orders.discountMoney?orders.discountMoney:0}</b></span>*/}
           <span>实收：<Tooltip title="订单总额"><b>￥ {orders.totalMoney}</b></Tooltip> -
             <Tooltip title="优惠金额"><b>￥{orders.discountMoney?orders.discountMoney:0}</b></Tooltip> -
+            <Tooltip title="自动抵扣佣金金额"><b>￥{orders.autoCommissionMoney?orders.autoCommissionMoney:0}</b></Tooltip> -
             <Tooltip title="退款金额"><b>￥{orders.backMoney}</b></Tooltip>=
-            <Tooltip title="实收金额"><b className="blue">￥{orders.totalMoney-(orders.discountMoney?orders.discountMoney:0)-orders.backMoney}</b></Tooltip>
+            <Tooltip title="实收金额"><b className="blue">￥{(orders.totalMoney-(orders.autoCommissionMoney?orders.autoCommissionMoney:0)-(orders.discountMoney?orders.discountMoney:0)-orders.backMoney).toFixed(1)}</b></Tooltip>
           </span>
         </div>
       </div>
@@ -88,7 +89,10 @@ const List = ({
         </div>
         <div className={styles.proInfo}>
           <p className={styles.oriPrice}>￥ {item.oriPrice}</p>
-          <p className={styles.price}>￥ {item.price}</p>
+          <p className={styles.price}>￥ <Tooltip title="单价">{item.price}</Tooltip>*
+              <Tooltip title="数量">{item.amount}</Tooltip>
+              {item.autoCommissionMoney && <b className="yellow">-<Tooltip title="自动抵扣佣金">{item.autoCommissionMoney}</Tooltip></b>}</p>
+              =<Tooltip title="单品金额">{(item.price*item.amount-(item.autoCommissionMoney?item.autoCommissionMoney:0)).toFixed(1)}</Tooltip>
         </div>
         <div className={styles.amount}><p>数量：<b>{item.amount}</b></p>
           <p>{item.saleMode==='1'?<Tooltip title="现发产品"><span className="blue">现发</span></Tooltip>:
@@ -96,7 +100,7 @@ const List = ({
         </div>
         <div className={styles.proOperator}>
           {
-            item.backMoney>=item.price*item.amount?<div>
+            item.backMoney>=(item.price*item.amount-(item.autoCommissionMoney?item.autoCommissionMoney:0))?<div>
                 <p>已退<b>{item.backMoney}</b></p>
                 <p className="red">此件取消</p>
             </div>:

@@ -58,7 +58,7 @@ const CustomCommissionRecord = ({
   return(
     <div>
       <div className="listHeader">
-        <h3><Icon type="bars"/> 提成名称管理<b>（{customCommissionRecord.totalElements}）</b></h3>
+        <h3><Icon type="bars"/> 提成明细管理<b>（{customCommissionRecord.totalElements}）</b></h3>
         {/*<Operator {...operatorOpts}/>*/}
       </div>
       <div className="listFilter">

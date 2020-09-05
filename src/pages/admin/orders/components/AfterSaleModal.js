@@ -22,13 +22,17 @@ class AfterSaleModal extends React.Component {
     //console.log(ordersProduct)
 
     //实际金额
-    const realMoney = orders.totalMoney - (orders.discountMoney?orders.discountMoney:0) - orders.backMoney;
-    //console.log(realMoney)
+    let realMoney = (orders.totalMoney -(orders.autoCommissionMoney?orders.autoCommissionMoney:0) - (orders.discountMoney?orders.discountMoney:0) - orders.backMoney).toFixed(1);
+    //console.log(orders, realMoney)
+    const commissionMoney = ordersProduct.autoCommissionMoney?ordersProduct.autoCommissionMoney:0; //抵扣的佣金金额
     //总金额
-    const totalMoney = ordersProduct.price*ordersProduct.amount;
+    const totalMoney = ordersProduct.price*ordersProduct.amount - commissionMoney;
     const backMoney = ordersProduct.backMoney?ordersProduct.backMoney:0; //已退金额
 
-    let maxBackMoney = (realMoney>(totalMoney-backMoney))?(totalMoney-backMoney):realMoney;
+    let maxBackMoney = ((realMoney>(totalMoney-backMoney))?(totalMoney-backMoney):realMoney);
+    // let maxBackMoney = realMoney;
+
+    //console.log("backMoney:"+backMoney+",maxBackMoney:"+maxBackMoney+",commissionMoney:"+commissionMoney+",realMoney:"+realMoney)
 
     const handleOk = (e) => {
       e.preventDefault();
@@ -67,10 +71,12 @@ class AfterSaleModal extends React.Component {
       <Modal {...modalOpts}>
         <div>
           <p>产品名称：{ordersProduct.proTitle}</p>
-          <p>产品金额：<Tooltip title={"单价"}><b>{ordersProduct.price}</b></Tooltip>*<Tooltip title={"数量"}><b>{ordersProduct.amount}</b></Tooltip>=
-            <Tooltip title={"单品总价｜最多退款金额"}><b className="red">{totalMoney}</b></Tooltip>
+          <p>产品金额：<Tooltip title={"单价"}><b>{ordersProduct.price}</b></Tooltip>*<Tooltip title={"数量"}><b>{ordersProduct.amount}</b></Tooltip>-
+            <Tooltip title={"已抵扣的佣金金额"}><b>{commissionMoney}</b></Tooltip>=
+            <Tooltip title={"单品实付｜最多退款金额"}><b className="red">{totalMoney}</b></Tooltip>
           </p>
-          <p>实收金额：<Tooltip title={"实收金额，退款金额不能超过此金额"}><b>{realMoney} 元</b></Tooltip></p>
+          {/*<p>抵扣佣金：<Tooltip title={"已抵扣的佣金金额"}><b>{commissionMoney} 元</b></Tooltip></p>*/}
+          <p>实收总额：<Tooltip title={"实收金额，退款金额不能超过此金额"}><b>{realMoney} 元</b></Tooltip></p>
           <p>已退金额：<Tooltip title={"已退金额"}><b>{backMoney} 元</b></Tooltip></p>
           <p>
             <Tooltip title={"输入退款金额"}>

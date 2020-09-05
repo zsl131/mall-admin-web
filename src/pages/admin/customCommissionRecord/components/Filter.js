@@ -53,6 +53,15 @@ const Filter = ({
         )}
       </FormItem>
       <FormItem>
+        {getFieldDecorator("isAuto")(
+          <Select style={{width: 120}} defaultActiveFirstOption={true} placeholder="模式">
+            <Option value="">==全部==</Option>
+            <Option value="1">自动抵扣佣金</Option>
+            <Option value="0">非自动抵扣佣金</Option>
+          </Select>
+        )}
+      </FormItem>
+      <FormItem>
         <Button type="dashed" htmlType="submit">筛选</Button>
       </FormItem>
     </Form>

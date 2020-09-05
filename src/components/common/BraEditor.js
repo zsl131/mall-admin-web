@@ -60,7 +60,7 @@ export default class BraEditor extends React.Component {
 
       const data = {
         isEditor: true,
-        width: 500,
+        width: 900,
         objClassName: "product_editor"
       };
       fd.append("extra", password(data));

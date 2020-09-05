@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination, Table } from 'antd';
+import { Pagination, Table, Tooltip } from 'antd';
 
 const List = ({
   onDelConfirm,
@@ -56,9 +56,12 @@ const List = ({
             {status==='1' && <span className="blue" title="已付款，但不可提现">已付款</span>}
             {status==='2' && <span className="blue" title="可提现">可提现</span>}
             {status==='3' && <span title="已提交提现申请">纳入结算</span>}
-            {status==='4' && <span title="已转款">已转款</span>}
+            {status==='4' && <span title="已转款" className="yellow">已转款</span>}
             {record.saleFlag==='2'?<span className="red" title="有售后">-不可提现</span>:
               <span>{record.saleFlag==='1'?<span className="red" title="有售后">-可提</span>:""}</span>
+            }
+            {
+              record.isAuto==='1' && <span>-自动抵扣佣金</span>
             }
           </p>
         </div>
@@ -69,7 +72,7 @@ const List = ({
     render: (text, record) => {
       return (
         <div>
-            {record.cashOutBatchNo ? <span>{record.cashOutBatchNo}</span>:"-"}
+          {record.cashOutBatchNo ? <Tooltip title="提现批次号"><span>{record.cashOutBatchNo}</span></Tooltip>:"-"}
         </div>
       );
     }
