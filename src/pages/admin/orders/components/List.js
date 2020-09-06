@@ -91,7 +91,7 @@ const List = ({
           <p className={styles.oriPrice}>￥ {item.oriPrice}</p>
           <p className={styles.price}>￥ <Tooltip title="单价">{item.price}</Tooltip>*
               <Tooltip title="数量">{item.amount}</Tooltip>
-              {item.autoCommissionMoney && <b className="yellow">-<Tooltip title="自动抵扣佣金">{item.autoCommissionMoney}</Tooltip></b>}</p>
+              {(item.autoCommissionMoney && item.autoCommissionMoney>0) ? <b className="yellow">-<Tooltip title="自动抵扣佣金">{item.autoCommissionMoney}</Tooltip></b>:""}</p>
               =<Tooltip title="单品金额">{(item.price*item.amount-(item.autoCommissionMoney?item.autoCommissionMoney:0)).toFixed(1)}</Tooltip>
         </div>
         <div className={styles.amount}><p>数量：<b>{item.amount}</b></p>
